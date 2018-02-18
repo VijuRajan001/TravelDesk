@@ -1,0 +1,48 @@
+<div id="login-container" class="container-fluid">
+    <div class="row">
+        <div id="login-component" class="login-form">
+            <mat-card class="example-card">
+                
+                    <mat-card-header>
+
+                        <mat-card-title>
+
+                            <mat-icon class="material-icons md-48 md-light">person</mat-icon>
+
+                        </mat-card-title>
+
+                    </mat-card-header>
+                
+                
+                    <mat-card-content>
+
+                        
+                        <div class="login-container">
+                            <mat-form-field>
+                                <input matInput placeholder="Enter your email" [formControl]="email" required>
+                                <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                                <mat-icon matSuffix  class="material-icons">person_outline</mat-icon>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+                                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                            </mat-form-field>
+
+                        </div>
+
+                        
+
+
+
+                    </mat-card-content>
+                
+                    <mat-card-actions>
+                        <div class="login-action-container">
+                            <button mat-raised-button color="">LogIn</button>
+                        </div>
+                    </mat-card-actions>
+                
+            </mat-card>
+        </div>
+     </div>
+</div>

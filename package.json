@@ -1,0 +1,26 @@
+{
+  "name": "TravelDesk",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "@angular/cdk": "^5.2.1",
+    "@angular/material": "^5.2.1",
+    "angular": "^1.6.9",
+    "angular-animate": "^1.6.9",
+    "angular-aria": "^1.6.9",
+    "angular-material": "^1.1.7",
+    "angular-messages": "^1.6.9",
+    "mdi": "^2.1.19",
+    "typescript": "^2.6.1"
+  },
+  "devDependencies": {
+    "webpack": "^3.11.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
