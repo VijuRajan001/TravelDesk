@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <RetryAttemptsForDeployment>30</RetryAttemptsForDeployment>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
