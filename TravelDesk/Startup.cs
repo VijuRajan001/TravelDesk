@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using DataAccessRepository.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace TravelDesk
 {
@@ -23,6 +25,9 @@ namespace TravelDesk
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddDbContext<TravDeskDbcontext>(options =>
+                                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                                   b => b.MigrationsAssembly("TravelDesk")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
