@@ -6,6 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DataAccessRepositoryImlementation\**" />
+    <Compile Remove="DataAccessRepositoryInterface\**" />
+    <EmbeddedResource Remove="DataAccessRepositoryImlementation\**" />
+    <EmbeddedResource Remove="DataAccessRepositoryInterface\**" />
+    <None Remove="DataAccessRepositoryImlementation\**" />
+    <None Remove="DataAccessRepositoryInterface\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Automapper" Version="6.2.2" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="7.4.0" />
@@ -16,11 +25,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.sqlserver.Design" Version="1.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" />
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DataAccessRepositoryImlementation\" />
-    <Folder Include="DataAccessRepositoryInterface\" />
   </ItemGroup>
 
 </Project>
