@@ -23,12 +23,14 @@
                             
                             <div class="login-container">
                                 <mat-form-field >
-                                    <input matInput placeholder="Enter your email" name="email" [ngModel]="credentials.email" #email="ngModel" >
+                                    <input matInput placeholder="Enter your email" name="email" [ngModel]="credentials.email" #email="ngModel" validateEmail tmFocus  >
                                     <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
                                     <mat-icon matSuffix  class="material-icons">person_outline</mat-icon>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <input matInput placeholder="Enter your password" name="password" ngModel>
+                                    
+                                    <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" ngModel>
+                                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
                                 </mat-form-field>
 
                             </div>

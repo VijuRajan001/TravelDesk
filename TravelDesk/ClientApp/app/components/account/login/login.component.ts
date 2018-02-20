@@ -3,11 +3,12 @@ import { Component, OnInit,OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Credentials } from '../../../shared/models/credentials.interface';
 import { UserService } from '../../../shared/services/user.service';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators,FormsModule } from '@angular/forms';
 import {MatCardModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material';
 import {MatInputModule} from '@angular/material';
-import {FormsModule} from '@angular/forms';
+
+
 @Component({
     selector: 'login',
     templateUrl: './login.component.html',

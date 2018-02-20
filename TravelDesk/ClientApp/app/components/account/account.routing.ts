@@ -6,5 +6,5 @@ import { LoginComponent }    from './login/login.component';
 
 export const routing: ModuleWithProviders = RouterModule.forChild([
   
-  { path: 'login', component: LoginComponent}
+  { path: 'login', component: LoginComponent} 
 ]);
