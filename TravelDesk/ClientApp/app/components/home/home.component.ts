@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import {LoginComponent} from '../account/login/login.component';
 
 @Component({
     selector: 'home',
@@ -8,11 +9,7 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class HomeComponent {
 
-    email = new FormControl('', [Validators.required, Validators.email]);
+    
 
-    getErrorMessage() {
-        return this.email.hasError('required') ? 'You must enter a value' :
-            this.email.hasError('email') ? 'Not a valid email' :
-                '';
-    }
+    
 }
