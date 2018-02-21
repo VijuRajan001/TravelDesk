@@ -69,7 +69,7 @@ namespace TravelDesk.Controllers
                 if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(password))
                 {
                     // get the user to verifty
-                    var userToVerify = await _userManager.FindByNameAsync(userName);
+                    var userToVerify = await _userManager.FindByEmailAsync(userName);
 
                     if (userToVerify != null)
                     {

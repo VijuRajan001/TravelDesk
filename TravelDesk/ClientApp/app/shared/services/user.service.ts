@@ -37,7 +37,7 @@ export class UserService extends BaseService {
 
     return this.http
       .post(
-      this.baseUrl + '/auth/login',
+      this.baseUrl + 'api/auth/login',
       JSON.stringify({ userName, password }),{ headers }
       )
       .map(res => res.json())

@@ -19,6 +19,7 @@ using FluentValidation.AspNetCore;
 using AutoMapper;
 using TravelDesk.Auth.Interfaces;
 using TravelDesk.Auth.Implementation;
+using DataAccessRepository.SeedData;
 
 namespace TravelDesk
 {
@@ -103,7 +104,7 @@ namespace TravelDesk
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<AppUser> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -130,6 +131,8 @@ namespace TravelDesk
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
+
+            SeedData.SeedUsers(userManager);
         }
     }
 }

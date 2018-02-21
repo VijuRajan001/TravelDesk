@@ -14,8 +14,8 @@ import { CounterComponent } from './components/counter/counter.component';
 import { AccountModule }  from './components/account/account.module';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ConfigService } from './shared/utils/config.service';
-import {
-    
+import { AuthGuard } from '../app/auth.guard';
+import {    
     MatAutocompleteModule,
     MatButtonModule,
     MatButtonToggleModule,
@@ -110,7 +110,7 @@ import {
             { path: '**', redirectTo: 'home' }
         ])
     ],
-    providers: [MediaMatcher, ConfigService]
+    providers: [MediaMatcher, ConfigService, AuthGuard]
     
 })
 export class AppModuleShared {
