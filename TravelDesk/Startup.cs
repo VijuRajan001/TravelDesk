@@ -13,6 +13,12 @@ using TravelDesk.Models;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using TravelDesk.Helpers;
+using DataAccessRepository.Entities;
+using Microsoft.AspNetCore.Identity;
+using FluentValidation.AspNetCore;
+using AutoMapper;
+using TravelDesk.Auth.Interfaces;
+using TravelDesk.Auth.Implementation;
 
 namespace TravelDesk
 {
@@ -34,6 +40,8 @@ namespace TravelDesk
             services.AddDbContext<TravDeskDbcontext>(options =>
                                   options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                                    b => b.MigrationsAssembly("TravelDesk")));
+            services.AddSingleton<IJwtFactory, JwtFactory>();
+
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
 
             services.Configure<JwtIssuerOptions>(options =>
@@ -75,6 +83,23 @@ namespace TravelDesk
                 options.AddPolicy("TravlDesk-NOUS", policy => policy.RequireClaim(Constants.Strings.JwtClaimIdentifiers.Rol, Constants.Strings.JwtClaims.ApiAccess));
             });
 
+
+            services.AddIdentity<AppUser, IdentityRole>
+               (o =>
+               {
+                    // configure identity options
+                    o.Password.RequireDigit = false;
+                   o.Password.RequireLowercase = false;
+                   o.Password.RequireUppercase = false;
+                   o.Password.RequireNonAlphanumeric = false;
+                   o.Password.RequiredLength = 6;
+               })
+               .AddEntityFrameworkStores<TravDeskDbcontext>()
+               .AddDefaultTokenProviders();
+
+            services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
+
+            services.AddAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
