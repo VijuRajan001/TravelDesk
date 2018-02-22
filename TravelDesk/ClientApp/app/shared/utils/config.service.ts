@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable,Inject } from '@angular/core';
  
 @Injectable()
 export class ConfigService {
      
     _apiURI : string;
  
-    constructor() {
-        this._apiURI = 'http://localhost:52129/';
+    constructor( @Inject('BASE_URL') baseUrl: string) {
+        this._apiURI = baseUrl;
      }
  
      getApiURI() {
