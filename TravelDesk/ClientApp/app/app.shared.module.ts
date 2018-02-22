@@ -11,7 +11,8 @@ import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
-import { AccountModule }  from './components/account/account.module';
+import { AccountModule } from './components/account/account.module';
+import { DashboardModule } from './components/dashboard/dashboard.module';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ConfigService } from './shared/utils/config.service';
 import { AuthGuard } from '../app/auth.guard';
@@ -60,6 +61,7 @@ import {
         FetchDataComponent,
         HomeComponent
         
+        
     ],
     imports: [
         CommonModule,
@@ -68,6 +70,7 @@ import {
         BrowserAnimationsModule,
         FormsModule,
         AccountModule,
+        DashboardModule,
         ReactiveFormsModule,
         MatAutocompleteModule,
         MatButtonModule,

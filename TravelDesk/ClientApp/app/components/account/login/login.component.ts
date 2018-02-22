@@ -7,12 +7,14 @@ import { FormControl, Validators,FormsModule } from '@angular/forms';
 import {MatCardModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material';
 import {MatInputModule} from '@angular/material';
-
+import { NgZone } from '@angular/core';
 
 @Component({
     selector: 'login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+    styleUrls: ['./login.component.css'],
+    
+
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
@@ -24,12 +26,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   isRequesting: boolean = false ;
   submitted: boolean = false;
   credentials: Credentials = { email: '', password: '' };
-
-  constructor(private userService: UserService, private router: Router,private activatedRoute: ActivatedRoute) { }
+   
+  constructor(private userService: UserService, private router: Router,
+      private activatedRoute: ActivatedRoute, private zone: NgZone) {
+  
+  }
 
     ngOnInit() {
 
     // subscribe to router event
+        console.log(this.router.isActive);
     this.subscription = this.activatedRoute.queryParams.subscribe(
       (param: any) => {
          this.brandNew = param['brandNew'];   
@@ -52,7 +58,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         .subscribe(
         result => {         
           if (result) {
-             this.router.navigate(['/dashboard/home']);             
+              this.zone.run(() => this.router.navigateByUrl('/dashboard/home'));  
+
+              
           }
         },
         error => this.errors = error);

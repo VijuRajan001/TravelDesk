@@ -16,4 +16,6 @@ import { AuthGuard } from '../../auth.guard';
     exports: [],
     providers: [AuthGuard]
 })
-export class DashboardModule { }
+export class DashboardModule {
+
+}
