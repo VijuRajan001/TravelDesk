@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule }  from '@angular/forms';
 import { UserService } from '../../shared/services/user.service';
+import { AuthService } from '../../shared/services/auth.service';
 import { EmailValidator } from '../../directives/email.validator.directive';
 import { FocusElement } from '../../directives/focus.directives';
 import { LoginComponent } from './login/login.component';
@@ -16,7 +17,7 @@ import { routing }  from './account.routing';
       CommonModule, FormsModule, routing, MatCardModule, MatFormFieldModule, MatInputModule, MatIconModule
   ],
   declarations: [LoginComponent, EmailValidator, FocusElement],
-  providers: [UserService],
+  providers: [UserService,AuthService],
   exports:[LoginComponent]
 })
 export class AccountModule { }

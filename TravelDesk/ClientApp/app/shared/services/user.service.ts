@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+
+import { HttpClient} from '@angular/common/http';
 import { ConfigService } from '../utils/config.service';
+import { AuthService } from '../services/auth.service';
+
 import {BaseService} from "./base.service";
 import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/Rx';
+
 
 //import * as _ from 'lodash';
 // Add the RxJS Observable operators we need in this app.
@@ -22,7 +26,7 @@ export class UserService extends BaseService {
 
   private loggedIn = false;
 
-  constructor(private http: Http, private configService: ConfigService) {
+  constructor(private http: HttpClient, private configService: ConfigService,private authService : AuthService) {
     super();
     this.loggedIn = !!localStorage.getItem('auth_token');
     // ?? not sure if this the best way to broadcast the status but seems to resolve issue on page refresh where auth status is lost in
@@ -31,23 +35,12 @@ export class UserService extends BaseService {
     this.baseUrl = configService.getApiURI();
   }
 
-   login(userName:string , password:string) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
-    return this.http
-      .post(
-      this.baseUrl + 'api/auth/login',
-      JSON.stringify({ userName, password }),{ headers }
-      )
-      .map(res => res.json())
-      .map(res => {
-        localStorage.setItem('auth_token', res.auth_token);
-        this.loggedIn = true;
-        this._authNavStatusSource.next(true);
-        return true;
-      })
-      .catch(this.handleError);
+   login(userName:string , password:string): Observable<any> {
+       
+       this._authNavStatusSource.next(true);
+       return this.http.post(this.baseUrl + 'api/auth/login',
+           { userName, password });
+       
   }
 
   logout() {
@@ -58,5 +51,9 @@ export class UserService extends BaseService {
 
   isLoggedIn() {
     return this.loggedIn;
+  }  
+
+  setLoggedIn(loginStatus:boolean) {
+      this.loggedIn = loginStatus;
   }  
 }

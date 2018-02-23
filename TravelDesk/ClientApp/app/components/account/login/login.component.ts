@@ -3,11 +3,14 @@ import { Component, OnInit,OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Credentials } from '../../../shared/models/credentials.interface';
 import { UserService } from '../../../shared/services/user.service';
-import { FormControl, Validators,FormsModule } from '@angular/forms';
+import { AuthService } from '../../../shared/services/auth.service';
+import { FormControl, Validators, FormsModule } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs/Rx';
 import {MatCardModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material';
 import {MatInputModule} from '@angular/material';
 import { NgZone } from '@angular/core';
+
 
 @Component({
     selector: 'login',
@@ -26,9 +29,17 @@ export class LoginComponent implements OnInit, OnDestroy {
   isRequesting: boolean = false ;
   submitted: boolean = false;
   credentials: Credentials = { email: '', password: '' };
+  // Observable navItem source
+  private _authNavStatusSource = new BehaviorSubject<boolean>(false);
+  // Observable navItem stream
+  authNavStatus$ = this._authNavStatusSource.asObservable();
+  private loggedIn = false;
+  
    
   constructor(private userService: UserService, private router: Router,
-      private activatedRoute: ActivatedRoute, private zone: NgZone) {
+      private activatedRoute: ActivatedRoute, private zone: NgZone, private authService: AuthService) {
+
+      this.loggedIn = !!this.authService.getAuthorizationToken();
   
   }
 
@@ -51,19 +62,22 @@ export class LoginComponent implements OnInit, OnDestroy {
   login({ value, valid }: { value: Credentials, valid: boolean }) {
     this.submitted = true;
     this.isRequesting = true;
+    
     this.errors='';
     if (valid) {
-      this.userService.login(value.email, value.password)
-        .finally(() => this.isRequesting = false)
-        .subscribe(
-        result => {         
-          if (result) {
-              this.zone.run(() => this.router.navigateByUrl('/dashboard/home'));  
-
-              
-          }
-        },
-        error => this.errors = error);
+        this.userService.login(value.email, value.password).subscribe(
+            (val) => {
+                this.userService.setLoggedIn( true);
+                this.authService.setAuthorizationToken('auth_token', val.auth_token);
+                this.zone.run(() => this.router.navigateByUrl('/dashboard/home'));
+            },
+            response => {
+                console.log("POST call in error", response);
+            },
+            () => {
+                console.log("The POST observable is now completed.");
+            });
+        
     }
   }    
 

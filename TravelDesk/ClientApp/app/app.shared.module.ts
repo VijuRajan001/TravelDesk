@@ -15,7 +15,9 @@ import { AccountModule } from './components/account/account.module';
 import { DashboardModule } from './components/dashboard/dashboard.module';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ConfigService } from './shared/utils/config.service';
+import { AuthService } from './shared/services/auth.service';
 import { AuthGuard } from '../app/auth.guard';
+import { httpInterceptorProviders } from '../app/shared/interceptors/http.intercep.providers';
 import {    
     MatAutocompleteModule,
     MatButtonModule,
@@ -113,7 +115,7 @@ import {
             { path: '**', redirectTo: 'home' }
         ])
     ],
-    providers: [MediaMatcher, ConfigService, AuthGuard]
+    providers: [MediaMatcher, ConfigService, AuthService, AuthGuard, httpInterceptorProviders]
     
 })
 export class AppModuleShared {
