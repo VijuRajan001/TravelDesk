@@ -81,6 +81,16 @@ namespace TravelDesk.Controllers
                     }
                 }
 
+
+
+
+
+
+
+
+
+
+
                 // Credentials are invalid, or account doesn't exist
                 return await Task.FromResult<ClaimsIdentity>(null);
             }
