@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import {LoginComponent} from '../account/login/login.component';
+import { NavMenuComponent } from '../navmenu/navmenu.component';
 
 @Component({
     selector: 'home',

@@ -21,7 +21,7 @@ import { NgZone } from '@angular/core';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-    email = new FormControl('', [Validators.required, Validators.email]);
+  email = new FormControl('', [Validators.required, Validators.email]);
 
   private subscription : any ;
   brandNew: boolean = false;
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             (val) => {
                 this.userService.setLoggedIn( true);
                 this.authService.setAuthorizationToken('auth_token', val.auth_token);
-                this.zone.run(() => this.router.navigateByUrl('/dashboard/home'));
+                this.zone.run(() => this.router.navigateByUrl('/home'));
             },
             response => {
                 console.log("POST call in error", response);

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'counter',
+    selector: 'dashboard-home',
     templateUrl: './dashboard-home.component.html'
 })
 export class DashBoardHomeComponent implements OnInit {

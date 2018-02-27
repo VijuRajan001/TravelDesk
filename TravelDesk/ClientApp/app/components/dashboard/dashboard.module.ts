@@ -15,7 +15,7 @@ import { AuthGuard } from '../../auth.guard';
         routing,
         MatPaginatorModule, MatSortModule, MatTableModule, MatFormFieldModule, MatInputModule],
     declarations: [DashBoardHomeComponent, TableOverviewExample],
-    exports: [],
+    exports: [DashBoardHomeComponent],
     providers: [AuthGuard]
 })
 export class DashboardModule {

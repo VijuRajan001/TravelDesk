@@ -9,12 +9,16 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
+import { DashBoardHomeComponent } from './components/dashboard/home/dashboard-home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
-import { AccountModule } from './components/account/account.module';
+import { LoginComponent } from './components/account/login/login.component';
+import { LoginLayoutComponent } from './components/layout/login/login-layout.component';
+import { HomeLayoutComponent } from './components/layout/home/home-layout.component';
 import { DashboardModule } from './components/dashboard/dashboard.module';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ConfigService } from './shared/utils/config.service';
+import { UserService } from './shared/services/user.service';
 import { AuthService } from './shared/services/auth.service';
 import { AuthGuard } from '../app/auth.guard';
 import { httpInterceptorProviders } from '../app/shared/interceptors/http.intercep.providers';
@@ -61,8 +65,10 @@ import {
         NavMenuComponent,
         CounterComponent,
         FetchDataComponent,
-        HomeComponent
-        
+        LoginLayoutComponent,
+        HomeLayoutComponent,
+        HomeComponent,
+        LoginComponent,
         
     ],
     imports: [
@@ -71,8 +77,7 @@ import {
         HttpModule,
         BrowserAnimationsModule,
         FormsModule,
-        AccountModule,
-        DashboardModule,
+        DashboardModule,        
         ReactiveFormsModule,
         MatAutocompleteModule,
         MatButtonModule,
@@ -106,16 +111,32 @@ import {
         MatTabsModule,
         MatToolbarModule,
         MatTooltipModule,
-        RouterModule.forRoot([
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: HomeComponent },
-            {path: 'account', loadChildren: './components/account/account.module#AccountModule'},
-            { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
-            { path: '**', redirectTo: 'home' }
+        RouterModule.forRoot([                                   
+                      
+            {
+                path: '',                       
+                component: HomeLayoutComponent,
+                canActivate: [AuthGuard],       
+                children: [
+                    { path: 'counter', component: CounterComponent },
+                    { path: 'fetch-data', component: FetchDataComponent }, 
+                    { path: 'home', component: DashBoardHomeComponent }, 
+
+                ]
+            },
+            {
+                path: '',
+                component: LoginLayoutComponent,
+                children: [
+                    {
+                        path: 'login',
+                        component: LoginComponent   // {5}
+                    }]
+            }
+             
         ])
     ],
-    providers: [MediaMatcher, ConfigService, AuthService, AuthGuard, httpInterceptorProviders]
+    providers: [MediaMatcher, ConfigService, UserService, AuthService, AuthGuard, httpInterceptorProviders]
     
 })
 export class AppModuleShared {
