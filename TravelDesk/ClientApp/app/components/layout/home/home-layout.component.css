@@ -25,7 +25,7 @@ h1.example-app-name {
     /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
      causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
     flex: 1;
-    height: 90vh;
+    height: 93vh;
 }
 
 .example-is-mobile .example-sidenav-container {
@@ -34,6 +34,25 @@ h1.example-app-name {
     flex: 1 0 auto;
 }
 
+.example-fill-remaining-space {
+    /* This fills the remaining space, by using flexbox. 
+     Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+}
 
-.main-content-page {
+.example-toolbar {
+    height: 50px;
+    padding: 0 0px;
+}
+.example-buttons-icon{
+    height:50px;
+    width:50px;
+}
+
+.example-buttons{
+    height:50px;
+}
+
+.mat-list-item {
+    height: 50px;
 }

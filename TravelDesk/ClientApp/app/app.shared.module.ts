@@ -118,6 +118,7 @@ import {
                 component: HomeLayoutComponent,
                 canActivate: [AuthGuard],       
                 children: [
+                    { path: '', redirectTo: 'home', pathMatch: 'full' },
                     { path: 'counter', component: CounterComponent },
                     { path: 'fetch-data', component: FetchDataComponent }, 
                     { path: 'home', component: DashBoardHomeComponent }, 
