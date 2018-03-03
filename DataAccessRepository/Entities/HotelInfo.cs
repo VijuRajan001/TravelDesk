@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataAccessRepository.Entities
 {
-    class HotelInfo
+    public class HotelInfo
     {
         public string HotelName { get; set; }
         public string Location { get; set; }
@@ -14,5 +14,8 @@ namespace DataAccessRepository.Entities
         public DateTime CheckinTime { get; set; }
         public DateTime CheckoutTime { get; set; }
         public double Price { get; set; }
+
+        public int RequestId { get; set; }
+        public RequestInfo RequestInfo { get; set; }
     }
 }

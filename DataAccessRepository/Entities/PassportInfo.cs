@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataAccessRepository.Entities
 {
-    class PassportInfo
+    public class PassportInfo
     {
         public int PassportNumber { get; set; }
         public int VisaNumber { get; set; }

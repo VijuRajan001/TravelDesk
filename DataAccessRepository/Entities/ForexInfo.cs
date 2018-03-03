@@ -4,10 +4,10 @@ using System.Text;
 
 namespace DataAccessRepository.Entities
 {
-    class ForexInfo
+    public class ForexInfo
     {
         public int CardNumber { get; set; }
         public string CountryCode { get; set; }
-        public int MobileNo { get; set; }
+        public long MobileNo { get; set; }
     }
 }

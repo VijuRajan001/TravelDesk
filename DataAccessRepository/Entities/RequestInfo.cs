@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataAccessRepository.Entities
 {
-    class RequestInfo
+    public class RequestInfo
     {
 
         public int RequestId { get; set; }
@@ -18,6 +18,9 @@ namespace DataAccessRepository.Entities
         public string TravelCountry { get; set; }
         public string RequestStatus { get; set; }
         public string Approver { get; set; }
-       
+
+        public ICollection<FlightInfo> FlightInfo { get; set; }
+        public ICollection<HotelInfo> HotelInfo { get; set; }
+
     }
 }
