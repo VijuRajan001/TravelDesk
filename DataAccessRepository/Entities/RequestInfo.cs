@@ -7,8 +7,8 @@ namespace DataAccessRepository.Entities
     public class RequestInfo
     {
 
-        public int RequestId { get; set; }
-        public int ProjectId { get; set; }
+        public long RequestId { get; set; }
+        public long ProjectId { get; set; }
         public string EmployeeName { get; set; }  
         public string EmployeeId { get; set; }
         public string ManagerId { get; set; }

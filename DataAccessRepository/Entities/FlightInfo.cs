@@ -6,7 +6,7 @@ namespace DataAccessRepository.Entities
 {
     public class FlightInfo
     {
-        public int FlightNo { get; set; }
+        public long FlightNo { get; set; }
         public string FlightName { get; set; }
         public string To { get; set; }
         public string From { get; set; }

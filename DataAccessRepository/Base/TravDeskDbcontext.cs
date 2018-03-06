@@ -7,6 +7,7 @@ namespace DataAccessRepository.Base
 {
     public class TravDeskDbcontext : IdentityDbContext
     {
+        
         public TravDeskDbcontext(DbContextOptions options): base(options)
         {
 

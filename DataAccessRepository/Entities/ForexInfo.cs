@@ -6,7 +6,7 @@ namespace DataAccessRepository.Entities
 {
     public class ForexInfo
     {
-        public int CardNumber { get; set; }
+        public long CardNumber { get; set; }
         public string CountryCode { get; set; }
         public long MobileNo { get; set; }
     }
