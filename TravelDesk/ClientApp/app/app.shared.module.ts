@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
-import { HomeComponent } from './components/home/home.component';
+import { RequestDialog} from './components/request/request-dialog.component'
 import { DashBoardHomeComponent } from './components/dashboard/home/dashboard-home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
@@ -66,10 +66,9 @@ import {
         CounterComponent,
         FetchDataComponent,
         LoginLayoutComponent,
-        HomeLayoutComponent,
-        HomeComponent,
+        HomeLayoutComponent,      
         LoginComponent,
-        
+        RequestDialog,
     ],
     imports: [
         CommonModule,
@@ -79,6 +78,7 @@ import {
         FormsModule,
         DashboardModule,        
         ReactiveFormsModule,
+        
         MatAutocompleteModule,
         MatButtonModule,
         MatButtonToggleModule,
@@ -120,8 +120,9 @@ import {
                 children: [
                     { path: '', redirectTo: 'home', pathMatch: 'full' },
                     { path: 'counter', component: CounterComponent },
-                    { path: 'fetch-data', component: FetchDataComponent }, 
+                    { path: 'fetch-data', component: FetchDataComponent },                     
                     { path: 'home', component: DashBoardHomeComponent }, 
+                    
 
                 ]
             },
@@ -137,7 +138,9 @@ import {
              
         ])
     ],
+    entryComponents: [RequestDialog],
     providers: [MediaMatcher, ConfigService, UserService, AuthService, AuthGuard, httpInterceptorProviders]
+    
     
 })
 export class AppModuleShared {

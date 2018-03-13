@@ -14,10 +14,10 @@ namespace DataAccessRepository.Base
         }
 
         public DbSet<Customer> Customer { get; set; }
-        public DbSet<FlightInfo> FlightInfo { get; set; }
-        public DbSet<ForexInfo> ForexInfo { get; set; }
-        public DbSet<HotelInfo> HotelInfo{ get; set; }
-        public DbSet<PassportInfo> PassportInfo{ get; set; }
-        public DbSet<RequestInfo> RequestInfo { get; set; }
+        //public DbSet<FlightInfo> FlightInfo { get; set; }
+        //public DbSet<ForexInfo> ForexInfo { get; set; }
+        //public DbSet<HotelInfo> HotelInfo{ get; set; }
+        //public DbSet<PassportInfo> PassportInfo{ get; set; }
+        //public DbSet<RequestInfo> RequestInfo { get; set; }
     }
 }

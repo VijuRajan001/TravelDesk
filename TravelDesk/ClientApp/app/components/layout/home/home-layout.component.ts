@@ -1,9 +1,9 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, Renderer2, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { MatToolbarModule, MatSidenavModule, MatListModule, MatSidenav, MatMenuModule } from '@angular/material';
+import { MatToolbarModule, MatSidenavModule, MatListModule, MatSidenav, MatMenuModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { UserService } from '../../../shared/services/user.service';
-import { Router, ActivatedRoute } from '@angular/router';
-
+import { Router, ActivatedRoute,Params } from '@angular/router';
+import { RequestDialog } from '../../request/request-dialog.component';
 @Component({
     selector: 'home-layout',
     templateUrl: './home-layout.component.html',
@@ -21,15 +21,25 @@ export class HomeLayoutComponent implements AfterViewInit {
 
     private _mobileQueryListener: () => void;
 
-    constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private renderer: Renderer2,private router : Router,
+    constructor(public dialog: MatDialog,changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private renderer: Renderer2,private router : Router,
         private userService: UserService) {
         this.mobileQuery = media.matchMedia('(max-width: 600px)');
         this._mobileQueryListener = () => changeDetectorRef.detectChanges();
         this.mobileQuery.addListener(this._mobileQueryListener);
 
     }
-
     
+    openDialog(): void {
+        let dialogRef = this.dialog.open(RequestDialog, {
+            width: '350px'
+            
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            
+        });
+    }
 
     ngAfterViewInit(): void {
 

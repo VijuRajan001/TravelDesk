@@ -11,6 +11,7 @@ export const routing: ModuleWithProviders = RouterModule.forChild([
         children: [
             { path: '', component: DashBoardHomeComponent },
             { path: 'home', component: DashBoardHomeComponent },
+            
         ]
     }
 ]);
