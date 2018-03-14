@@ -31,7 +31,8 @@ export class HomeLayoutComponent implements AfterViewInit {
     
     openDialog(): void {
         let dialogRef = this.dialog.open(RequestDialog, {
-            width: '350px'
+            width: '80vw',
+            height: '70vh'
             
         });
 

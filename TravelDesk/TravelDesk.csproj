@@ -38,6 +38,11 @@
     <ProjectReference Include="..\DataAccessRepository\DataAccessRepository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ClientApp\app\components\layout\home\" />
+    <Folder Include="ClientApp\app\components\layout\login\" />
+  </ItemGroup>
+
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
