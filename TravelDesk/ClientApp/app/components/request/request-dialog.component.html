@@ -11,30 +11,34 @@
                     <mat-icon>assignment</mat-icon>
                 </mat-panel-description>
             </mat-expansion-panel-header>
+            <form [formGroup]="TravelDataForm" (ngSubmit)="onSubmit()">
+                <mat-form-field>
+                    <input matInput placeholder="Project Code" formControlName="project_code" [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="TravelDataForm.get('project_code').hasError('required')">
+                        Project Code is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
 
-            <mat-form-field>
-                <input matInput placeholder="Project Code">
-            </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Country" formControlName="country">
+                </mat-form-field>
 
-            <mat-form-field>
-                <input matInput placeholder="Country">
-            </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Travel Date" [matDatepicker]="travel_date" (focus)="travel_date.open()" readonly formControlName="traveldate">
+                </mat-form-field>
+                <mat-datepicker #travel_date></mat-datepicker>
 
-            <mat-form-field>
-                <input matInput placeholder="Travel Date" [matDatepicker]="travel_date" (focus)="travel_date.open()" readonly>
-            </mat-form-field>
-            <mat-datepicker #travel_date></mat-datepicker>
+                <mat-form-field>
+                    <input matInput placeholder="Return Date" [matDatepicker]="return_date" (focus)="return_date.open()" readonly formControlName="returndate">
+                </mat-form-field>
+                <mat-datepicker #return_date></mat-datepicker>
 
-            <mat-form-field>
-                <input matInput placeholder="Return Date" [matDatepicker]="return_date" (focus)="travel_date.open()" readonly>
-            </mat-form-field>
-            <mat-datepicker #return_Date></mat-datepicker>
+                <mat-action-row>
+                    <button mat-button color="primary" type="submit">Save</button>
+                    <button mat-button color="primary" (click)="nextStep()">Next</button>
 
-            <mat-action-row>
-                <button mat-button color="primary" (click)="nextStep()">Save</button>
-                <button mat-button color="primary" (click)="nextStep()">Next</button>
-                
-            </mat-action-row>
+                </mat-action-row>
+             </form>
         </mat-expansion-panel>
 
         <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
