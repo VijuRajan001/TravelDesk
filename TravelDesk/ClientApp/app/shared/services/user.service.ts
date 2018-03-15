@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient} from '@angular/common/http';
+import { AppHttpService} from '../services/http.service';
 import { ConfigService } from '../utils/config.service';
 import { AuthService } from '../services/auth.service';
 
@@ -26,7 +26,7 @@ export class UserService extends BaseService {
 
   private loggedIn = false;
 
-  constructor(private http: HttpClient, private configService: ConfigService,private authService : AuthService) {
+  constructor(private http: AppHttpService, private configService: ConfigService,private authService : AuthService) {
     super();
     this.loggedIn = !!localStorage.getItem('auth_token');
     // ?? not sure if this the best way to broadcast the status but seems to resolve issue on page refresh where auth status is lost in
@@ -39,7 +39,7 @@ export class UserService extends BaseService {
        
        this._authNavStatusSource.next(true);
        return this.http.post(this.baseUrl + 'api/auth/login',
-           { userName, password });
+           JSON.stringify({ userName, password }));
        
   }
 

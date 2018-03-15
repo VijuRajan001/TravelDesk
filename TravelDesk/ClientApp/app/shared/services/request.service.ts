@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient} from '@angular/common/http';
+import { AppHttpService } from '../services/http.service';
 import { ConfigService } from '../utils/config.service';
 import { AuthService } from '../services/auth.service';
 
@@ -20,14 +20,14 @@ export class RequestService extends BaseService {
   baseUrl: string = '';
   private loggedIn = false;
 
-  constructor(private http: HttpClient, private configService: ConfigService,private authService : AuthService) {
+  constructor(private http: AppHttpService , private configService: ConfigService,private authService : AuthService) {
     super();
     this.baseUrl = configService.getApiURI();
   }
 
   addRequest(traveldata: TravelData): Observable<any> {
       return this.http.post(this.baseUrl + 'api/Request/AddRequest',
-          JSON.parse(JSON.stringify(traveldata)));
+          JSON.stringify(traveldata));
   }
 
      
