@@ -59,7 +59,16 @@ export class RequestDialog implements OnInit{
             this.traveldata.traveldate = this.TravelDataForm.controls['traveldate'].value;
             this.traveldata.returndate = this.TravelDataForm.controls['returndate'].value;
             console.log("here" + this.traveldata);
-            this.requestService.addRequest(this.traveldata);
+            this.requestService.addRequest(this.traveldata).subscribe(
+                (val) => {
+                    console.log("POST call success");
+                },
+                response => {
+                    console.log("POST call in error", response);
+                },
+                () => {
+                    console.log("The POST observable is now completed.");
+                });
 
         }
 

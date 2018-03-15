@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { BrowserModule }    from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -21,7 +20,6 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ConfigService } from './shared/utils/config.service';
 import { UserService } from './shared/services/user.service';
 import { RequestService } from './shared/services/request.service';
-import { AppHttpService } from './shared/services/http.service';
 import { AuthService } from './shared/services/auth.service';
 import { AuthGuard } from '../app/auth.guard';
 import { httpInterceptorProviders } from '../app/shared/interceptors/http.intercep.providers';
@@ -75,7 +73,6 @@ import { ErrorStateMatcher,ShowOnDirtyErrorStateMatcher} from '@angular/material
     ],
     imports: [
         CommonModule,
-        BrowserModule,
         HttpClientModule,        
         BrowserAnimationsModule,
         FormsModule,
@@ -141,7 +138,7 @@ import { ErrorStateMatcher,ShowOnDirtyErrorStateMatcher} from '@angular/material
         ])
     ],
     entryComponents: [RequestDialog],
-    providers: [MediaMatcher, httpInterceptorProviders, ConfigService, RequestService, UserService, AuthService, AuthGuard, AppHttpService,
+    providers: [MediaMatcher, ConfigService,RequestService,UserService, AuthService, AuthGuard,httpInterceptorProviders,
         { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher } ]
     
     

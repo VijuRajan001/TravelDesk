@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { MatPaginatorModule, MatSortModule, MatTableModule, MatFormFieldModule, MatInputModule } from '@angular/material';
-
+import { RequestService} from '../../../shared/services/request.service'
 /**
  * @title Data table with sorting, pagination, and filtering.
  */
@@ -16,11 +16,21 @@ export class TableOverviewExample {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
-    constructor() {
+    constructor(private requestService: RequestService) {
         // Create 100 users
         var requestList: RequestData[] = [];
         
-        requestList = getRequestList('user1');
+        this.requestService.getRequestList().subscribe(
+            (val) => {
+                console.log(val);
+                
+            },
+            response => {
+                console.log("Get call in error", response);
+            },
+            () => {
+                console.log("The Get observable is now completed.");
+            });
 
         // Assign the data to the data source for the table to render
         this.dataSource = new MatTableDataSource(requestList);
@@ -47,17 +57,21 @@ function getRequestList(userid: string): RequestData[] {
 
 
     var requestList: RequestData[] = [
-        { "request_id": "One", "description": "hello1", "progress": "Initial", "actions":""},
-        { "request_id": "two", "description": "hello2", "progress": "Initial", "actions": "" },
+        { "RequestId": "two", "Project_Code": "hello1", "Country": "USA", "TravelDate":""},
+        { "RequestId": "two", "Project_Code": "hello1", "Country": "USA", "TravelDate": "" },
+
+      
         
     ];
+
+    
     return requestList;
 }
 
 
 export interface RequestData {
-    request_id: string;
-    description: string;
-    progress: string;
-    actions: string;
+    RequestId: string;
+    Project_Code: string;
+    Country: string;
+    TravelDate: string;
 }

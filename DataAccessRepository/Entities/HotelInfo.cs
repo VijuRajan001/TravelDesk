@@ -6,6 +6,7 @@ namespace DataAccessRepository.Entities
 {
     public class HotelInfo
     {
+        public int Id { get; set; }
         public string HotelName { get; set; }
         public string Location { get; set; }
         public string Amenities { get; set; }
@@ -15,7 +16,7 @@ namespace DataAccessRepository.Entities
         public DateTime CheckoutTime { get; set; }
         public double Price { get; set; }
 
-        public long RequestId { get; set; }
+        public long RequestInfoId { get; set; }
         public RequestInfo RequestInfo { get; set; }
     }
 }
