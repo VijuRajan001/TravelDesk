@@ -19,6 +19,7 @@ import { DashboardModule } from './components/dashboard/dashboard.module';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ConfigService } from './shared/utils/config.service';
 import { UserService } from './shared/services/user.service';
+import { RequestService } from './shared/services/request.service';
 import { AuthService } from './shared/services/auth.service';
 import { AuthGuard } from '../app/auth.guard';
 import { httpInterceptorProviders } from '../app/shared/interceptors/http.intercep.providers';
@@ -56,7 +57,7 @@ import {
     MatToolbarModule,
     MatTooltipModule,
   } from '@angular/material';
-
+import { ErrorStateMatcher,ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
 
 
 @NgModule({
@@ -72,13 +73,11 @@ import {
     ],
     imports: [
         CommonModule,
-        HttpClientModule,
-        HttpModule,
+        HttpClientModule,        
         BrowserAnimationsModule,
         FormsModule,
         DashboardModule,        
         ReactiveFormsModule,
-        
         MatAutocompleteModule,
         MatButtonModule,
         MatButtonToggleModule,
@@ -139,7 +138,8 @@ import {
         ])
     ],
     entryComponents: [RequestDialog],
-    providers: [MediaMatcher, ConfigService, UserService, AuthService, AuthGuard, httpInterceptorProviders]
+    providers: [MediaMatcher, ConfigService,RequestService,UserService, AuthService, AuthGuard,httpInterceptorProviders,
+        { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher } ]
     
     
 })
