@@ -93,7 +93,7 @@ namespace DataAccessRepository.SeedData
         //    {
         //        RequestId = 24,
         //        FlightNo = 232444,
-        //        FlightName = "Boeing777",
+        //        FlightCarrierName = "Boeing777",
         //        To = "Mumbai",
         //        From = "Bangalore",
         //        Price = 13999.00
