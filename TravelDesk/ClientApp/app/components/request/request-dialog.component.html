@@ -13,7 +13,7 @@
             </mat-expansion-panel-header>
             <form [formGroup]="TravelDataForm" (ngSubmit)="onSubmit()">
                 <mat-form-field>
-                    <input matInput placeholder="Project Code" formControlName="project_code" [errorStateMatcher]="matcher">
+                    <input matInput placeholder="Project Code" formControlName="project_code" [errorStateMatcher]="matcher" [(ngModel)]="data.project_code">
                     <mat-error *ngIf="TravelDataForm.get('project_code').hasError('required')">
                         Project Code is <strong>required</strong>
                     </mat-error>

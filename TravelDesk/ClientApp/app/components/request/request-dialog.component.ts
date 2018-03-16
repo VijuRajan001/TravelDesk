@@ -18,7 +18,7 @@ export class RequestDialog implements OnInit{
     matcher = new MyErrorStateMatcher();
     TravelDataForm: FormGroup;
 
-    constructor(
+    constructor( @Inject(MAT_DIALOG_DATA) public data: any,
         public dialogRef: MatDialogRef<RequestDialog>, private requestService : RequestService,
        private authservice : AuthService ) { }
 

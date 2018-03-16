@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { MatPaginatorModule, MatSortModule, MatTableModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule } from '@angular/material';
 @Component({
     selector: 'dashboard-home',
     templateUrl: './dashboard-home.component.html'

@@ -42,13 +42,19 @@ namespace TravelDesk.Controllers
         public List<TravelDataViewModel> GetRequestList()
         {
 
-            List<TravelDataViewModel> travelData = _mapper.Map<List<RequestInfo>, List<TravelDataViewModel>>(_unitofWork.RequestRepository.GetAll().ToList());
-            return travelData;
+            List<TravelDataViewModel> travelDataList = _mapper.Map<List<RequestInfo>, List<TravelDataViewModel>>(_unitofWork.RequestRepository.GetAll().ToList());
+            return travelDataList;
 
 
 
         }
 
+        [HttpGet("GetRequestById")]
+        public TravelDataViewModel GetRequestById(int Id)
+        {
+            TravelDataViewModel travelData = _mapper.Map<RequestInfo, TravelDataViewModel>(_unitofWork.RequestRepository.Get(Id));
+            return travelData;
+        }
 
 
     }

@@ -8,7 +8,7 @@ import {BaseService} from "./base.service";
 import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { TravelData} from '../models/traveldata.interface';
-
+import { RequestData } from '../models/requestdata.interface';
 //import * as _ from 'lodash';
 // Add the RxJS Observable operators we need in this app.
 import '../../rxjs-operators';
@@ -30,9 +30,14 @@ export class RequestService extends BaseService {
           JSON.stringify(traveldata));
   }
 
-  getRequestList(): Observable<any> {
+  getRequestList(): Observable<RequestData[]> {
 
-      return this.http.get(this.baseUrl + 'api/Request/GetRequestList');
+      return this.http.get<RequestData[]>(this.baseUrl + 'api/Request/GetRequestList');
+  }
+
+  getRequestById(id:number): Observable<RequestData> {
+
+      return this.http.get<RequestData>(this.baseUrl + 'api/Request/GetRequestById/'+id);
   }
      
 }

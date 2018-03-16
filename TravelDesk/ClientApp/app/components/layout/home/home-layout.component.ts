@@ -18,7 +18,7 @@ export class HomeLayoutComponent implements AfterViewInit {
     mobileQuery: MediaQueryList;
     fillerNav = Array(50).fill(0).map((_, i) => `Nav Item ${i + 1}`);
 
-
+     
     private _mobileQueryListener: () => void;
 
     constructor(public dialog: MatDialog,changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private renderer: Renderer2,private router : Router,
@@ -32,8 +32,8 @@ export class HomeLayoutComponent implements AfterViewInit {
     openDialog(): void {
         let dialogRef = this.dialog.open(RequestDialog, {
             width: '80vw',
-            height: '70vh'
-            
+            height: '70vh',
+             data: { project_code: 'UNFCU', country: '', traveldate: '', returndate: '' }
         });
 
         dialogRef.afterClosed().subscribe(result => {

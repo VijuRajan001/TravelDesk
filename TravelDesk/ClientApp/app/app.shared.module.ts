@@ -9,13 +9,13 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { RequestDialog} from './components/request/request-dialog.component'
-import { DashBoardHomeComponent } from './components/dashboard/home/dashboard-home.component';
+import { TableOverviewExample } from './components/dashboard/grid/dashboard-grid.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { LoginComponent } from './components/account/login/login.component';
 import { LoginLayoutComponent } from './components/layout/login/login-layout.component';
 import { HomeLayoutComponent } from './components/layout/home/home-layout.component';
-import { DashboardModule } from './components/dashboard/dashboard.module';
+
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ConfigService } from './shared/utils/config.service';
 import { UserService } from './shared/services/user.service';
@@ -70,13 +70,13 @@ import { ErrorStateMatcher,ShowOnDirtyErrorStateMatcher} from '@angular/material
         HomeLayoutComponent,      
         LoginComponent,
         RequestDialog,
+        TableOverviewExample,
     ],
     imports: [
         CommonModule,
         HttpClientModule,        
         BrowserAnimationsModule,
-        FormsModule,
-        DashboardModule,        
+        FormsModule,        
         ReactiveFormsModule,
         MatAutocompleteModule,
         MatButtonModule,
@@ -120,7 +120,7 @@ import { ErrorStateMatcher,ShowOnDirtyErrorStateMatcher} from '@angular/material
                     { path: '', redirectTo: 'home', pathMatch: 'full' },
                     { path: 'counter', component: CounterComponent },
                     { path: 'fetch-data', component: FetchDataComponent },                     
-                    { path: 'home', component: DashBoardHomeComponent }, 
+                    { path: 'home', component: TableOverviewExample }, 
                     
 
                 ]

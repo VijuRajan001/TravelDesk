@@ -1,7 +1,9 @@
+
 <div class="example-header">
     <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
+    
 </div>
 
 <div class="example-container mat-elevation-z8">
@@ -9,28 +11,37 @@
     <mat-table [dataSource]="dataSource" matSort>
 
         <!-- ID Column -->
-        <ng-container matColumnDef="Request_id">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Request_id </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.request_id}} </mat-cell>
+        <ng-container matColumnDef="requestId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> RequestId </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.requestId}} </mat-cell>
         </ng-container>
 
         <!-- Progress Column -->
-        <ng-container matColumnDef="Description">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.description}}% </mat-cell>
+        <ng-container matColumnDef="project_Code">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ProjectCode </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.project_Code}} </mat-cell>
         </ng-container>
 
         <!-- Name Column -->
-        <ng-container matColumnDef="Progress">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Progress </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.progress}} </mat-cell>
+        <ng-container matColumnDef="country">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Country </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.country}} 
+               
+            
+            </mat-cell>
         </ng-container>
 
-        <!-- Color Column -->
-        <ng-container matColumnDef="Actions">
+        <!-- Name Column -->
+        <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
-            <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.actions}} </mat-cell>
+            <mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">
+                <button mat-icon-button (click)="openDialog(row.requestId)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                
+            </mat-cell>
         </ng-container>
+
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;">
