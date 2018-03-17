@@ -29,6 +29,7 @@ namespace TravelDesk.Controllers
         {
 
             RequestInfo newRequest = new RequestInfo();
+            newRequest=_mapper.Map<TravelDataViewModel, RequestInfo>(travelData);
             newRequest.ProjectId = travelData.Project_Code;
             newRequest.TravelCountry = travelData.Country;
             newRequest.TravelStart = travelData.TravelDate;

@@ -24,12 +24,14 @@
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input matInput placeholder="Travel Date" [matDatepicker]="travel_date" (focus)="travel_date.open()" readonly formControlName="travelDate" [(ngModel)]="data.travelDate" >
+                    <input matInput placeholder="Travel Date" class="datecontrol" [matDatepicker]="travel_date" (focus)="travel_date.open()" readonly formControlName="travelDate" [(ngModel)]="data.travelDate" >
+                    <mat-icon class="small">date_range</mat-icon>
                 </mat-form-field>
                 <mat-datepicker #travel_date></mat-datepicker>
 
                 <mat-form-field>
                     <input matInput placeholder="Return Date" [matDatepicker]="return_date" (focus)="return_date.open()" readonly formControlName="returnDate" [(ngModel)]="data.returnDate">
+                    <mat-icon class="small">date_range</mat-icon>
                 </mat-form-field>
                 <mat-datepicker #return_date></mat-datepicker>
 
@@ -76,6 +78,7 @@
 
             <mat-form-field>
                 <input matInput placeholder="Date" [matDatepicker]="picker" (focus)="picker.open()" readonly>
+                <mat-icon class="small">date_range</mat-icon>
             </mat-form-field>
             <mat-datepicker #picker></mat-datepicker>
 

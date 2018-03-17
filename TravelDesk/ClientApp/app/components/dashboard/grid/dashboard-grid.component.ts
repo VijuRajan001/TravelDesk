@@ -17,7 +17,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
     templateUrl: 'dashboard-grid.component.html',
 })
 export class TableOverviewExample implements OnInit {
-    displayedColumns = ['requestId', 'project_Code', 'country','actions'];
+
+    displayedColumns = ['requestId', 'project_Code', 'country', 'actions'];
     dataSource: RequestDataSource;
     request: RequestData;
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -86,6 +87,7 @@ export class RequestDataSource extends DataSource<RequestData>
 {
     private requestSubject = new BehaviorSubject<RequestData[]>([]);
     private loadingRequestSubject = new BehaviorSubject<boolean>(false);
+
     constructor(private requestService: RequestService) {
         super();
     }

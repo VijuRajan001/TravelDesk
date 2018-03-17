@@ -1,3 +1,8 @@
+.mat-form-field {
+    margin-right:15px;
+    margin-bottom:15px;
+
+}
 
 
 .request-title {
@@ -21,5 +26,11 @@
 .flex-expand
 {
     flex: 1 1 auto;
+    
+}
+.mat-input-element {
+    width: 100%;
+    min-width:80%;
+    max-width: 80%;
     
 }
