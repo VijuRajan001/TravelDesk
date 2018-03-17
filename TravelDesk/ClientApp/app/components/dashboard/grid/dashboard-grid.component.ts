@@ -56,7 +56,19 @@ export class TableOverviewExample implements OnInit {
             (val) => {
                 
                 this.request = val;
-                console.log(val);
+                console.log(this.request);
+                let dialogRef = this.dialog.open(RequestDialog, {
+                    width: '80vw',
+                    height: '70vh',
+                    data: this.request
+                });
+
+                dialogRef.afterClosed().subscribe(result => {
+
+                    this.dataSource.loadRequests();
+
+                });
+                
             },
             response => {
                 console.log("POST call in error", response);
@@ -65,18 +77,7 @@ export class TableOverviewExample implements OnInit {
                 console.log("The POST observable is now completed.");
             });
             
-            
-
-        let dialogRef = this.dialog.open(RequestDialog, {
-            width: '80vw',
-            height: '70vh',
-            data: {}
-        });
-
-        dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-
-        });
+        
     }
 }
 

@@ -33,7 +33,7 @@ export class HomeLayoutComponent implements AfterViewInit {
         let dialogRef = this.dialog.open(RequestDialog, {
             width: '80vw',
             height: '70vh',
-             data: { project_code: 'UNFCU', country: '', traveldate: '', returndate: '' }
+             data: { project_Code: '', country: '', travelDate: '', returnDate: '' }
         });
 
         dialogRef.afterClosed().subscribe(result => {

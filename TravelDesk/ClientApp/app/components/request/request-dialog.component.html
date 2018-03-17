@@ -13,28 +13,29 @@
             </mat-expansion-panel-header>
             <form [formGroup]="TravelDataForm" (ngSubmit)="onSubmit()">
                 <mat-form-field>
-                    <input matInput placeholder="Project Code" formControlName="project_code" [errorStateMatcher]="matcher" [(ngModel)]="data.project_code">
-                    <mat-error *ngIf="TravelDataForm.get('project_code').hasError('required')">
+                    <input matInput placeholder="Project Code" formControlName="project_Code" [errorStateMatcher]="matcher" [(ngModel)]="data.project_Code">
+                    <mat-error *ngIf="TravelDataForm.get('project_Code').hasError('required')">
                         Project Code is <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input matInput placeholder="Country" formControlName="country">
+                    <input matInput placeholder="Country" formControlName="country" [(ngModel)]="data.country">
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input matInput placeholder="Travel Date" [matDatepicker]="travel_date" (focus)="travel_date.open()" readonly formControlName="traveldate">
+                    <input matInput placeholder="Travel Date" [matDatepicker]="travel_date" (focus)="travel_date.open()" readonly formControlName="travelDate" [(ngModel)]="data.travelDate" >
                 </mat-form-field>
                 <mat-datepicker #travel_date></mat-datepicker>
 
                 <mat-form-field>
-                    <input matInput placeholder="Return Date" [matDatepicker]="return_date" (focus)="return_date.open()" readonly formControlName="returndate">
+                    <input matInput placeholder="Return Date" [matDatepicker]="return_date" (focus)="return_date.open()" readonly formControlName="returnDate" [(ngModel)]="data.returnDate">
                 </mat-form-field>
                 <mat-datepicker #return_date></mat-datepicker>
 
                 <mat-action-row>
-                    <button mat-button color="primary" type="submit">Save</button>
+                    <button mat-button color="primary" type="submit"  (value)="submitActions=0">Create Request</button>
+                    <button mat-button color="primary" type="submit"  (click)="submitActions=action.updateRequest">Save</button>
                     <button mat-button color="primary" (click)="nextStep()">Next</button>
 
                 </mat-action-row>

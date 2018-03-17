@@ -14,7 +14,11 @@ import { AuthService } from '../../shared/services/auth.service';
 })
 export class RequestDialog implements OnInit{
 
-    traveldata: TravelData = { project_code: '', country: '',traveldate:'',returndate:'' };
+    traveldata: TravelData = { requestId:0,project_code: '', country: '', traveldate: '', returndate: '' };
+    submitActions: number;
+    action: typeof SubmitActions = SubmitActions;;
+    
+    
     matcher = new MyErrorStateMatcher();
     TravelDataForm: FormGroup;
 
@@ -29,10 +33,10 @@ export class RequestDialog implements OnInit{
     ngOnInit():void {
 
         this.TravelDataForm = new FormGroup({
-            'project_code': new FormControl(null, [Validators.required]),
+            'project_Code': new FormControl(null, [Validators.required]),
             'country': new FormControl(null, [Validators.required]),
-            'traveldate': new FormControl(null, [Validators.required]),
-            'returndate': new FormControl(null, [Validators.required])
+            'travelDate': new FormControl(null, [Validators.required]),
+            'returnDate': new FormControl(null, [Validators.required])
         });
         
     }
@@ -52,7 +56,41 @@ export class RequestDialog implements OnInit{
     }
 
     onSubmit(){
+        console.log(this.submitActions);
+        switch (this.submitActions) {
+            
+            case SubmitActions.createRequest: this.createNewRequest(); break;
+            case SubmitActions.updateRequest: this.updateRequest(); break;
+
+        }
         
+
+    }
+
+    updateRequest() {
+        if (this.TravelDataForm.valid) {
+            this.traveldata.requestId = this.data.requestId;
+            this.traveldata.project_code = this.TravelDataForm.controls['project_Code'].value;
+            this.traveldata.country = this.TravelDataForm.controls['country'].value;
+            this.traveldata.traveldate = this.TravelDataForm.controls['travelDate'].value;
+            this.traveldata.returndate = this.TravelDataForm.controls['returnDate'].value;
+            this.requestService.updateRequest(this.traveldata).subscribe(
+                (val) => {
+                    console.log("POST call success");
+                },
+                response => {
+                    console.log("POST call in error", response);
+                },
+                () => {
+                    console.log("The POST observable is now completed.");
+                });
+
+
+        }
+        
+    }
+    createNewRequest() {
+
         if (this.TravelDataForm.valid) {
             this.traveldata.project_code = this.TravelDataForm.controls['project_code'].value;
             this.traveldata.country = this.TravelDataForm.controls['country'].value;
@@ -71,12 +109,16 @@ export class RequestDialog implements OnInit{
                 });
 
         }
-
-
     }
 
 
 }
+
+enum SubmitActions {
+    createRequest,
+    updateRequest
+}
+
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
