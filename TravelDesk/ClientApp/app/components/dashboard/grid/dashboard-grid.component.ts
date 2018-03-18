@@ -7,6 +7,7 @@ import { RequestDialog } from '../../request/request-dialog.component';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { GridService } from '../../../shared/services/grid.service';
 
 /**
  * @title Data table with sorting, pagination, and filtering.
@@ -24,7 +25,7 @@ export class TableOverviewExample implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
-    constructor(public dialog: MatDialog,private requestService : RequestService) {
+    constructor(public dialog: MatDialog, private requestService: RequestService, private gridService: GridService) {
         // Create 100 users
         
         
@@ -40,7 +41,7 @@ export class TableOverviewExample implements OnInit {
     }
 
     ngOnInit() {
-        this.dataSource = new RequestDataSource(this.requestService);
+        this.dataSource = new RequestDataSource(this.gridService);
         this.dataSource.loadRequests();
 
     }
@@ -83,31 +84,32 @@ export class TableOverviewExample implements OnInit {
 }
 
 /** Builds and returns a new User. */
-export class RequestDataSource extends DataSource<RequestData>
+export class RequestDataSource extends DataSource<any>
 {
-    private requestSubject = new BehaviorSubject<RequestData[]>([]);
+    
     private loadingRequestSubject = new BehaviorSubject<boolean>(false);
 
-    constructor(private requestService: RequestService) {
+    constructor(private gridService : GridService) {
         super();
     }
-    connect(): Observable<RequestData[]> {
+    connect(): Observable<any[]> {
         
-        console.log(this.requestSubject);
-        return this.requestSubject.asObservable();
+        
+        return this.gridService.getGridData();
         
     }
     disconnect() {
-        this.requestSubject.complete();
+        this.gridService.disconnect();
         this.loadingRequestSubject.complete();
 
     }
 
     loadRequests() {
         this.loadingRequestSubject.next(true);
-        this.requestService.getRequestList()
-            .subscribe(requests => this.requestSubject.next(requests))
-        console.log(this.requestSubject);
+        this.gridService.loadGridData();
+            
+        
     }
+
 }
 

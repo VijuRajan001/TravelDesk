@@ -14,7 +14,7 @@ import { AuthService } from '../../shared/services/auth.service';
 })
 export class RequestDialog implements OnInit{
 
-    traveldata: TravelData = { requestId:0,project_code: '', country: '', traveldate: '', returndate: '' };
+    traveldata: TravelData = { requestId:0,project_code: '', country: '', travelDate: '', returnDate: '' ,employeeId:'',employeeName:''};
     submitActions: number;
     action: typeof SubmitActions = SubmitActions;;
     
@@ -36,7 +36,9 @@ export class RequestDialog implements OnInit{
             'project_Code': new FormControl(null, [Validators.required]),
             'country': new FormControl(null, [Validators.required]),
             'travelDate': new FormControl(null, [Validators.required]),
-            'returnDate': new FormControl(null, [Validators.required])
+            'returnDate': new FormControl(null, [Validators.required]),
+            'employeeId': new FormControl(null, [Validators.required]),
+            'employeeName': new FormControl(null, [Validators.required])
         });
         
     }
@@ -72,8 +74,10 @@ export class RequestDialog implements OnInit{
             this.traveldata.requestId = this.data.requestId;
             this.traveldata.project_code = this.TravelDataForm.controls['project_Code'].value;
             this.traveldata.country = this.TravelDataForm.controls['country'].value;
-            this.traveldata.traveldate = this.TravelDataForm.controls['travelDate'].value;
-            this.traveldata.returndate = this.TravelDataForm.controls['returnDate'].value;
+            this.traveldata.travelDate = this.TravelDataForm.controls['travelDate'].value;
+            this.traveldata.returnDate = this.TravelDataForm.controls['returnDate'].value;
+            this.traveldata.employeeId = this.TravelDataForm.controls['employeeId'].value;
+            this.traveldata.employeeName = this.TravelDataForm.controls['employeeName'].value;
             this.requestService.updateRequest(this.traveldata).subscribe(
                 (val) => {
                     console.log("POST call success");
@@ -92,10 +96,12 @@ export class RequestDialog implements OnInit{
     createNewRequest() {
 
         if (this.TravelDataForm.valid) {
-            this.traveldata.project_code = this.TravelDataForm.controls['project_code'].value;
+            this.traveldata.project_code = this.TravelDataForm.controls['project_Code'].value;
             this.traveldata.country = this.TravelDataForm.controls['country'].value;
-            this.traveldata.traveldate = this.TravelDataForm.controls['traveldate'].value;
-            this.traveldata.returndate = this.TravelDataForm.controls['returndate'].value;
+            this.traveldata.travelDate = this.TravelDataForm.controls['travelDate'].value;
+            this.traveldata.returnDate = this.TravelDataForm.controls['returnDate'].value;
+            this.traveldata.employeeId = this.TravelDataForm.controls['employeeId'].value;
+            this.traveldata.employeeName = this.TravelDataForm.controls['employeeName'].value;
             console.log("here" + this.traveldata);
             this.requestService.addRequest(this.traveldata).subscribe(
                 (val) => {
