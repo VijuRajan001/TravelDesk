@@ -26,8 +26,7 @@ export class FlightItemsArrayComponent {
 
     static buildItems() {
         return new FormArray([
-            FlightItemControlComponent.buildItem('aaa'),
-            FlightItemControlComponent.buildItem('')],
+            FlightItemControlComponent.buildItem('')]
             )
     }
 }

@@ -61,7 +61,7 @@ import {
 import { ErrorStateMatcher,ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
 import { FlightItemsArrayComponent } from './components/form/flightoptions/flightoptions.component';
 import { FlightItemControlComponent } from './components/form/flightItems/flight-item-control.component';
-
+import { FlightService } from './shared/services/flight.service';
 
 @NgModule({
     declarations: [
@@ -143,7 +143,7 @@ import { FlightItemControlComponent } from './components/form/flightItems/flight
         ])
     ],
     entryComponents: [RequestDialog],
-    providers: [MediaMatcher, ConfigService, RequestService, UserService, GridService, AuthService, AuthGuard,httpInterceptorProviders,
+    providers: [MediaMatcher, ConfigService, RequestService, UserService, GridService,FlightService, AuthService, AuthGuard,httpInterceptorProviders,
         { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher } ]
     
     
