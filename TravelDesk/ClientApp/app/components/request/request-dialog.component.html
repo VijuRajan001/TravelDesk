@@ -64,13 +64,15 @@
             <form [formGroup]="FlightOptionsForm" (ngSubmit)="onSubmit()" >
                 <mat-tab-group>
                     <mat-tab label="Onward Journey">
-                        <flight-items-array formArrayName="items"
-                                            [itemsFormArray]="FlightOptionsForm.get('items')">
+                        <flight-items-array formArrayName="OnwardFlightItems"
+                                            [itemsFormArray]="FlightOptionsForm.get('OnwardFlightItems')">
                         </flight-items-array>
 
                     </mat-tab>
                     <mat-tab label="Return Journey">
-                        Content 2
+                        <flight-items-array formArrayName="ReturnFlightItems"
+                                            [itemsFormArray]="FlightOptionsForm.get('ReturnFlightItems')">
+                        </flight-items-array>
                     </mat-tab>
                 </mat-tab-group>
                 

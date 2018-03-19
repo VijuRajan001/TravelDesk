@@ -47,7 +47,8 @@ export class RequestDialog implements OnInit{
         });
         
         this.FlightOptionsForm = this.fb.group({
-            items: FlightItemsArrayComponent.buildItems()
+            OnwardFlightItems: FlightItemsArrayComponent.buildItems(),
+            ReturnFlightItems: FlightItemsArrayComponent.buildItems()
         })
         
     }

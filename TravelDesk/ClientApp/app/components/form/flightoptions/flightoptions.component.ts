@@ -15,8 +15,13 @@ export class FlightItemsArrayComponent {
     @Input()
     public itemsFormArray: FormArray;
 
-    addItem() {
-        this.itemsFormArray.push(FlightItemControlComponent.buildItem(''))
+    addItem(index: number) {
+        if (index === this.itemsFormArray.length - 1) {
+            this.itemsFormArray.push(FlightItemControlComponent.buildItem(''));
+        }
+        else {
+            this.itemsFormArray.insert(index + 1, FlightItemControlComponent.buildItem(''));
+        }
     }
 
     static buildItems() {
