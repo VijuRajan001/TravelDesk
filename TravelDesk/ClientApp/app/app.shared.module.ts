@@ -59,6 +59,8 @@ import {
     MatTooltipModule,
   } from '@angular/material';
 import { ErrorStateMatcher,ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
+import { FlightItemsArrayComponent } from './components/form/flightoptions/flightoptions.component';
+import { FlightItemControlComponent } from './components/form/flightItems/flight-item-control.component';
 
 
 @NgModule({
@@ -72,6 +74,8 @@ import { ErrorStateMatcher,ShowOnDirtyErrorStateMatcher} from '@angular/material
         LoginComponent,
         RequestDialog,
         TableOverviewExample,
+        FlightItemsArrayComponent,
+        FlightItemControlComponent
     ],
     imports: [
         CommonModule,

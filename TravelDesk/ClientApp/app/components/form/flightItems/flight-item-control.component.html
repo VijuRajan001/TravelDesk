@@ -1,0 +1,22 @@
+
+<div class="form-group flightOptions" [formGroup]="item">
+
+
+    <mat-form-field>
+        <input matInput placeholder="Flight Name" formControlName="flightName" [attr.id]="'flightName'+index">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Flight Start" formControlName="flightFrom" [attr.id]="'flightFrom'+index">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Flight Destination" formControlName="flightTo" [attr.id]="'flightTo'+index">
+    </mat-form-field>
+    <button mat-icon-button type="button" color="primary" (click)="removed.emit(index)">
+        <mat-icon>remove_circle</mat-icon>
+    </button>
+    <button mat-icon-button type="button" color="primary" (click)="add.emit()">
+        <mat-icon>add_circle</mat-icon>
+    </button>
+    
+
+</div>

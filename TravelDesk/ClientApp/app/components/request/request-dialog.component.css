@@ -1,9 +1,21 @@
-.mat-form-field {
-    margin-right:15px;
-    margin-bottom:15px;
 
+.mat-expansion-panel-header-title {
+    color: #3f51b5;
 }
 
+.mat-tab-group {
+    margin-left: -24px;
+    
+}
+
+::ng-deep .mat-tab-body {
+    padding:24px 16px 24px 16px;
+}
+
+::ng-deep .mat-form-field {
+    margin-right: 16px;
+    margin-bottom: 16px;
+}
 
 .request-title {
     -ms-flex-line-pack: center;
@@ -20,7 +32,7 @@
     margin: -24px -24px 24px -24px;
     padding: 12px 24px;
     background: #3f51b5;
-    color: #fff;
+    color:white;
 }
 
 .flex-expand

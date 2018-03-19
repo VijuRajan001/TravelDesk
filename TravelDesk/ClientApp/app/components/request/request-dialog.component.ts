@@ -1,30 +1,35 @@
 import { ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatExpansionModule } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatExpansionModule,MatTableModule } from '@angular/material';
 import { Inject } from '@angular/core';
 import { TravelData } from '../../shared/models/traveldata.interface';
-import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormArray, FormBuilder, } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { RequestService } from '../../shared/services/request.service'
 import { AuthService } from '../../shared/services/auth.service';
+import { FlightItemsArrayComponent } from '../form/flightoptions/flightoptions.component';
+import { FlightItemControlComponent } from '../form/flightItems/flight-item-control.component';
 @Component({
     selector: 'request-dialog',
     templateUrl: './request-dialog.component.html',
     styleUrls : ['./request-dialog.component.css'],
 })
+
+
 export class RequestDialog implements OnInit{
 
     traveldata: TravelData = { requestId:0,project_code: '', country: '', travelDate: '', returnDate: '' ,employeeId:'',employeeName:''};
     submitActions: number;
-    action: typeof SubmitActions = SubmitActions;;
+    action: typeof SubmitActions = SubmitActions;
     
     
     matcher = new MyErrorStateMatcher();
     TravelDataForm: FormGroup;
+    FlightOptionsForm: FormGroup;
 
     constructor( @Inject(MAT_DIALOG_DATA) public data: any,
         public dialogRef: MatDialogRef<RequestDialog>, private requestService : RequestService,
-       private authservice : AuthService ) { }
+        private authservice: AuthService, private fb: FormBuilder ) { }
 
     onNoClick(): void {
         this.dialogRef.close();
@@ -41,12 +46,17 @@ export class RequestDialog implements OnInit{
             'employeeName': new FormControl(null, [Validators.required])
         });
         
+        this.FlightOptionsForm = this.fb.group({
+            items: FlightItemsArrayComponent.buildItems()
+        })
+        
     }
 
     step = 0;
 
     setStep(index: number) {
         this.step = index;
+        
     }
 
     nextStep() {
@@ -124,6 +134,7 @@ enum SubmitActions {
     createRequest,
     updateRequest
 }
+
 
 
 

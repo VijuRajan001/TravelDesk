@@ -8,9 +8,9 @@ namespace DataAccessRepository.Entities
     {
         public int Id { get; set; }
         public string FlightName { get; set; }
-        public string To { get; set; }
-        public string From { get; set; }
-        public double Price { get; set; }
+        public string FlightTo { get; set; }
+        public string FlightFrom { get; set; }
+        public double FlightCost { get; set; }
 
         public int RequestInfoId { get; set; }
         public RequestInfo RequestInfo { get; set; }

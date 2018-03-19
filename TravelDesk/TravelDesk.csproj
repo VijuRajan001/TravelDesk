@@ -39,7 +39,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\app\components\layout\home\" />
     <Folder Include="ClientApp\app\components\layout\login\" />
   </ItemGroup>
 
