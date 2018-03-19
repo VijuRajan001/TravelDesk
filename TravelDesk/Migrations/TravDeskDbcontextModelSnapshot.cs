@@ -18,7 +18,7 @@ namespace TravelDesk.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
+                .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("DataAccessRepository.Entities.Customer", b =>
@@ -38,7 +38,91 @@ namespace TravelDesk.Migrations
 
                     b.HasIndex("IdentityId");
 
-                    b.ToTable("customer");
+                    b.ToTable("Customer");
+                });
+
+            modelBuilder.Entity("DataAccessRepository.Entities.FlightInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FlightName");
+
+                    b.Property<string>("From");
+
+                    b.Property<double>("Price");
+
+                    b.Property<int>("RequestInfoId");
+
+                    b.Property<string>("To");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestInfoId");
+
+                    b.ToTable("FlightInfo");
+                });
+
+            modelBuilder.Entity("DataAccessRepository.Entities.HotelInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Amenities");
+
+                    b.Property<DateTime>("CheckinTime");
+
+                    b.Property<DateTime>("CheckoutTime");
+
+                    b.Property<string>("HotelName");
+
+                    b.Property<string>("Location");
+
+                    b.Property<string>("MobileNo");
+
+                    b.Property<double>("Price");
+
+                    b.Property<long>("RequestInfoId");
+
+                    b.Property<int?>("RequestInfoId1");
+
+                    b.Property<string>("Website");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestInfoId1");
+
+                    b.ToTable("HotelInfo");
+                });
+
+            modelBuilder.Entity("DataAccessRepository.Entities.RequestInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Approver");
+
+                    b.Property<string>("EmployeeId");
+
+                    b.Property<string>("EmployeeName");
+
+                    b.Property<string>("ManagerId");
+
+                    b.Property<string>("ManagerName");
+
+                    b.Property<string>("ProjectId");
+
+                    b.Property<string>("RequestStatus");
+
+                    b.Property<string>("TravelCountry");
+
+                    b.Property<DateTime>("TravelReturn");
+
+                    b.Property<DateTime>("TravelStart");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RequestInfo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -227,6 +311,21 @@ namespace TravelDesk.Migrations
                     b.HasOne("DataAccessRepository.Entities.AppUser", "Identity")
                         .WithMany()
                         .HasForeignKey("IdentityId");
+                });
+
+            modelBuilder.Entity("DataAccessRepository.Entities.FlightInfo", b =>
+                {
+                    b.HasOne("DataAccessRepository.Entities.RequestInfo", "RequestInfo")
+                        .WithMany("FlightInfo")
+                        .HasForeignKey("RequestInfoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DataAccessRepository.Entities.HotelInfo", b =>
+                {
+                    b.HasOne("DataAccessRepository.Entities.RequestInfo", "RequestInfo")
+                        .WithMany("HotelInfo")
+                        .HasForeignKey("RequestInfoId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

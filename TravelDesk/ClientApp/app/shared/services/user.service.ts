@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient} from '@angular/common/http';
+import { AppHttpService} from '../services/http.service';
 import { ConfigService } from '../utils/config.service';
 import { AuthService } from '../services/auth.service';
-
+import { HttpClient } from '@angular/common/http';
 import {BaseService} from "./base.service";
 import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/Rx';
@@ -39,7 +39,7 @@ export class UserService extends BaseService {
        
        this._authNavStatusSource.next(true);
        return this.http.post(this.baseUrl + 'api/auth/login',
-           { userName, password });
+           JSON.stringify({ userName, password }));
        
   }
 

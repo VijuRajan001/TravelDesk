@@ -20,6 +20,7 @@ using AutoMapper;
 using TravelDesk.Auth.Interfaces;
 using TravelDesk.Auth.Implementation;
 using DataAccessRepository.SeedData;
+using DataAccessRepository.Core;
 
 namespace TravelDesk
 {
@@ -42,6 +43,7 @@ namespace TravelDesk
                                   options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                                    b => b.MigrationsAssembly("TravelDesk")));
             services.AddSingleton<IJwtFactory, JwtFactory>();
+            services.AddTransient<IUnitOfWork,UnitOfWork>();
 
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
 
@@ -100,7 +102,7 @@ namespace TravelDesk
 
             services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
 
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

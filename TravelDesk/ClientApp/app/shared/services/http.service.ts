@@ -1,10 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { AuthService } from '../services/auth.service';
+
 @Injectable()
 export class AppHttpService {
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private authService: AuthService) {
+
+    
+    }
 
     get<T>(url: string): Observable<T> {
         return this.http.get<T>(url);

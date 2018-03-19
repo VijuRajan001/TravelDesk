@@ -1,6 +1,13 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { MatPaginatorModule, MatSortModule, MatTableModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { Component, ViewChild,OnInit } from '@angular/core';
+import { MatPaginatorModule,MatFormFieldModule, MatButtonModule, MatSortModule, MatDialogModule, MatTableModule } from '@angular/material';
+import { MatPaginator, MatSort,MatDialog } from '@angular/material';
+import { RequestService } from '../../../shared/services/request.service'
+import { RequestData } from '../../../shared/models/requestdata.interface';
+import { RequestDialog } from '../../request/request-dialog.component';
+import { DataSource } from '@angular/cdk/collections';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { GridService } from '../../../shared/services/grid.service';
 
 /**
  * @title Data table with sorting, pagination, and filtering.
@@ -10,54 +17,99 @@ import { MatPaginatorModule, MatSortModule, MatTableModule, MatFormFieldModule, 
     styleUrls: ['dashboard-grid.component.css'],
     templateUrl: 'dashboard-grid.component.html',
 })
-export class TableOverviewExample {
-    displayedColumns = ['Request_id', 'Description', 'Progress', 'Actions'];
-    dataSource: MatTableDataSource<RequestData>;
+export class TableOverviewExample implements OnInit {
+
+    displayedColumns = ['requestId', 'project_Code', 'country', 'actions'];
+    dataSource: RequestDataSource;
+    request: RequestData;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
-    constructor() {
+    constructor(public dialog: MatDialog, private requestService: RequestService, private gridService: GridService) {
         // Create 100 users
-        var requestList: RequestData[] = [];
         
-        requestList = getRequestList('user1');
-
-        // Assign the data to the data source for the table to render
-        this.dataSource = new MatTableDataSource(requestList);
+        
     }
-
+    
     /**
      * Set the paginator and sort after the view init since this component will
      * be able to query its view for the initialized paginator and sort.
      */
     ngAfterViewInit() {
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+    //    this.dataSource.paginator = this.paginator;
+    //    this.dataSource.sort = this.sort;
+    }
+
+    ngOnInit() {
+        this.dataSource = new RequestDataSource(this.gridService);
+        this.dataSource.loadRequests();
+
     }
 
     applyFilter(filterValue: string) {
-        filterValue = filterValue.trim(); // Remove whitespace
-        filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-        this.dataSource.filter = filterValue;
+        //filterValue = filterValue.trim(); // Remove whitespace
+        //filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+        //this.dataSource.filter = filterValue;
+    }
+
+    openDialog(id:number): void {
+
+        this.requestService.getRequestById(id).subscribe(
+            (val) => {
+                
+                this.request = val;
+                console.log(this.request);
+                let dialogRef = this.dialog.open(RequestDialog, {
+                    width: '80vw',
+                    height: '70vh',
+                    data: this.request
+                });
+
+                dialogRef.afterClosed().subscribe(result => {
+
+                    this.dataSource.loadRequests();
+
+                });
+                
+            },
+            response => {
+                console.log("POST call in error", response);
+            },
+            () => {
+                console.log("The POST observable is now completed.");
+            });
+            
+        
     }
 }
 
 /** Builds and returns a new User. */
-function getRequestList(userid: string): RequestData[] {
+export class RequestDataSource extends DataSource<any>
+{
+    
+    private loadingRequestSubject = new BehaviorSubject<boolean>(false);
 
-
-    var requestList: RequestData[] = [
-        { "request_id": "One", "description": "hello1", "progress": "Initial", "actions":""},
-        { "request_id": "two", "description": "hello2", "progress": "Initial", "actions": "" },
+    constructor(private gridService : GridService) {
+        super();
+    }
+    connect(): Observable<any[]> {
         
-    ];
-    return requestList;
+        
+        return this.gridService.getGridData();
+        
+    }
+    disconnect() {
+        this.gridService.disconnect();
+        this.loadingRequestSubject.complete();
+
+    }
+
+    loadRequests() {
+        this.loadingRequestSubject.next(true);
+        this.gridService.loadGridData();
+            
+        
+    }
+
 }
 
-
-export interface RequestData {
-    request_id: string;
-    description: string;
-    progress: string;
-    actions: string;
-}
