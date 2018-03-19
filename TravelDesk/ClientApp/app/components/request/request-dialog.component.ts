@@ -9,6 +9,8 @@ import { RequestService } from '../../shared/services/request.service'
 import { AuthService } from '../../shared/services/auth.service';
 import { FlightItemsArrayComponent } from '../form/flightoptions/flightoptions.component';
 import { FlightItemControlComponent } from '../form/flightItems/flight-item-control.component';
+import { HotelItemsArrayComponent } from '../form/hoteloptions/hoteloptions.component';
+import { HotelItemControlComponent } from '../form/hotelItems/hotel-item-control.component';
 @Component({
     selector: 'request-dialog',
     templateUrl: './request-dialog.component.html',
@@ -26,6 +28,7 @@ export class RequestDialog implements OnInit{
     matcher = new MyErrorStateMatcher();
     TravelDataForm: FormGroup;
     FlightOptionsForm: FormGroup;
+    HotelOptionsForm: FormGroup;
 
     constructor( @Inject(MAT_DIALOG_DATA) public data: any,
         public dialogRef: MatDialogRef<RequestDialog>, private requestService : RequestService,
@@ -49,8 +52,12 @@ export class RequestDialog implements OnInit{
         this.FlightOptionsForm = this.fb.group({
             OnwardFlightItems: FlightItemsArrayComponent.buildItems(),
             ReturnFlightItems: FlightItemsArrayComponent.buildItems()
-        })
-        
+        });
+
+        this.HotelOptionsForm = this.fb.group({
+            HotelItems: HotelItemsArrayComponent.buildItems()
+        });
+
     }
 
     step = 0;

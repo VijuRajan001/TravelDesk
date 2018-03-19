@@ -1,0 +1,25 @@
+
+<div class="form-group hotelOptions" [formGroup]="hotelItem">
+
+
+    <mat-form-field>
+        <input matInput placeholder="Hotel Name" formControlName="hotelName" [attr.id]="'hotelName'+hotelIndex">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Location" formControlName="location" [attr.id]="'location'+hotelIndex">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Website" formControlName="website" [attr.id]="'website'+hotelIndex">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="MobileNo" formControlName="mobileno" [attr.id]="'mobileno'+hotelIndex">
+    </mat-form-field>
+    <button mat-icon-button type="button" color="primary" (click)="removed.emit(hotelIndex)">
+        <mat-icon>remove_circle</mat-icon>
+    </button>
+    <button mat-icon-button type="button" color="primary" (click)="add.emit(hotelIndex)">
+        <mat-icon>add_circle</mat-icon>
+    </button>
+
+
+</div>
