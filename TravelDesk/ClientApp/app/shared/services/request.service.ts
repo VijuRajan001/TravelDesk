@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AppHttpService } from '../services/http.service';
 import { ConfigService } from '../utils/config.service';
 import { AuthService } from '../services/auth.service';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient,HttpParams} from '@angular/common/http';
 import {BaseService} from "./base.service";
 import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/Rx';
@@ -36,8 +36,16 @@ export class RequestService extends BaseService {
   }
 
   getRequestById(id:number): Observable<RequestData> {
-
-      return this.http.get<RequestData>(this.baseUrl + 'api/Request/GetRequestById/'+id);
+      
+      return this.http.get<RequestData>(this.baseUrl + 'api/Request/GetRequestById', {
+          params: new HttpParams().set('id', id.toString())
+      }
+    );
   }
-     
+
+  updateRequest(traveldata: TravelData): Observable<any> {
+
+      return this.http.post(this.baseUrl + 'api/Request/UpdateRequest', 
+            JSON.stringify(traveldata));
+    }
 }

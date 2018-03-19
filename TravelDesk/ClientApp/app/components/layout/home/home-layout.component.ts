@@ -1,27 +1,33 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, Renderer2, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Renderer2, ElementRef, ViewChild,ViewChildren,QueryList, AfterViewInit } from '@angular/core';
 import { MatToolbarModule, MatSidenavModule, MatListModule, MatSidenav, MatMenuModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { UserService } from '../../../shared/services/user.service';
 import { Router, ActivatedRoute,Params } from '@angular/router';
 import { RequestDialog } from '../../request/request-dialog.component';
+import { TableOverviewExample } from '../../dashboard/grid/dashboard-grid.component';
+import { GridService } from '../../../shared/services/grid.service';
 @Component({
     selector: 'home-layout',
     templateUrl: './home-layout.component.html',
     styleUrls: ['./home-layout.component.css']
 })
 export class HomeLayoutComponent implements AfterViewInit {
-
-    @ViewChild('snav')
-    snav: MatSidenav;
+    
+     
+    @ViewChild('snav') snav: MatSidenav;
+    
+    @ViewChildren(TableOverviewExample) DashBoardGrid: QueryList<TableOverviewExample>
 
 
     mobileQuery: MediaQueryList;
     fillerNav = Array(50).fill(0).map((_, i) => `Nav Item ${i + 1}`);
 
-     
+    
     private _mobileQueryListener: () => void;
 
-    constructor(public dialog: MatDialog,changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private renderer: Renderer2,private router : Router,
+    constructor(public dialog: MatDialog, changeDetectorRef: ChangeDetectorRef,
+        media: MediaMatcher, private renderer: Renderer2, private router: Router,
+        private gridService : GridService,
         private userService: UserService) {
         this.mobileQuery = media.matchMedia('(max-width: 600px)');
         this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -32,21 +38,23 @@ export class HomeLayoutComponent implements AfterViewInit {
     openDialog(): void {
         let dialogRef = this.dialog.open(RequestDialog, {
             width: '80vw',
-            height: '70vh',
-             data: { project_code: 'UNFCU', country: '', traveldate: '', returndate: '' }
+            height: '80vh',
+             data: { project_Code: '', country: '', travelDate: '', returnDate: '' ,employeeId:'',employeeName:''}
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
             
+            this.gridService.loadGridData();
         });
     }
-
+    
     ngAfterViewInit(): void {
 
         if (this.mobileQuery.matches) {
             this.snav.close();
         }
+        
+        
     }
     ngOnDestroy(): void {
         this.mobileQuery.removeListener(this._mobileQueryListener);

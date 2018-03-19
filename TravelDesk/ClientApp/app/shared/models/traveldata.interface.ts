@@ -1,7 +1,10 @@
 export interface TravelData {
+    requestId: number;
     project_code: string;  
     country: string;
-    traveldate: string;
-    returndate: string;
+    travelDate: string;
+    returnDate: string;
+    employeeName: string;
+    employeeId: string;
 
 }

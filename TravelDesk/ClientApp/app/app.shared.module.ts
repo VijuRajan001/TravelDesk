@@ -21,6 +21,7 @@ import { ConfigService } from './shared/utils/config.service';
 import { UserService } from './shared/services/user.service';
 import { RequestService } from './shared/services/request.service';
 import { AuthService } from './shared/services/auth.service';
+import { GridService } from './shared/services/grid.service';
 import { AuthGuard } from '../app/auth.guard';
 import { httpInterceptorProviders } from '../app/shared/interceptors/http.intercep.providers';
 import {    
@@ -58,6 +59,8 @@ import {
     MatTooltipModule,
   } from '@angular/material';
 import { ErrorStateMatcher,ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
+import { FlightItemsArrayComponent } from './components/form/flightoptions/flightoptions.component';
+import { FlightItemControlComponent } from './components/form/flightItems/flight-item-control.component';
 
 
 @NgModule({
@@ -71,6 +74,8 @@ import { ErrorStateMatcher,ShowOnDirtyErrorStateMatcher} from '@angular/material
         LoginComponent,
         RequestDialog,
         TableOverviewExample,
+        FlightItemsArrayComponent,
+        FlightItemControlComponent
     ],
     imports: [
         CommonModule,
@@ -138,7 +143,7 @@ import { ErrorStateMatcher,ShowOnDirtyErrorStateMatcher} from '@angular/material
         ])
     ],
     entryComponents: [RequestDialog],
-    providers: [MediaMatcher, ConfigService,RequestService,UserService, AuthService, AuthGuard,httpInterceptorProviders,
+    providers: [MediaMatcher, ConfigService, RequestService, UserService, GridService, AuthService, AuthGuard,httpInterceptorProviders,
         { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher } ]
     
     

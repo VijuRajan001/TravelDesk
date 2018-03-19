@@ -29,10 +29,8 @@ namespace TravelDesk.Controllers
         {
 
             RequestInfo newRequest = new RequestInfo();
-            newRequest.ProjectId = travelData.Project_Code;
-            newRequest.TravelCountry = travelData.Country;
-            newRequest.TravelStart = travelData.TravelDate;
-            newRequest.TravelReturn = travelData.ReturnDate;
+            newRequest=_mapper.Map<TravelDataViewModel, RequestInfo>(travelData);
+            
             _unitofWork.RequestRepository.Add(newRequest);
             int i = _unitofWork.Complete();
 
@@ -56,6 +54,19 @@ namespace TravelDesk.Controllers
             return travelData;
         }
 
+        [HttpPost("UpdateRequest")]
+        public void UpdateRequest([FromBody]TravelDataViewModel travelData)
+        {
+            RequestInfo newRequest = _unitofWork.RequestRepository.Get(travelData.RequestId);
+            newRequest.ProjectId = travelData.Project_Code;
+            newRequest.TravelCountry = travelData.Country;
+            newRequest.TravelStart = travelData.TravelDate;
+            newRequest.TravelReturn = travelData.ReturnDate;
+            
+            int i = _unitofWork.Complete();
+            
+            
+        }
 
     }
 }

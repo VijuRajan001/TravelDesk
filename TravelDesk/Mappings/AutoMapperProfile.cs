@@ -23,6 +23,10 @@ namespace TravelDesk.Mappings
                             opt => opt.MapFrom(src => src.TravelStart))
                 .ForMember(dest => dest.ReturnDate,
                             opt => opt.MapFrom(src => src.TravelReturn))
+                .ForMember(dest => dest.EmployeeId,
+                            opt => opt.MapFrom(src => src.EmployeeId))
+                .ForMember(dest => dest.EmployeeName,
+                            opt => opt.MapFrom(src => src.EmployeeName))
                 .ReverseMap(); ;
         }
     }

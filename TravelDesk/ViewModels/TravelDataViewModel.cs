@@ -12,5 +12,8 @@ namespace TravelDesk.ViewModels
         public string Country { get; set; }
         public DateTime TravelDate { get; set; }
         public DateTime ReturnDate { get; set; }
+        public string EmployeeId { get; set; }
+        public string EmployeeName { get; set; }
+
     }
 }
