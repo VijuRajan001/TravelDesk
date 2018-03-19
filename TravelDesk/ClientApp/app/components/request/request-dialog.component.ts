@@ -29,9 +29,12 @@ export class RequestDialog implements OnInit{
     ngOnInit():void {
 
         this.TravelDataForm = new FormGroup({
-            'project_code': new FormControl(null, [Validators.required]),
+            'project_code': new FormControl(null, Validators.compose([Validators.required,Validators.maxLength(4)])),
+            'empname': new FormControl(null, [Validators.required]),
+            'empid': new FormControl(null, [Validators.required]),
             'country': new FormControl(null, [Validators.required]),
             'traveldate': new FormControl(null, [Validators.required]),
+            'flightno': new FormControl(null, [Validators.required]),
             'returndate': new FormControl(null, [Validators.required])
         });
         

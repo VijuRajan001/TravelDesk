@@ -20,7 +20,22 @@
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input matInput placeholder="Country" formControlName="country">
+                    <input matInput placeholder="employee name" formControlName="empname" [errorStateMatcher]="matcher" [(ngModel)]="data.empname">
+                    <mat-error *ngIf="TravelDataForm.get('empname').hasError('required')">
+                        Employee Name is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="employee id" formControlName="empid" [errorStateMatcher]="matcher" [(ngModel)]="data.empid">
+                    <mat-error *ngIf="TravelDataForm.get('empid').hasError('required')">
+                        Employee id is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="country" formControlName="country" [errorStateMatcher]="matcher" [(ngModel)]="data.country">
+                    <mat-error *ngIf="TravelDataForm.get('country').hasError('required')">
+                        Country is <strong>required</strong>
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
@@ -38,7 +53,7 @@
                     <button mat-button color="primary" (click)="nextStep()">Next</button>
 
                 </mat-action-row>
-             </form>
+            </form>
         </mat-expansion-panel>
 
         <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
@@ -53,7 +68,28 @@
             </mat-expansion-panel-header>
 
             <mat-form-field>
-                <input matInput placeholder="Country">
+                <input matInput placeholder="Flight number" formControlName="flightno" [errorStateMatcher]="matcher" [(ngModel)]="data.flightno">
+                <mat-error *ngIf="TravelDataForm.get('flightno').hasError('required')">
+                    Flight Number is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Flight carrier name" formControlName="flightcarrier" [errorStateMatcher]="matcher" [(ngModel)]="data.flightcarrier">
+                <mat-error *ngIf="TravelDataForm.get('flightcarrier').hasError('required')">
+                    Flight carrier name is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="To" formControlName="to" [errorStateMatcher]="matcher" [(ngModel)]="data.to">
+                <mat-error *ngIf="TravelDataForm.get('to').hasError('required')">
+                    To is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="From" formControlName="from" [errorStateMatcher]="matcher" [(ngModel)]="data.from">
+                <mat-error *ngIf="TravelDataForm.get('from').hasError('required')">
+                    Flight Number is <strong>required</strong>
+                </mat-error>
             </mat-form-field>
 
             <mat-action-row>
