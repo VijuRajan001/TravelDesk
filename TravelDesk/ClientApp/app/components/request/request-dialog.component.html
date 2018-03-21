@@ -129,8 +129,8 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <mat-form-field>
-                <input matInput placeholder="Passport Number" formControlName="passportNum" [(ngModel)]="data.passportNum">
+            <!--<mat-form-field>
+                <input matInput placeholder="Passport Number" formControlName="passportNum" >
             </mat-form-field>
 
             <mat-form-field>
@@ -141,7 +141,7 @@
                 <input matInput placeholder="Passport Expiry Date" [matDatepicker]="picker" (focus)="picker.open()" readonly formControlName="passportDate">
                 <mat-icon class="small">date_range</mat-icon>
             </mat-form-field>
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-datepicker #picker></mat-datepicker>-->
 
             <mat-form-field>
                 <input matInput placeholder="Visa Expiry Date" [matDatepicker]="picker" (focus)="picker.open()" readonly formControlName="visaDate">
@@ -166,7 +166,7 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <mat-form-field>
+            <!--<mat-form-field>
                 <input matInput placeholder="Card Number" formControlName="cardNum" [(ngModel)]="data.cardNum">
             </mat-form-field>
 
@@ -176,7 +176,7 @@
 
             <mat-form-field>
                 <input matInput placeholder="Mobile Number" formControlName="mobileNum" [(ngModel)]="data.mobileNum">
-            </mat-form-field>
+            </mat-form-field>-->
 
             <mat-action-row>
                 <button mat-button color="primary" (click)="nextStep()">End</button>

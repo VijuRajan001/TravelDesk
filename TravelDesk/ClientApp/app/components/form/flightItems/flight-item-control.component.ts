@@ -28,10 +28,10 @@ export class FlightItemControlComponent {
 
     static buildItem(val: string) {
         return new FormGroup({
-            flightItemID: new FormControl(val, Validators.required),
-            flightCarrierName: new FormControl(val, Validators.required),
-            flightFrom: new FormControl(val, Validators.required),
-            flightTo: new FormControl(val,Validators.required)
+            flightItemID: new FormControl('', Validators.required),
+            flightCarrierName: new FormControl('', Validators.required),
+            flightFrom: new FormControl('', Validators.required),
+            flightTo: new FormControl('',Validators.required)
         })
     }
 }

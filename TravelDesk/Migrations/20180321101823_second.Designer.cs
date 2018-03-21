@@ -12,9 +12,10 @@ using System;
 namespace TravelDesk.Migrations
 {
     [DbContext(typeof(TravDeskDbcontext))]
-    partial class TravDeskDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20180321101823_second")]
+    partial class second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,11 +75,13 @@ namespace TravelDesk.Migrations
 
                     b.Property<long>("MobileNo");
 
-                    b.Property<int>("RequestInfoId");
+                    b.Property<long>("RequestInfoId");
+
+                    b.Property<int?>("RequestInfoId1");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RequestInfoId");
+                    b.HasIndex("RequestInfoId1");
 
                     b.ToTable("ForexInfo");
                 });
@@ -102,13 +105,15 @@ namespace TravelDesk.Migrations
 
                     b.Property<double>("Price");
 
-                    b.Property<int>("RequestInfoId");
+                    b.Property<long>("RequestInfoId");
+
+                    b.Property<int?>("RequestInfoId1");
 
                     b.Property<string>("Website");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RequestInfoId");
+                    b.HasIndex("RequestInfoId1");
 
                     b.ToTable("HotelInfo");
                 });
@@ -367,16 +372,14 @@ namespace TravelDesk.Migrations
                 {
                     b.HasOne("DataAccessRepository.Entities.RequestInfo", "RequestInfo")
                         .WithMany("ForexInfo")
-                        .HasForeignKey("RequestInfoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RequestInfoId1");
                 });
 
             modelBuilder.Entity("DataAccessRepository.Entities.HotelInfo", b =>
                 {
                     b.HasOne("DataAccessRepository.Entities.RequestInfo", "RequestInfo")
                         .WithMany("HotelInfo")
-                        .HasForeignKey("RequestInfoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RequestInfoId1");
                 });
 
             modelBuilder.Entity("DataAccessRepository.Entities.RequestInfo", b =>

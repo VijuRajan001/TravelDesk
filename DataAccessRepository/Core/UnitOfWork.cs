@@ -11,6 +11,7 @@ namespace DataAccessRepository.Core
     {
         private readonly TravDeskDbcontext _context;
         private IRequestRepository _requestRepository;
+        private IFlightRepository _flightRepository;
         public UnitOfWork(TravDeskDbcontext context)
         {
             _context = context;
@@ -25,6 +26,14 @@ namespace DataAccessRepository.Core
             }
         }
 
+        public IFlightRepository FlightRepository
+        {
+            get
+            {
+                return _flightRepository = _flightRepository ?? new FlightRepository(_context);
+            }
+
+        }
         public int Complete()
         {
             return _context.SaveChanges();

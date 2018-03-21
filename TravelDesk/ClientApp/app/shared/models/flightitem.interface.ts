@@ -3,5 +3,5 @@ export interface FlightItem {
     flightName: string;  
     flightFrom: string;
     flightTo: string;
-    
+    requestInfoId: number;
 }

@@ -9,6 +9,7 @@ using AutoMapper;
 using DataAccessRepository.Core;
 using DataAccessRepository.Entities;
 using Microsoft.AspNetCore.Mvc;
+using TravelDesk.Models;
 using TravelDesk.ViewModels;
 
 namespace TravelDesk.Controllers
@@ -25,10 +26,14 @@ namespace TravelDesk.Controllers
         }
 
         [HttpPost("AddFlights")]
-        public void AddFlights([FromBody]FlightOptionsViewModel travelData)
+        public void AddFlights([FromBody]FlightOptionsViewModel flightData)
         {
+            List<FlightInfo> _onwardflightItems = _mapper.Map<List<FlightItem>, List<FlightInfo>>(flightData.OnwardFlightItems);
+            List<FlightInfo> _returnflightItems = _mapper.Map<List<FlightItem>, List<FlightInfo>>(flightData.ReturnFlightItems);
+            _unitofWork.FlightRepository.AddOnwardFlightOptions(_onwardflightItems);
+            _unitofWork.FlightRepository.AddReturnFlightOptions(_onwardflightItems);
 
-            
+            _unitofWork.Complete();
 
         }
 
