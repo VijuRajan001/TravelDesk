@@ -39,7 +39,12 @@ export class RequestDialog implements OnInit{
     constructor( @Inject(MAT_DIALOG_DATA) public data: any,
         public dialogRef: MatDialogRef<RequestDialog>, private requestService: RequestService,
         private flightService: FlightService,
-        private authservice: AuthService, private fb: FormBuilder ) { }
+        private authservice: AuthService, private fb: FormBuilder) {
+
+        this.traveldata = <TravelData>data;
+
+
+    }
 
     onNoClick(): void {
         this.dialogRef.close();
@@ -102,6 +107,9 @@ export class RequestDialog implements OnInit{
     createFlightOptions() {
         if (this.FlightOptionsForm.valid) {
             this.flightdata = <FlightOptions>this.FlightOptionsForm.value;
+            
+            this.flightdata.OnwardFlightItems.forEach(item => item.requestInfoId = this.traveldata.requestId);
+            this.flightdata.ReturnFlightItems.forEach(item => item.requestInfoId = this.traveldata.requestId)
             this.flightService.addFlightInfo(this.flightdata).subscribe(
                 (val) => {
                     console.log("POST call success");

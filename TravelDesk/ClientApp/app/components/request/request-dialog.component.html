@@ -121,8 +121,8 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <mat-form-field>
-                <input matInput placeholder="Passport Number" formControlName="passportNum" [(ngModel)]="data.passportNum">
+            <!--<mat-form-field>
+                <input matInput placeholder="Passport Number" formControlName="passportNum" >
             </mat-form-field>
 
             <mat-form-field>
@@ -133,7 +133,7 @@
                 <input matInput placeholder="Date" [matDatepicker]="picker" (focus)="picker.open()" readonly>
                 <mat-icon class="small">date_range</mat-icon>
             </mat-form-field>
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-datepicker #picker></mat-datepicker>-->
 
             <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Previous</button>
@@ -152,7 +152,7 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <mat-form-field>
+            <!--<mat-form-field>
                 <input matInput placeholder="Card Number" formControlName="cardNum" [(ngModel)]="data.cardNum">
             </mat-form-field>
 
@@ -162,7 +162,7 @@
 
             <mat-form-field>
                 <input matInput placeholder="Mobile Number" formControlName="mobileNum" [(ngModel)]="data.mobileNum">
-            </mat-form-field>
+            </mat-form-field>-->
 
             <mat-action-row>
                 <button mat-button color="primary" (click)="nextStep()">End</button>

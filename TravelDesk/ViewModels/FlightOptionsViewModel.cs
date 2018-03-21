@@ -7,8 +7,8 @@ using TravelDesk.Models;
 namespace TravelDesk.ViewModels
 {
     public class FlightOptionsViewModel
-    {
-        List<FlightItem> OnwardflightItems { get; set; }
-        List<FlightItem> ReturnflightItems { get; set; }
+    { 
+        public List<FlightItem> OnwardFlightItems { get; set; }
+        public List<FlightItem> ReturnFlightItems { get; set; }
     }
 }

@@ -8,6 +8,7 @@ namespace DataAccessRepository.Core
     public interface IUnitOfWork : IDisposable
     {
         IRequestRepository RequestRepository { get; }
+        IFlightRepository FlightRepository { get; }
         int Complete();
     }
 }

@@ -15,7 +15,7 @@ namespace DataAccessRepository.Entities
         }
         public int Id { get; set; }
         public string ProjectId { get; set; }
-        public string EmployeeName { get; set; }  
+        public string EmployeeName { get; set; }
         public string EmployeeId { get; set; }
         public string ManagerId { get; set; }
         public string ManagerName { get; set; }
@@ -25,8 +25,10 @@ namespace DataAccessRepository.Entities
         public string RequestStatus { get; set; }
         public string Approver { get; set; }
 
-        public List<FlightInfo> FlightInfo { get; set; }
-        public List<HotelInfo> HotelInfo { get; set; }
+        public ICollection<FlightInfo> FlightInfo { get; set; }
+        public ICollection<HotelInfo> HotelInfo { get; set; }
+        public ICollection<ForexInfo> ForexInfo { get; set; }
+        public virtual PassportInfo PassportInfo { get;set;}
 
     }
 }
