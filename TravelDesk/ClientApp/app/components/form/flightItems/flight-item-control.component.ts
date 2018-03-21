@@ -28,7 +28,8 @@ export class FlightItemControlComponent {
 
     static buildItem(val: string) {
         return new FormGroup({
-            flightName: new FormControl(val, Validators.required),
+            flightItemID: new FormControl(val, Validators.required),
+            flightCarrierName: new FormControl(val, Validators.required),
             flightFrom: new FormControl(val, Validators.required),
             flightTo: new FormControl(val,Validators.required)
         })

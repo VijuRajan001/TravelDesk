@@ -18,7 +18,17 @@
                         Project Code is <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
-
+                <mat-form-field>
+                    <input matInput placeholder="Employee Id" formControlName="employeeId" [(ngModel)]="data.employeeId">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Employee Name" formControlName="employeeName" pattern="[a-zA-Z][a-zA-Z ]+" [(ngModel)]="data.employeeName">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Date of Birth" class="datecontrol" [matDatepicker]="travel_date" (focus)="travel_date.open()" readonly formControlName="travelDate" [(ngModel)]="data.travelDate">
+                    <mat-icon class="small">date_range</mat-icon>
+                </mat-form-field>
+                
                 <mat-form-field>
                     <input matInput placeholder="Country" formControlName="country" [(ngModel)]="data.country">
                 </mat-form-field>
@@ -34,11 +44,9 @@
                     <mat-icon class="small">date_range</mat-icon>
                 </mat-form-field>
                 <mat-datepicker #return_date></mat-datepicker>
+
                 <mat-form-field>
-                    <input matInput placeholder="Employee Id" formControlName="employeeId" [(ngModel)]="data.employeeId">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Employee Name" formControlName="employeeName" [(ngModel)]="data.employeeName">
+                    <input matInput placeholder="Approver Name" formControlName="approverName" pattern="[a-zA-Z][a-zA-Z ]+" [(ngModel)]="data.approverName">
                 </mat-form-field>
 
                 <mat-action-row>
@@ -65,13 +73,13 @@
                 <mat-tab-group>
                     <mat-tab label="Onward Journey">
                         <flight-items-array formArrayName="OnwardFlightItems"
-                                            [itemsFormArray]="FlightOptionsForm.get('OnwardFlightItems')">
+                                            [itemsFormArray]="FlightOptionsForm.get('OnwardFlightItems')" >
                         </flight-items-array>
 
                     </mat-tab>
                     <mat-tab label="Return Journey">
                         <flight-items-array formArrayName="ReturnFlightItems"
-                                            [itemsFormArray]="FlightOptionsForm.get('ReturnFlightItems')">
+                                            [itemsFormArray]="FlightOptionsForm.get('ReturnFlightItems')" >
                         </flight-items-array>
                     </mat-tab>
                 </mat-tab-group>
@@ -130,11 +138,17 @@
             </mat-form-field>
 
             <mat-form-field>
-                <input matInput placeholder="Date" [matDatepicker]="picker" (focus)="picker.open()" readonly>
+                <input matInput placeholder="Passport Expiry Date" [matDatepicker]="picker" (focus)="picker.open()" readonly formControlName="passportDate">
                 <mat-icon class="small">date_range</mat-icon>
             </mat-form-field>
             <mat-datepicker #picker></mat-datepicker>
 
+            <mat-form-field>
+                <input matInput placeholder="Visa Expiry Date" [matDatepicker]="picker" (focus)="picker.open()" readonly formControlName="visaDate">
+                <mat-icon class="small">date_range</mat-icon>
+                <mat-datepicker #picker></mat-datepicker>
+
+            </mat-form-field>
             <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Previous</button>
                 <button mat-button color="primary" (click)="nextStep()">End</button>
