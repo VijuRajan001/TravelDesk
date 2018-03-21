@@ -9,6 +9,13 @@ import { RequestService } from '../../shared/services/request.service'
 import { AuthService } from '../../shared/services/auth.service';
 import { FlightItemsArrayComponent } from '../form/flightoptions/flightoptions.component';
 import { FlightItemControlComponent } from '../form/flightItems/flight-item-control.component';
+
+import { FlightOptions } from '../../shared/models/flightoptions.interface';
+import { FlightService } from '../../shared/services/flight.service';
+
+import { HotelItemsArrayComponent } from '../form/hotelOptions/hoteloptions.component';
+import { HotelItemControlComponent } from '../form/hotelItems/hotel-item-control.component';
+
 @Component({
     selector: 'request-dialog',
     templateUrl: './request-dialog.component.html',
@@ -18,7 +25,8 @@ import { FlightItemControlComponent } from '../form/flightItems/flight-item-cont
 
 export class RequestDialog implements OnInit{
 
-    traveldata: TravelData = { requestId:0,project_code: '', country: '', travelDate: '', returnDate: '' ,employeeId:'',employeeName:''};
+    traveldata: TravelData = { requestId: 0, project_code: '', country: '', travelDate: '', returnDate: '', employeeId: '', employeeName: '' };
+    flightdata: FlightOptions;
     submitActions: number;
     action: typeof SubmitActions = SubmitActions;
     
@@ -26,9 +34,11 @@ export class RequestDialog implements OnInit{
     matcher = new MyErrorStateMatcher();
     TravelDataForm: FormGroup;
     FlightOptionsForm: FormGroup;
+    HotelOptionsForm: FormGroup;
 
     constructor( @Inject(MAT_DIALOG_DATA) public data: any,
-        public dialogRef: MatDialogRef<RequestDialog>, private requestService : RequestService,
+        public dialogRef: MatDialogRef<RequestDialog>, private requestService: RequestService,
+        private flightService: FlightService,
         private authservice: AuthService, private fb: FormBuilder ) { }
 
     onNoClick(): void {
@@ -47,10 +57,17 @@ export class RequestDialog implements OnInit{
         });
         
         this.FlightOptionsForm = this.fb.group({
-            OnwardFlightItems: FlightItemsArrayComponent.buildItems(),
-            ReturnFlightItems: FlightItemsArrayComponent.buildItems()
-        })
+
+            "OnwardFlightItems": FlightItemsArrayComponent.buildItems(),
+            "ReturnFlightItems": FlightItemsArrayComponent.buildItems()
         
+        });
+
+        this.HotelOptionsForm = this.fb.group({
+            "HotelItems": HotelItemsArrayComponent.buildItems()
+        });
+
+
     }
 
     step = 0;
@@ -74,9 +91,34 @@ export class RequestDialog implements OnInit{
             
             case SubmitActions.createRequest: this.createNewRequest(); break;
             case SubmitActions.updateRequest: this.updateRequest(); break;
+            case SubmitActions.createFlightOptions: this.createFlightOptions(); break;
+            case SubmitActions.updateFlightOptions: this.updateFlightOptions(); break;
 
         }
         
+
+    }
+
+    createFlightOptions() {
+        if (this.FlightOptionsForm.valid) {
+            this.flightdata = <FlightOptions>this.FlightOptionsForm.value;
+            this.flightService.addFlightInfo(this.flightdata).subscribe(
+                (val) => {
+                    console.log("POST call success");
+                },
+                response => {
+                    console.log("POST call in error", response);
+                },
+                () => {
+                    console.log("The POST observable is now completed.");
+                });
+        }
+        
+        
+    }
+
+    updateFlightOptions() {
+        console.log('inside Update Flight');
 
     }
 
@@ -133,7 +175,9 @@ export class RequestDialog implements OnInit{
 
 enum SubmitActions {
     createRequest,
-    updateRequest
+    updateRequest,
+    createFlightOptions,
+    updateFlightOptions
 }
 
 
