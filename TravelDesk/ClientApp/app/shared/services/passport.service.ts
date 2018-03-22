@@ -7,7 +7,7 @@ import {HttpClient,HttpParams} from '@angular/common/http';
 import {BaseService} from "./base.service";
 import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/Rx';
-import { PassportOptions} from '../models/passportoptions.interface';
+import { Passport} from '../models/passport.interface';
 
 //import * as _ from 'lodash';
 // Add the RxJS Observable operators we need in this app.
@@ -25,14 +25,14 @@ export class PassportService extends BaseService {
     this.baseUrl = configService.getApiURI();
   }
 
-  addPassportInfo(passportdata: PassportOptions): Observable<any> {
+    addPassportInfo(passportdata: Passport): Observable<any> {
       return this.http.post(this.baseUrl + 'api/Passport/AddPassport',
           JSON.stringify(passportdata));
   }
 
 
 
-  updatePassportInfo(passportdata: PassportOptions): Observable<any> {
+    updatePassportInfo(passportdata: Passport): Observable<any> {
 
       return this.http.post(this.baseUrl + 'api/Passport/UpdatePassport', 
           JSON.stringify(passportdata));
