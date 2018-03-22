@@ -12,7 +12,17 @@ import { FlightItemControlComponent } from '../form/flightItems/flight-item-cont
 import { forkJoin } from "rxjs/observable/forkJoin";
 import { FlightOptions, IFlightOptions } from '../../shared/models/flightoptions.interface';
 import { FlightService } from '../../shared/services/flight.service';
+<<<<<<< HEAD
 import { Observable } from 'rxjs/Observable';
+=======
+import { HotelOptions } from '../../shared/models/hoteloptions.interface';
+import { HotelService } from '../../shared/services/hotel.service';
+import { Passport } from '../../shared/models/passport.interface';
+import { PassportService } from '../../shared/services/passport.service';
+import { Forex } from '../../shared/models/forex.interface';
+import { ForexService } from '../../shared/services/forex.service';
+
+>>>>>>> 84b90c9665da549d1343bc690df3fef881213633
 import { HotelItemsArrayComponent } from '../form/hotelOptions/hoteloptions.component';
 import { HotelItemControlComponent } from '../form/hotelItems/hotel-item-control.component';
 import { RequestData, IRequestData } from '../../shared/models/requestdata.interface';
@@ -27,7 +37,15 @@ import { FlightItem } from '../../shared/models/flightitem.interface';
 
 export class RequestDialog implements OnInit{
 
+<<<<<<< HEAD
     traveldata = new TravelData();    
+=======
+    traveldata: TravelData = { requestId: 0, project_code: '', country: '', travelDate: '', returnDate: '', employeeId: '', employeeName: '' };
+    flightdata: FlightOptions;
+    hoteldata: HotelOptions;
+    passportdata: Passport;
+    forexdata: Forex;
+>>>>>>> 84b90c9665da549d1343bc690df3fef881213633
     submitActions: number;
     action: typeof SubmitActions = SubmitActions;
     
@@ -36,6 +54,9 @@ export class RequestDialog implements OnInit{
     TravelDataForm: FormGroup;
     FlightOptionsForm: FormGroup;
     HotelOptionsForm: FormGroup;
+    PassportOptionsForm: FormGroup;
+    ForexOptionsForm: FormGroup;
+
 
     constructor( @Inject(MAT_DIALOG_DATA) public data: any,
         public dialogRef: MatDialogRef<RequestDialog>, private requestService: RequestService,
@@ -47,6 +68,10 @@ export class RequestDialog implements OnInit{
 
 
     }
+        private hotelService: HotelService,
+        private passportService: PassportService,
+        private forexService: ForexService,
+        private authservice: AuthService, private fb: FormBuilder ) { }
 
     onNoClick(): void {
         this.dialogRef.close();
@@ -75,12 +100,22 @@ export class RequestDialog implements OnInit{
 
 
         this.TravelDataForm = new FormGroup({
+<<<<<<< HEAD
             'project_code': new FormControl('', [Validators.required]),
             'country': new FormControl('', [Validators.required]),
             'travelDate': new FormControl('', [Validators.required]),
             'returnDate': new FormControl('', [Validators.required]),
             'employeeId': new FormControl('', [Validators.required]),
             'employeeName': new FormControl('', [Validators.required])
+=======
+            'project_Code': new FormControl(null, [Validators.required, Validators.maxLength(50)]),
+            'country': new FormControl(null, [Validators.required]),
+            'travelDate': new FormControl(null, [Validators.required, isOnward('travelDate')]),
+            'returnDate': new FormControl(null, [Validators.required]),
+            'employeeId': new FormControl(null, [Validators.required, Validators.maxLength(50)]),
+            'employeeName': new FormControl(null, [Validators.required]),
+            'approverName': new FormControl(null, [Validators.required])
+>>>>>>> 84b90c9665da549d1343bc690df3fef881213633
         });
 
         this.FlightOptionsForm = this.fb.group({
@@ -94,6 +129,7 @@ export class RequestDialog implements OnInit{
             "HotelItems": HotelItemsArrayComponent.buildItems()
         });
 
+<<<<<<< HEAD
 
         
 
@@ -109,6 +145,20 @@ export class RequestDialog implements OnInit{
         console.log(traveldata.flightData.ReturnFlightItems);
         this.FlightOptionsForm.setControl("OnwardFlightItems", FlightItemsArrayComponent.buildItems(traveldata.flightData.OnwardFlightItems))
         this.FlightOptionsForm.setControl("ReturnFlightItems", FlightItemsArrayComponent.buildItems(traveldata.flightData.ReturnFlightItems))
+=======
+        this.PassportOptionsForm = new FormGroup({
+            'passportNum': new FormControl(null),
+            'visaNum': new FormControl(null),
+            'passportDate': new FormControl(null),
+            'visaDate': new FormControl(null)
+        })
+
+        this.ForexOptionsForm = new FormGroup({
+            'cardNum': new FormControl(null),
+            'countryCode': new FormControl(null),
+            'mobileNum': new FormControl(null)
+        })
+>>>>>>> 84b90c9665da549d1343bc690df3fef881213633
     }
 
     step = 0;
@@ -134,7 +184,13 @@ export class RequestDialog implements OnInit{
             case SubmitActions.updateRequest: this.updateRequest(); break;
             case SubmitActions.createFlightOptions: this.createFlightOptions(); break;
             case SubmitActions.updateFlightOptions: this.updateFlightOptions(); break;
-
+            case SubmitActions.createHotelOptions: this.createHotelOptions(); break;
+            case SubmitActions.updateHotelOptions: this.updateHotelOptions(); break;
+            case SubmitActions.createPassportOptions: this.createPassportOptions(); break;
+            case SubmitActions.updatePassportOptions: this.updatePassportOptions(); break;
+            case SubmitActions.createForexOptions: this.createForexOptions(); break;
+            case SubmitActions.updateForexOptions: this.updateForexOptions(); break;
+           
         }
         
 
@@ -162,6 +218,76 @@ export class RequestDialog implements OnInit{
 
     updateFlightOptions() {
         console.log('inside Update Flight');
+
+    }
+
+
+    createHotelOptions() {
+        if (this.HotelOptionsForm.valid) {
+            this.hoteldata = <HotelOptions>this.HotelOptionsForm.value;
+            this.hotelService.addHotelInfo(this.hoteldata).subscribe(
+                (val) => {
+                    console.log("POST call success");
+                },
+                response => {
+                    console.log("POST call in error", response);
+                },
+                () => {
+                    console.log("The POST observable is now completed.");
+                });
+        }
+
+
+    }
+
+    updateHotelOptions() {
+        console.log('inside Update Hotel');
+
+    }
+
+    createPassportOptions() {
+        if (this.PassportOptionsForm.valid) {
+            this.passportdata = <Passport>this.PassportOptionsForm.value;
+            this.passportService.addPassportInfo(this.passportdata).subscribe(
+                (val) => {
+                    console.log("POST call success");
+                },
+                response => {
+                    console.log("POST call in error", response);
+                },
+                () => {
+                    console.log("The POST observable is now completed.");
+                });
+        }
+
+
+    }
+
+    updatePassportOptions() {
+        console.log('inside Update Passport');
+
+    }
+
+    createForexOptions() {
+        if (this.ForexOptionsForm.valid) {
+            this.forexdata = <Forex>this.ForexOptionsForm.value;
+            this.forexService.addForexInfo(this.forexdata).subscribe(
+                (val) => {
+                    console.log("POST call success");
+                },
+                response => {
+                    console.log("POST call in error", response);
+                },
+                () => {
+                    console.log("The POST observable is now completed.");
+                });
+        }
+
+
+    }
+
+    updateForexOptions() {
+        console.log('inside Update Forex');
 
     }
 
@@ -212,7 +338,12 @@ export class RequestDialog implements OnInit{
 
         }
     }
-
+    function isOnward(date: Date): boolean {
+        var today = new Date();
+        if (date.getTime() < today.getTime())
+            return false;
+        return true;
+}
 
 }
 
@@ -220,7 +351,13 @@ enum SubmitActions {
     createRequest,
     updateRequest,
     createFlightOptions,
-    updateFlightOptions
+    updateFlightOptions,
+    createHotelOptions,
+    updateHotelOptions,
+    createPassportOptions,
+    updatePassportOptions,
+    createForexOptions,
+    updateForexOptions
 }
 
 

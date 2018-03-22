@@ -29,10 +29,17 @@ export class FlightItemControlComponent {
 
     static buildItem(flightItem: FlightItem) {
         return new FormGroup({
+<<<<<<< HEAD
             flightName: new FormControl(flightItem.flightName, Validators.required),
             flightFrom: new FormControl(flightItem.flightStart, Validators.required),
             flightTo: new FormControl(flightItem.flightEnd, Validators.required),
             
+=======
+            flightItemID: new FormControl('', Validators.required),
+            flightCarrierName: new FormControl('', Validators.required),
+            flightFrom: new FormControl('', Validators.required),
+            flightTo: new FormControl('',Validators.required)
+>>>>>>> 84b90c9665da549d1343bc690df3fef881213633
         })
     }
 }
