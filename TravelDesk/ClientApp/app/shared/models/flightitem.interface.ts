@@ -23,14 +23,8 @@ export class FlightItem {
 
 export interface IFlightItem {
     flightItemId: number;
-<<<<<<< HEAD
     flightName: string;
     flightStart: string;
     flightEnd: string;
-=======
-    flightName: string;  
-    flightFrom: string;
-    flightTo: string;
->>>>>>> 84b90c9665da549d1343bc690df3fef881213633
     requestInfoId: number;
 }
