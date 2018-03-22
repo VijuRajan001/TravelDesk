@@ -64,6 +64,9 @@ import { FlightItemControlComponent } from './components/form/flightItems/flight
 import { HotelItemsArrayComponent } from './components/form/hotelOptions/hoteloptions.component';
 import { HotelItemControlComponent } from './components/form/hotelItems/hotel-item-control.component';
 import { FlightService } from './shared/services/flight.service';
+import { HotelService } from './shared/services/hotel.service';
+import { PassportService } from './shared/services/passport.service';
+import { ForexService } from './shared/services/forex.service';
 
 @NgModule({
     declarations: [
@@ -147,7 +150,7 @@ import { FlightService } from './shared/services/flight.service';
         ])
     ],
     entryComponents: [RequestDialog],
-    providers: [MediaMatcher, ConfigService, RequestService, UserService, GridService,FlightService, AuthService, AuthGuard,httpInterceptorProviders,
+    providers: [MediaMatcher, ConfigService, RequestService, UserService, GridService, FlightService, HotelService, PassportService, ForexService, AuthService, AuthGuard, httpInterceptorProviders,
         { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher } ]
     
     
