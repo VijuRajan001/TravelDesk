@@ -4,6 +4,7 @@ using DataAccessRepository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DataAccessRepository.Implementation
@@ -30,6 +31,14 @@ namespace DataAccessRepository.Implementation
         public void AddReturnFlightOptions(List<FlightInfo> FlightItems)
         {
             TravDeskDbcontext.FlightInfo.AddRange(FlightItems);
+        }
+
+        public List<FlightInfo> GetFlightsForRequest(int id)
+        {
+            List<FlightInfo> FlightInfo = new List<FlightInfo>();
+            FlightInfo = TravDeskDbcontext.FlightInfo.Where(f => f.RequestInfoId == id).ToList();
+
+            return FlightInfo;
         }
 
         public TravDeskDbcontext TravDeskDbcontext

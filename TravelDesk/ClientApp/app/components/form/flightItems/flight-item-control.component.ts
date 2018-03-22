@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Injectable } from '@angular/core';
 import { MatInputModule,MatFormFieldModule,MatButtonModule} from '@angular/material';
+import { FlightItem } from '../../../shared/models/flightitem.interface';
 
 
 @Component({
@@ -26,11 +27,11 @@ export class FlightItemControlComponent {
     public add :EventEmitter<number> = new EventEmitter<number>();;
 
 
-    static buildItem(val: string) {
+    static buildItem(flightItem: FlightItem) {
         return new FormGroup({
-            flightName: new FormControl('', Validators.required),
-            flightFrom: new FormControl('', Validators.required),
-            flightTo: new FormControl('', Validators.required),
+            flightName: new FormControl(flightItem.flightName, Validators.required),
+            flightFrom: new FormControl(flightItem.flightStart, Validators.required),
+            flightTo: new FormControl(flightItem.flightEnd, Validators.required),
             
         })
     }

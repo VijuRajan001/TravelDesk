@@ -2,18 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TravelDesk.Models;
 
 namespace TravelDesk.ViewModels
 {
     public class TravelDataViewModel
     {
-        public int RequestId { get; set; }
-        public string Project_Code { get; set; }
-        public string Country { get; set; }
-        public DateTime TravelDate { get; set; }
-        public DateTime ReturnDate { get; set; }
-        public string EmployeeId { get; set; }
-        public string EmployeeName { get; set; }
+        public RequestItem requestItem {get;set;}
+        public FlightOptionsViewModel flightItem { get; set; }
+
 
     }
 }

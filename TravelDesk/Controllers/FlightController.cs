@@ -37,31 +37,31 @@ namespace TravelDesk.Controllers
 
         }
 
-        //[HttpGet("GetFlights")]
-        //public List<TravelDataViewModel> GetRequestList()
+        [HttpGet("GetFlightsForRequest")]
+        public List<FlightItem> GetFlightsForRequest(int id)
+        {
+
+            List<FlightItem> flightDataList = _mapper.Map<List<FlightInfo>, List<FlightItem>>(_unitofWork.FlightRepository.GetFlightsForRequest(id));
+            return flightDataList;
+
+
+
+        }
+
+
+        //[HttpPost("UpdateFlights")]
+        //public void UpdateFlights([FromBody]TravelDataViewModel travelData)
         //{
+        //    RequestInfo newRequest = _unitofWork.RequestRepository.Get(travelData.RequestId);
+        //    newRequest.ProjectId = travelData.Project_Code;
+        //    newRequest.TravelCountry = travelData.Country;
+        //    newRequest.TravelStart = travelData.TravelDate;
+        //    newRequest.TravelReturn = travelData.ReturnDate;
 
-        //    List<TravelDataViewModel> travelDataList = _mapper.Map<List<RequestInfo>, List<TravelDataViewModel>>(_unitofWork.RequestRepository.GetAll().ToList());
-        //    return travelDataList;
-
+        //    int i = _unitofWork.Complete();
 
 
         //}
-         
-
-        [HttpPost("UpdateFlights")]
-        public void UpdateFlights([FromBody]TravelDataViewModel travelData)
-        {
-            RequestInfo newRequest = _unitofWork.RequestRepository.Get(travelData.RequestId);
-            newRequest.ProjectId = travelData.Project_Code;
-            newRequest.TravelCountry = travelData.Country;
-            newRequest.TravelStart = travelData.TravelDate;
-            newRequest.TravelReturn = travelData.ReturnDate;
-            
-            int i = _unitofWork.Complete();
-            
-            
-        }
 
     }
 }

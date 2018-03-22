@@ -13,32 +13,32 @@
             </mat-expansion-panel-header>
             <form [formGroup]="TravelDataForm" (ngSubmit)="onSubmit()">
                 <mat-form-field>
-                    <input matInput placeholder="Project Code" formControlName="project_Code" [errorStateMatcher]="matcher" [(ngModel)]="data.project_Code" required>
-                    <mat-error *ngIf="TravelDataForm.get('project_Code').hasError('required')">
+                    <input matInput placeholder="Project Code" formControlName="project_code" [errorStateMatcher]="matcher" required>
+                    <mat-error *ngIf="TravelDataForm.get('project_code').hasError('required')">
                         Project Code is <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input matInput placeholder="Country" formControlName="country" [(ngModel)]="data.country">
+                    <input matInput placeholder="Country" formControlName="country">
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input matInput placeholder="Travel Date" class="datecontrol" [matDatepicker]="travel_date" (focus)="travel_date.open()" readonly formControlName="travelDate" [(ngModel)]="data.travelDate">
+                    <input matInput placeholder="Travel Date" class="datecontrol" [matDatepicker]="travel_date" (focus)="travel_date.open()" readonly formControlName="travelDate">
                     <mat-icon class="small">date_range</mat-icon>
                 </mat-form-field>
                 <mat-datepicker #travel_date></mat-datepicker>
 
                 <mat-form-field>
-                    <input matInput placeholder="Return Date" [matDatepicker]="return_date" (focus)="return_date.open()" readonly formControlName="returnDate" [(ngModel)]="data.returnDate">
+                    <input matInput placeholder="Return Date" [matDatepicker]="return_date" (focus)="return_date.open()" readonly formControlName="returnDate">
                     <mat-icon class="small">date_range</mat-icon>
                 </mat-form-field>
                 <mat-datepicker #return_date></mat-datepicker>
                 <mat-form-field>
-                    <input matInput placeholder="Employee Id" formControlName="employeeId" [(ngModel)]="data.employeeId">
+                    <input matInput placeholder="Employee Id" formControlName="employeeId" >
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput placeholder="Employee Name" formControlName="employeeName" [(ngModel)]="data.employeeName">
+                    <input matInput placeholder="Employee Name" formControlName="employeeName">
                 </mat-form-field>
 
                 <mat-action-row>

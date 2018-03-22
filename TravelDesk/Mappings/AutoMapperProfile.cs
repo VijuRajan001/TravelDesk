@@ -13,7 +13,7 @@ namespace TravelDesk.Mappings
     {
         public AutoMapperProfile()
         {
-            CreateMap<RequestInfo, TravelDataViewModel>()
+            CreateMap<RequestInfo, RequestItem>()
                 .ForMember(dest => dest.RequestId,
                             opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Project_Code,

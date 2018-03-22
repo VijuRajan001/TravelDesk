@@ -28,7 +28,7 @@ export class HotelItemControlComponent {
 
     static buildItem(val: string) {
         return new FormGroup({
-            hotelno: new FormControl(val, Validators.required),
+            hotelName: new FormControl(val, Validators.required),
             location: new FormControl(val, Validators.required),
             website: new FormControl(val, Validators.required),
             mobileno: new FormControl(val, Validators.required)

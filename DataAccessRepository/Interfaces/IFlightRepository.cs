@@ -10,5 +10,6 @@ namespace DataAccessRepository.Interfaces
     {
         void AddOnwardFlightOptions(List<FlightInfo> FlightItems );
         void AddReturnFlightOptions(List<FlightInfo> FlightItems);
+        List<FlightInfo> GetFlightsForRequest(int id);
     }
 }

@@ -9,12 +9,14 @@ import { RequestService } from '../../shared/services/request.service'
 import { AuthService } from '../../shared/services/auth.service';
 import { FlightItemsArrayComponent } from '../form/flightoptions/flightoptions.component';
 import { FlightItemControlComponent } from '../form/flightItems/flight-item-control.component';
-
-import { FlightOptions } from '../../shared/models/flightoptions.interface';
+import { forkJoin } from "rxjs/observable/forkJoin";
+import { FlightOptions, IFlightOptions } from '../../shared/models/flightoptions.interface';
 import { FlightService } from '../../shared/services/flight.service';
-
+import { Observable } from 'rxjs/Observable';
 import { HotelItemsArrayComponent } from '../form/hotelOptions/hoteloptions.component';
 import { HotelItemControlComponent } from '../form/hotelItems/hotel-item-control.component';
+import { RequestData, IRequestData } from '../../shared/models/requestdata.interface';
+import { FlightItem } from '../../shared/models/flightitem.interface';
 
 @Component({
     selector: 'request-dialog',
@@ -25,8 +27,7 @@ import { HotelItemControlComponent } from '../form/hotelItems/hotel-item-control
 
 export class RequestDialog implements OnInit{
 
-    traveldata: TravelData = { requestId: 0, project_code: '', country: '', travelDate: '', returnDate: '', employeeId: '', employeeName: '' };
-    flightdata: FlightOptions;
+    traveldata = new TravelData();    
     submitActions: number;
     action: typeof SubmitActions = SubmitActions;
     
@@ -41,7 +42,8 @@ export class RequestDialog implements OnInit{
         private flightService: FlightService,
         private authservice: AuthService, private fb: FormBuilder) {
 
-        this.traveldata = <TravelData>data;
+        //data = 0 means new request
+        console.log(data);
 
 
     }
@@ -52,20 +54,40 @@ export class RequestDialog implements OnInit{
 
     ngOnInit():void {
 
+        if (this.data > 0) {
+            let requestData = this.requestService.getRequestById(this.data);
+            let flightData = this.flightService.getFlightsForRequest(this.data);
+
+            forkJoin([requestData, flightData]).subscribe(results => {
+                
+                this.traveldata.requestData = new RequestData(<IRequestData>results[0]);
+                this.traveldata.flightData = new FlightOptions(<IFlightOptions>results[1]);
+
+                this.initializeFormWithData(this.traveldata);
+
+
+            });
+
+            
+
+        }
+
+
+
         this.TravelDataForm = new FormGroup({
-            'project_Code': new FormControl(null, [Validators.required]),
-            'country': new FormControl(null, [Validators.required]),
-            'travelDate': new FormControl(null, [Validators.required]),
-            'returnDate': new FormControl(null, [Validators.required]),
-            'employeeId': new FormControl(null, [Validators.required]),
-            'employeeName': new FormControl(null, [Validators.required])
+            'project_code': new FormControl('', [Validators.required]),
+            'country': new FormControl('', [Validators.required]),
+            'travelDate': new FormControl('', [Validators.required]),
+            'returnDate': new FormControl('', [Validators.required]),
+            'employeeId': new FormControl('', [Validators.required]),
+            'employeeName': new FormControl('', [Validators.required])
         });
-        
+
         this.FlightOptionsForm = this.fb.group({
 
-            "OnwardFlightItems": FlightItemsArrayComponent.buildItems(),
-            "ReturnFlightItems": FlightItemsArrayComponent.buildItems()
-        
+            "OnwardFlightItems": FlightItemsArrayComponent.buildItems(new Array<FlightItem>()),
+            "ReturnFlightItems": FlightItemsArrayComponent.buildItems(new Array<FlightItem>())
+
         });
 
         this.HotelOptionsForm = this.fb.group({
@@ -73,6 +95,20 @@ export class RequestDialog implements OnInit{
         });
 
 
+        
+
+    }
+
+
+    initializeFormWithData(traveldata : TravelData)
+    {
+
+        this.TravelDataForm.patchValue(traveldata.requestData);
+
+        console.log(traveldata.flightData.OnwardFlightItems);
+        console.log(traveldata.flightData.ReturnFlightItems);
+        this.FlightOptionsForm.setControl("OnwardFlightItems", FlightItemsArrayComponent.buildItems(traveldata.flightData.OnwardFlightItems))
+        this.FlightOptionsForm.setControl("ReturnFlightItems", FlightItemsArrayComponent.buildItems(traveldata.flightData.ReturnFlightItems))
     }
 
     step = 0;
@@ -106,11 +142,10 @@ export class RequestDialog implements OnInit{
 
     createFlightOptions() {
         if (this.FlightOptionsForm.valid) {
-            this.flightdata = <FlightOptions>this.FlightOptionsForm.value;
-            
-            this.flightdata.OnwardFlightItems.forEach(item => item.requestInfoId = this.traveldata.requestId);
-            this.flightdata.ReturnFlightItems.forEach(item => item.requestInfoId = this.traveldata.requestId)
-            this.flightService.addFlightInfo(this.flightdata).subscribe(
+            this.traveldata.flightData = new FlightOptions(<IFlightOptions>this.FlightOptionsForm.value);
+            this.traveldata.flightData.OnwardFlightItems.forEach(item => item.requestInfoId = this.traveldata.requestData.requestId);
+            this.traveldata.flightData.ReturnFlightItems.forEach(item => item.requestInfoId = this.traveldata.requestData.requestId)
+            this.flightService.addFlightInfo(this.traveldata.flightData).subscribe(
                 (val) => {
                     console.log("POST call success");
                 },
@@ -132,13 +167,13 @@ export class RequestDialog implements OnInit{
 
     updateRequest() {
         if (this.TravelDataForm.valid) {
-            this.traveldata.requestId = this.data.requestId;
-            this.traveldata.project_code = this.TravelDataForm.controls['project_Code'].value;
-            this.traveldata.country = this.TravelDataForm.controls['country'].value;
-            this.traveldata.travelDate = this.TravelDataForm.controls['travelDate'].value;
-            this.traveldata.returnDate = this.TravelDataForm.controls['returnDate'].value;
-            this.traveldata.employeeId = this.TravelDataForm.controls['employeeId'].value;
-            this.traveldata.employeeName = this.TravelDataForm.controls['employeeName'].value;
+            this.traveldata.requestData.requestId = this.data;
+            this.traveldata.requestData.project_code = this.TravelDataForm.controls['project_Code'].value;
+            this.traveldata.requestData.country = this.TravelDataForm.controls['country'].value;
+            this.traveldata.requestData.travelDate = this.TravelDataForm.controls['travelDate'].value;
+            this.traveldata.requestData.returnDate = this.TravelDataForm.controls['returnDate'].value;
+            this.traveldata.requestData.employeeId = this.TravelDataForm.controls['employeeId'].value;
+            this.traveldata.requestData.employeeName = this.TravelDataForm.controls['employeeName'].value;
             this.requestService.updateRequest(this.traveldata).subscribe(
                 (val) => {
                     console.log("POST call success");
@@ -157,12 +192,12 @@ export class RequestDialog implements OnInit{
     createNewRequest() {
 
         if (this.TravelDataForm.valid) {
-            this.traveldata.project_code = this.TravelDataForm.controls['project_Code'].value;
-            this.traveldata.country = this.TravelDataForm.controls['country'].value;
-            this.traveldata.travelDate = this.TravelDataForm.controls['travelDate'].value;
-            this.traveldata.returnDate = this.TravelDataForm.controls['returnDate'].value;
-            this.traveldata.employeeId = this.TravelDataForm.controls['employeeId'].value;
-            this.traveldata.employeeName = this.TravelDataForm.controls['employeeName'].value;
+            this.traveldata.requestData.project_code = this.TravelDataForm.controls['project_Code'].value;
+            this.traveldata.requestData.country = this.TravelDataForm.controls['country'].value;
+            this.traveldata.requestData.travelDate = this.TravelDataForm.controls['travelDate'].value;
+            this.traveldata.requestData.returnDate = this.TravelDataForm.controls['returnDate'].value;
+            this.traveldata.requestData.employeeId = this.TravelDataForm.controls['employeeId'].value;
+            this.traveldata.requestData.employeeName = this.TravelDataForm.controls['employeeName'].value;
             console.log("here" + this.traveldata);
             this.requestService.addRequest(this.traveldata).subscribe(
                 (val) => {
