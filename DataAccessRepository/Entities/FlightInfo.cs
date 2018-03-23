@@ -11,7 +11,7 @@ namespace DataAccessRepository.Entities
         public string FlightTo { get; set; }
         public string FlightFrom { get; set; }
         public double FlightCost { get; set; }
-
+        public string FlightDirection { get; set; }
         public int RequestInfoId { get; set; }
         public RequestInfo RequestInfo { get; set; }
     }

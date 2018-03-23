@@ -5,20 +5,23 @@ export class FlightItem {
         flightName:"",
         flightFrom: "",
         flightTo: "",
-        requestInfoId: 0
+        requestInfoId: 0,
+        flightDirection: ""
     })
     {
      this.flightItemId = flightItem.flightItemId;
      this.flightName = flightItem.flightName;
         this.flightFrom = flightItem.flightFrom;
         this.flightTo = flightItem.flightTo;
-     this.requestInfoId = flightItem.requestInfoId;
+        this.requestInfoId = flightItem.requestInfoId;
+        this.flightDirection = flightItem.flightDirection;
     }
     public flightItemId: number;
     public flightName: string;  
     public flightFrom: string;
     public flightTo: string;
     public requestInfoId: number;
+    public flightDirection: string;
 }
 
 export interface IFlightItem {
@@ -27,4 +30,5 @@ export interface IFlightItem {
     flightFrom: string;
     flightTo: string;
     requestInfoId: number;
+    flightDirection: string;
 }

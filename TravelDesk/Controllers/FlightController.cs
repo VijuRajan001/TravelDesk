@@ -31,18 +31,20 @@ namespace TravelDesk.Controllers
             List<FlightInfo> _onwardflightItems = _mapper.Map<List<FlightItem>, List<FlightInfo>>(flightData.OnwardFlightItems);
             List<FlightInfo> _returnflightItems = _mapper.Map<List<FlightItem>, List<FlightInfo>>(flightData.ReturnFlightItems);
             _unitofWork.FlightRepository.AddOnwardFlightOptions(_onwardflightItems);
-            _unitofWork.FlightRepository.AddReturnFlightOptions(_onwardflightItems);
+            _unitofWork.FlightRepository.AddReturnFlightOptions(_returnflightItems);
 
             _unitofWork.Complete();
 
         }
 
         [HttpGet("GetFlightsForRequest")]
-        public List<FlightItem> GetFlightsForRequest(int id)
+        public FlightOptionsViewModel GetFlightsForRequest(int id)
         {
-
+            FlightOptionsViewModel vm = new FlightOptionsViewModel();
             List<FlightItem> flightDataList = _mapper.Map<List<FlightInfo>, List<FlightItem>>(_unitofWork.FlightRepository.GetFlightsForRequest(id));
-            return flightDataList;
+            vm.OnwardFlightItems=flightDataList.FindAll(item => item.FlightDirection == "Onward");
+            vm.ReturnFlightItems = flightDataList.FindAll(item => item.FlightDirection == "Return");
+            return vm;
 
 
 

@@ -26,13 +26,23 @@ export class FlightItemControlComponent {
     @Output()
     public add :EventEmitter<number> = new EventEmitter<number>();;
 
+    static buildItemwithValue(data:any) {
+
+        return new FormGroup({
+            'flightName': new FormControl(data.flightName, [Validators.required]),
+            'flightItemID': new FormControl(data.flightItemID, Validators.required),
+            'flightFrom': new FormControl(data.flightFrom, Validators.required),
+            'flightTo': new FormControl(data.flightTo, Validators.required)
+
+        });
+    }
 
     static buildItem() {
         return new FormGroup({
-            "flightName": new FormControl('', [Validators.required]),
-            "flightItemID": new FormControl('', Validators.required),
-            "flightFrom": new FormControl('', Validators.required),
-            "flightTo": new FormControl('', Validators.required)
+            'flightName': new FormControl('', [Validators.required]),
+            'flightItemID': new FormControl('', Validators.required),
+            'flightFrom': new FormControl('', Validators.required),
+            'flightTo': new FormControl('', Validators.required)
 
             });
         

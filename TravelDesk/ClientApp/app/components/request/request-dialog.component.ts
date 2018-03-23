@@ -1,4 +1,4 @@
-import { ActivatedRoute, Params } from '@angular/router';
+﻿import { ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatExpansionModule,MatTableModule } from '@angular/material';
 import { Inject } from '@angular/core';
@@ -92,13 +92,13 @@ export class RequestDialog implements OnInit{
 
         this.FlightOptionsForm = this.fb.group({
             
-            "OnwardFlightItems": FlightItemsArrayComponent.buildItems(),
-            "ReturnFlightItems": FlightItemsArrayComponent.buildItems()
+            'OnwardFlightItems': FlightItemsArrayComponent.buildItems(),
+            'ReturnFlightItems': FlightItemsArrayComponent.buildItems()
 
         });
 
         this.HotelOptionsForm = this.fb.group({
-            "HotelItems": HotelItemsArrayComponent.buildItems()
+            'HotelItems': HotelItemsArrayComponent.buildItems()
         });
 
         this.PassportOptionsForm = new FormGroup({
@@ -120,13 +120,19 @@ export class RequestDialog implements OnInit{
             let flightData = this.flightService.getFlightsForRequest(this.data);
 
             forkJoin([requestData, flightData]).subscribe(results => {
+               
+                this.FlightOptionsForm.patchValue(results[0])
+                console.log("in here" + results[1]);
+                for (let item of results[1]) {
+                    (this.FlightOptionsForm.get('OnwardFlightItems') as FormArray).push(FlightItemsArrayComponent.buildItemsWithValue(item));
+                }
 
-                console.log(results[1]);
+                //for (let item of results[1][1]) {
+                //    (this.FlightOptionsForm.get('ReturnFlightItems') as FormArray).push(FlightItemsArrayComponent.buildItemsWithValue(item))
+                //}
                 
-                this.traveldata.requestData = new RequestData(<IRequestData>results[0]);
-                this.traveldata.flightData.OnwardFlightItems = new Array<FlightItem>(<IFlightItem>results[1]);
                 
-                this.initializeFormWithData(this.traveldata);
+                
 
 
             });
@@ -141,17 +147,7 @@ export class RequestDialog implements OnInit{
     }
 
 
-    initializeFormWithData(traveldata : TravelData)
-    {
-
-        this.TravelDataForm.patchValue(traveldata.requestData);
-        traveldata.flightData.OnwardFlightItems.forEach(item => {
-
-            ((this.FlightOptionsForm.get('OnwardFlightItems') as FormArray).controls[0]).patchValue(item);
-        }
-        );
     
-    }
 
     step = 0;
 
@@ -191,8 +187,15 @@ export class RequestDialog implements OnInit{
     createFlightOptions() {
         if (this.FlightOptionsForm.valid) {
             this.traveldata.flightData = new FlightOptions(<IFlightOptions>this.FlightOptionsForm.value);
-            this.traveldata.flightData.OnwardFlightItems.forEach(item => item.requestInfoId = this.traveldata.requestData.requestId);
-            this.traveldata.flightData.ReturnFlightItems.forEach(item => item.requestInfoId = this.traveldata.requestData.requestId)
+            this.traveldata.flightData.OnwardFlightItems.forEach(item => {
+                item.requestInfoId = this.traveldata.requestData.requestId;
+                item.flightDirection = "Onward";
+                }
+            );
+            this.traveldata.flightData.ReturnFlightItems.forEach(item => {
+                item.requestInfoId = this.traveldata.requestData.requestId;
+                item.flightDirection = "Return";
+            });
             this.flightService.addFlightInfo(this.traveldata.flightData).subscribe(
                 (val) => {
                     console.log("POST call success");

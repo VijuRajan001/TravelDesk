@@ -42,7 +42,10 @@ namespace TravelDesk.Mappings
                 .ForMember(dest => dest.FlightCost,
                             opt => opt.MapFrom(src => src.FlightCost))
                 .ForMember(dest => dest.RequestInfoId,
-                            opt => opt.MapFrom(src => src.RequestInfoId))                
+                            opt => opt.MapFrom(src => src.RequestInfoId))
+                .ForMember(dest => dest.FlightDirection,
+                            opt => opt.MapFrom(src => src.FlightDirection))
+
                 .ReverseMap();
         }
     }

@@ -27,6 +27,11 @@ export class FlightItemsArrayComponent {
         }
     }
 
+    static buildItemsWithValue(data: any) {
+
+        return FlightItemControlComponent.buildItemwithValue(data);
+    }
+
     static buildItems() {
       
         return new FormArray([FlightItemControlComponent.buildItem()]);
