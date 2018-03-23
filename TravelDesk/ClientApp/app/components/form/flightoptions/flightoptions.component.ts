@@ -16,38 +16,20 @@ export class FlightItemsArrayComponent {
 
     @Input()
     public itemsFormArray: FormArray;
-
-    flightItem: FlightItem = {
-        flightItemId: 0,
-        flightStart: '',
-        flightEnd: '',
-        flightName: '',
-        requestInfoId:0,
-    };
+    
 
     addItem(index: number) {
         if (index === this.itemsFormArray.length - 1) {
-            this.itemsFormArray.push(FlightItemControlComponent.buildItem(this.flightItem));
+            this.itemsFormArray.push(FlightItemControlComponent.buildItem());
         }
         else {
-            this.itemsFormArray.insert(index + 1, FlightItemControlComponent.buildItem(this.flightItem));
+            this.itemsFormArray.insert(index + 1, FlightItemControlComponent.buildItem());
         }
     }
 
-    static buildItems(flightItems: FlightItem[]) {
-        let formArray =  new  Array<AbstractControl>();
-        console.log("inside FlightItems");
-        if (flightItems.length > 0) {
-            for (let flightitem of flightItems) {
-
-                formArray.push(FlightItemControlComponent.buildItem(flightitem));
-            }
-        }
-        else {
-            formArray.push(FlightItemControlComponent.buildItem(new FlightItem()));
-        }
-    
-        return new FormArray(formArray);
+    static buildItems() {
+      
+        return new FormArray([FlightItemControlComponent.buildItem()]);
     }
 }
 

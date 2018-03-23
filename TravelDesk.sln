@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelDesk", "TravelDesk\Tr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessRepository", "DataAccessRepository\DataAccessRepository.csproj", "{6E45F337-D1D0-4E76-A569-7357F88BBDC5}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TravelDesk-NOUS", "TravelDesk-NOUS\TravelDesk-NOUS.sqlproj", "{D18A4287-A83A-4B36-99D3-8AE9D9DAE139}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,12 @@ Global
 		{6E45F337-D1D0-4E76-A569-7357F88BBDC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E45F337-D1D0-4E76-A569-7357F88BBDC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E45F337-D1D0-4E76-A569-7357F88BBDC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D18A4287-A83A-4B36-99D3-8AE9D9DAE139}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D18A4287-A83A-4B36-99D3-8AE9D9DAE139}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D18A4287-A83A-4B36-99D3-8AE9D9DAE139}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D18A4287-A83A-4B36-99D3-8AE9D9DAE139}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D18A4287-A83A-4B36-99D3-8AE9D9DAE139}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D18A4287-A83A-4B36-99D3-8AE9D9DAE139}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -25,7 +25,8 @@ import { ForexService } from '../../shared/services/forex.service';
 import { HotelItemsArrayComponent } from '../form/hotelOptions/hoteloptions.component';
 import { HotelItemControlComponent } from '../form/hotelItems/hotel-item-control.component';
 import { RequestData, IRequestData } from '../../shared/models/requestdata.interface';
-import { FlightItem } from '../../shared/models/flightitem.interface';
+import { FlightItem, IFlightItem } from '../../shared/models/flightitem.interface';
+import { AbstractControl } from '@angular/forms/src/model';
 
 @Component({
     selector: 'request-dialog',
@@ -77,26 +78,6 @@ export class RequestDialog implements OnInit{
 
     ngOnInit():void {
 
-        if (this.data > 0) {
-            let requestData = this.requestService.getRequestById(this.data);
-            let flightData = this.flightService.getFlightsForRequest(this.data);
-
-            forkJoin([requestData, flightData]).subscribe(results => {
-                
-                this.traveldata.requestData = new RequestData(<IRequestData>results[0]);
-                this.traveldata.flightData = new FlightOptions(<IFlightOptions>results[1]);
-
-                this.initializeFormWithData(this.traveldata);
-
-
-            });
-
-            
-
-        }
-
-
-
         this.TravelDataForm = new FormGroup({
 
             'project_code': new FormControl(null, [Validators.required, Validators.maxLength(50)]),
@@ -110,9 +91,9 @@ export class RequestDialog implements OnInit{
         });
 
         this.FlightOptionsForm = this.fb.group({
-
-            "OnwardFlightItems": FlightItemsArrayComponent.buildItems(new Array<FlightItem>()),
-            "ReturnFlightItems": FlightItemsArrayComponent.buildItems(new Array<FlightItem>())
+            
+            "OnwardFlightItems": FlightItemsArrayComponent.buildItems(),
+            "ReturnFlightItems": FlightItemsArrayComponent.buildItems()
 
         });
 
@@ -132,7 +113,30 @@ export class RequestDialog implements OnInit{
             'countryCode': new FormControl(null),
             'mobileNum': new FormControl(null)
         });
-        
+
+
+        if (this.data > 0) {
+            let requestData = this.requestService.getRequestById(this.data);
+            let flightData = this.flightService.getFlightsForRequest(this.data);
+
+            forkJoin([requestData, flightData]).subscribe(results => {
+
+                console.log(results[1]);
+                
+                this.traveldata.requestData = new RequestData(<IRequestData>results[0]);
+                this.traveldata.flightData.OnwardFlightItems = new Array<FlightItem>(<IFlightItem>results[1]);
+                
+                this.initializeFormWithData(this.traveldata);
+
+
+            });
+
+            
+
+        }
+
+
+
 
     }
 
@@ -141,12 +145,12 @@ export class RequestDialog implements OnInit{
     {
 
         this.TravelDataForm.patchValue(traveldata.requestData);
+        traveldata.flightData.OnwardFlightItems.forEach(item => {
 
-        console.log(traveldata.flightData.OnwardFlightItems);
-        console.log(traveldata.flightData.ReturnFlightItems);
-        this.FlightOptionsForm.setControl("OnwardFlightItems", FlightItemsArrayComponent.buildItems(traveldata.flightData.OnwardFlightItems))
-        this.FlightOptionsForm.setControl("ReturnFlightItems", FlightItemsArrayComponent.buildItems(traveldata.flightData.ReturnFlightItems))
-
+            ((this.FlightOptionsForm.get('OnwardFlightItems') as FormArray).controls[0]).patchValue(item);
+        }
+        );
+    
     }
 
     step = 0;
