@@ -8,6 +8,7 @@ namespace TravelDesk.Models
     public class FlightItem
     {
         public int Id { get; set; }
+        public string FlightItemId { get; set; }
         public string FlightName { get; set; }
         public string FlightTo { get; set; }
         public string FlightFrom { get; set; }

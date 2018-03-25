@@ -1,7 +1,8 @@
 export class FlightItem {
 
     constructor(flightItem: IFlightItem = {
-        flightItemId: 0,
+        id: 0,
+        flightItemId:"",
         flightName:"",
         flightFrom: "",
         flightTo: "",
@@ -9,14 +10,16 @@ export class FlightItem {
         flightDirection: ""
     })
     {
-     this.flightItemId = flightItem.flightItemId;
-     this.flightName = flightItem.flightName;
+        this.id = flightItem.id;
+        this.flightItemId = flightItem.flightItemId;
+        this.flightName = flightItem.flightName;
         this.flightFrom = flightItem.flightFrom;
         this.flightTo = flightItem.flightTo;
         this.requestInfoId = flightItem.requestInfoId;
         this.flightDirection = flightItem.flightDirection;
     }
-    public flightItemId: number;
+    public id:number
+    public flightItemId: string;
     public flightName: string;  
     public flightFrom: string;
     public flightTo: string;
@@ -25,7 +28,8 @@ export class FlightItem {
 }
 
 export interface IFlightItem {
-    flightItemId: number;
+    id: number;
+    flightItemId: string;
     flightName: string;
     flightFrom: string;
     flightTo: string;

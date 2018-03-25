@@ -1,5 +1,5 @@
  
 
     <flight-item-control *ngFor="let item of itemsFormArray.controls; let i=index"
-                         [index]="i" [item]="item" (removed)="itemsFormArray.removeAt($event)" (add)="addItem($event)">
+                         [index]="i" [item]="item" (removed)="removeItem($event)" (add)="addItem($event)">
     </flight-item-control>

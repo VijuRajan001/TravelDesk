@@ -1,8 +1,8 @@
 ﻿import { ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatExpansionModule,MatTableModule } from '@angular/material';
+import { MatDialog,MatAccordion ,MatDialogRef, MAT_DIALOG_DATA,MatExpansionModule,MatTableModule,MatDividerModule } from '@angular/material';
 import { Inject } from '@angular/core';
-import { TravelData } from '../../shared/models/traveldata.interface';
+import { TravelData, ITravelData } from '../../shared/models/traveldata.interface';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormArray, FormBuilder, } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { RequestService } from '../../shared/services/request.service'
@@ -12,7 +12,7 @@ import { FlightItemControlComponent } from '../form/flightItems/flight-item-cont
 import { forkJoin } from "rxjs/observable/forkJoin";
 import { FlightOptions, IFlightOptions } from '../../shared/models/flightoptions.interface';
 import { FlightService } from '../../shared/services/flight.service';
-
+import { MatTabChangeEvent } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
 import { HotelOptions } from '../../shared/models/hoteloptions.interface';
@@ -27,19 +27,20 @@ import { HotelItemControlComponent } from '../form/hotelItems/hotel-item-control
 import { RequestData, IRequestData } from '../../shared/models/requestdata.interface';
 import { FlightItem, IFlightItem } from '../../shared/models/flightitem.interface';
 import { AbstractControl } from '@angular/forms/src/model';
+import { Request } from '@angular/http/src/static_request';
+import { ViewChild } from '@angular/core/src/metadata/di';
 
 @Component({
     selector: 'request-dialog',
     templateUrl: './request-dialog.component.html',
-    styleUrls : ['./request-dialog.component.css'],
+    styleUrls: ['./request-dialog.component.css'],
+    
 })
 
 
 export class RequestDialog implements OnInit{
-
-
-    traveldata = new TravelData();    
-    flightdata: FlightOptions;
+    
+    traveldata: TravelData=new TravelData();    
     hoteldata: HotelOptions;
     passportdata: Passport;
     forexdata: Forex;
@@ -69,8 +70,19 @@ export class RequestDialog implements OnInit{
 
 
     }
+
+    resetExpansionPanel(event: MatTabChangeEvent) {
         
-      
+        this.prevStep();
+        
+    }
+    getOnwardFormArray() {
+        return (this.FlightOptionsForm.get('onwardFlightItems') as FormArray);
+    }
+
+    getReturnFormArray() {
+        return (this.FlightOptionsForm.get('returnFlightItems') as FormArray);
+    }
 
     onNoClick(): void {
         this.dialogRef.close();
@@ -82,18 +94,19 @@ export class RequestDialog implements OnInit{
 
             'project_code': new FormControl(null, [Validators.required, Validators.maxLength(50)]),
             'country': new FormControl(null, [Validators.required]),
+            'travelDob': new FormControl(null, [Validators.required]),
             'travelDate': new FormControl(null, [Validators.required, this.isOnward]),
             'returnDate': new FormControl(null, [Validators.required]),
             'employeeId': new FormControl(null, [Validators.required, Validators.maxLength(50)]),
             'employeeName': new FormControl(null, [Validators.required]),
-            'approverName': new FormControl(null, [Validators.required])
+            
 
         });
 
         this.FlightOptionsForm = this.fb.group({
             
-            'OnwardFlightItems': FlightItemsArrayComponent.buildItems(),
-            'ReturnFlightItems': FlightItemsArrayComponent.buildItems()
+            'onwardFlightItems': FlightItemsArrayComponent.buildItems(),
+            'returnFlightItems': FlightItemsArrayComponent.buildItems()
 
         });
 
@@ -120,36 +133,44 @@ export class RequestDialog implements OnInit{
             let flightData = this.flightService.getFlightsForRequest(this.data);
 
             forkJoin([requestData, flightData]).subscribe(results => {
+                
+                this.TravelDataForm.patchValue(new RequestData(<IRequestData>results[0]));
+                let flightOptions = new FlightOptions(<IFlightOptions>results[1]);
+                console.log(flightOptions);
+                let i = 0;
+                flightOptions.OnwardFlightItems.forEach(item => {
+                    if (i == 0) {
+                        this.getOnwardFormArray().setControl(i, FlightItemsArrayComponent.buildItemsWithValue(item));
+                    } else {
+                        this.getOnwardFormArray().insert(i, FlightItemsArrayComponent.buildItemsWithValue(item));
+                    }
+                    i = i + 1;
+                });
+                i = 0;
+                flightOptions.ReturnFlightItems.forEach(item => {
+                    if (i == 0) {
+                        this.getReturnFormArray().setControl(i, FlightItemsArrayComponent.buildItemsWithValue(item));
+                    } else {
+                        this.getReturnFormArray().insert(i, FlightItemsArrayComponent.buildItemsWithValue(item));
+                    }
+                    i = i + 1;
+                });
+
+                this.traveldata.requestData = new RequestData(<IRequestData>this.TravelDataForm.value);
+                this.traveldata.flightData = new FlightOptions(<IFlightOptions>this.FlightOptionsForm.value);
+
                
-                this.FlightOptionsForm.patchValue(results[0])
-                console.log("in here" + results[1]);
-                for (let item of results[1]) {
-                    (this.FlightOptionsForm.get('OnwardFlightItems') as FormArray).push(FlightItemsArrayComponent.buildItemsWithValue(item));
-                }
-
-                //for (let item of results[1][1]) {
-                //    (this.FlightOptionsForm.get('ReturnFlightItems') as FormArray).push(FlightItemsArrayComponent.buildItemsWithValue(item))
-                //}
-                
-                
-                
-
-
             });
 
             
-
         }
-
-
-
-
+        
     }
 
 
     
 
-    step = 0;
+    step = 1;
 
     setStep(index: number) {
         this.step = index;
@@ -171,7 +192,6 @@ export class RequestDialog implements OnInit{
             case SubmitActions.createRequest: this.createNewRequest(); break;
             case SubmitActions.updateRequest: this.updateRequest(); break;
             case SubmitActions.createFlightOptions: this.createFlightOptions(); break;
-            case SubmitActions.updateFlightOptions: this.updateFlightOptions(); break;
             case SubmitActions.createHotelOptions: this.createHotelOptions(); break;
             case SubmitActions.updateHotelOptions: this.updateHotelOptions(); break;
             case SubmitActions.createPassportOptions: this.createPassportOptions(); break;
@@ -185,18 +205,57 @@ export class RequestDialog implements OnInit{
     }
 
     createFlightOptions() {
+        let saveFlightdata: FlightOptions;
+        let addFlightdata: FlightOptions = new FlightOptions();
+        let updateFlightdata: FlightOptions = new FlightOptions();
+
+
         if (this.FlightOptionsForm.valid) {
-            this.traveldata.flightData = new FlightOptions(<IFlightOptions>this.FlightOptionsForm.value);
-            this.traveldata.flightData.OnwardFlightItems.forEach(item => {
-                item.requestInfoId = this.traveldata.requestData.requestId;
+
+
+            saveFlightdata = new FlightOptions(<IFlightOptions>this.FlightOptionsForm.value);
+            this.deleteFlightOptions(saveFlightdata);
+            saveFlightdata.OnwardFlightItems.forEach(item => {
+                item.requestInfoId = this.data;
                 item.flightDirection = "Onward";
+                if (item.id === null) {
+                    item.id = 0;
+                    addFlightdata.OnwardFlightItems.push(item);
+
                 }
-            );
-            this.traveldata.flightData.ReturnFlightItems.forEach(item => {
-                item.requestInfoId = this.traveldata.requestData.requestId;
-                item.flightDirection = "Return";
+                else {
+
+                    updateFlightdata.OnwardFlightItems.push(item);
+                }
+
             });
-            this.flightService.addFlightInfo(this.traveldata.flightData).subscribe(
+
+            saveFlightdata.ReturnFlightItems.forEach(item => {
+                item.requestInfoId = this.data;
+                item.flightDirection = "Return";
+                if (item.id === null) {
+                    item.id = 0;
+                    addFlightdata.ReturnFlightItems.push(item);
+                }
+                else {
+
+                    updateFlightdata.ReturnFlightItems.push(item);
+                }
+            });
+
+
+            this.flightService.addFlightInfo(addFlightdata).subscribe(
+                (val) => {
+                    console.log("POST call success");
+                },
+                response => {
+                    console.log("POST call in error", response);
+                },
+                () => {
+                    console.log("The POST observable is now completed.");
+                });
+
+            this.flightService.updateFlightInfo(updateFlightdata).subscribe(
                 (val) => {
                     console.log("POST call success");
                 },
@@ -211,12 +270,39 @@ export class RequestDialog implements OnInit{
         
     }
 
-    updateFlightOptions() {
-        console.log('inside Update Flight');
+    deleteFlightOptions(finalFlightOPtions:FlightOptions) {
+        let initialFlightOPtions: FlightOptions = this.traveldata.flightData;
+        let deletedItemsId:number[] = [];
+
+        if (initialFlightOPtions.OnwardFlightItems.length > finalFlightOPtions.OnwardFlightItems.length
+            || initialFlightOPtions.ReturnFlightItems.length > finalFlightOPtions.ReturnFlightItems.length) {
+
+            initialFlightOPtions.OnwardFlightItems.forEach(item => {
+                let index = finalFlightOPtions.OnwardFlightItems.findIndex((flightItem: FlightItem) => { return item.id == flightItem.id })
+
+                if (index === -1) {
+                    deletedItemsId.push(item.id);
+                }
+            });
+            
+        }
+
+        if (deletedItemsId.length > 0) {
+            this.flightService.deleteflights(deletedItemsId).subscribe(
+                (val) => {
+                    console.log("POST call success");
+                },
+                response => {
+                    console.log("POST call in error", response);
+                },
+                () => {
+                    console.log("The POST observable is now completed.");
+                });
+        }
+
+
 
     }
-
-
     createHotelOptions() {
         if (this.HotelOptionsForm.valid) {
             this.hoteldata = <HotelOptions>this.HotelOptionsForm.value;
@@ -287,15 +373,18 @@ export class RequestDialog implements OnInit{
     }
 
     updateRequest() {
+        let requestdata: RequestData;
         if (this.TravelDataForm.valid) {
-            this.traveldata.requestData.requestId = this.data;
-            this.traveldata.requestData.project_code = this.TravelDataForm.controls['project_Code'].value;
-            this.traveldata.requestData.country = this.TravelDataForm.controls['country'].value;
-            this.traveldata.requestData.travelDate = this.TravelDataForm.controls['travelDate'].value;
-            this.traveldata.requestData.returnDate = this.TravelDataForm.controls['returnDate'].value;
-            this.traveldata.requestData.employeeId = this.TravelDataForm.controls['employeeId'].value;
-            this.traveldata.requestData.employeeName = this.TravelDataForm.controls['employeeName'].value;
-            this.requestService.updateRequest(this.traveldata).subscribe(
+
+            requestdata = new RequestData();
+            requestdata.requestId = this.data;
+            requestdata.project_code = this.TravelDataForm.controls['project_Code'].value;
+            requestdata.country = this.TravelDataForm.controls['country'].value;
+            requestdata.travelDate = this.TravelDataForm.controls['travelDate'].value;
+            requestdata.returnDate = this.TravelDataForm.controls['returnDate'].value;
+            requestdata.employeeId = this.TravelDataForm.controls['employeeId'].value;
+            requestdata.employeeName = this.TravelDataForm.controls['employeeName'].value;
+            this.requestService.updateRequest(requestdata).subscribe(
                 (val) => {
                     console.log("POST call success");
                 },
@@ -311,16 +400,17 @@ export class RequestDialog implements OnInit{
         
     }
     createNewRequest() {
-
+        let requestdata: RequestData;
         if (this.TravelDataForm.valid) {
-            this.traveldata.requestData.project_code = this.TravelDataForm.controls['project_Code'].value;
-            this.traveldata.requestData.country = this.TravelDataForm.controls['country'].value;
-            this.traveldata.requestData.travelDate = this.TravelDataForm.controls['travelDate'].value;
-            this.traveldata.requestData.returnDate = this.TravelDataForm.controls['returnDate'].value;
-            this.traveldata.requestData.employeeId = this.TravelDataForm.controls['employeeId'].value;
-            this.traveldata.requestData.employeeName = this.TravelDataForm.controls['employeeName'].value;
-            console.log("here" + this.traveldata);
-            this.requestService.addRequest(this.traveldata).subscribe(
+            requestdata = new RequestData();
+            requestdata.project_code = this.TravelDataForm.controls['project_code'].value;
+            requestdata.country = this.TravelDataForm.controls['country'].value;
+            requestdata.travelDate = this.TravelDataForm.controls['travelDate'].value;
+            requestdata.returnDate = this.TravelDataForm.controls['returnDate'].value;
+            requestdata.employeeId = this.TravelDataForm.controls['employeeId'].value;
+            requestdata.employeeName = this.TravelDataForm.controls['employeeName'].value;
+            
+            this.requestService.addRequest(requestdata).subscribe(
                 (val) => {
                     console.log("POST call success");
                 },
@@ -348,7 +438,6 @@ enum SubmitActions {
     createRequest,
     updateRequest,
     createFlightOptions,
-    updateFlightOptions,
     createHotelOptions,
     updateHotelOptions,
     createPassportOptions,

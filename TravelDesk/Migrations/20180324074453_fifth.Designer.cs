@@ -12,9 +12,10 @@ using System;
 namespace TravelDesk.Migrations
 {
     [DbContext(typeof(TravDeskDbcontext))]
-    partial class TravDeskDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20180324074453_fifth")]
+    partial class fifth
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

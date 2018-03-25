@@ -3,23 +3,24 @@ export class RequestData {
 
     constructor(request: IRequestData = {
         requestId: 0,
-        project_code: "",
+        project_Code: "",
         country: "",
         travelDate: "",
         returnDate: "",
         employeeName: "",
-        employeeId:""
+        employeeId: "",
+        travelDob:""
     }) {
 
         this.requestId = request.requestId;
-        this.project_code = request.project_code;
+        this.project_code = request.project_Code;
         this.requestId = request.requestId;
         this.country = request.country;
         this.travelDate = request.travelDate;
         this.returnDate = request.returnDate;
         this.employeeName = request.employeeName;
         this.employeeId = request.employeeId;
-
+        this.travelDob = request.travelDob;
 
     }
     public requestId: number;
@@ -29,15 +30,17 @@ export class RequestData {
     public returnDate: string;
     public employeeName: string;
     public employeeId: string;
+    public travelDob: string;
 }
 
 
 export interface IRequestData {
     requestId: number;
-    project_code: string;
+    project_Code: string;
     country: string;
     travelDate: string;
     returnDate: string;
     employeeName: string;
     employeeId: string;
+    travelDob: string;
 }

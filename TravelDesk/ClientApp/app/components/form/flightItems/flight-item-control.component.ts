@@ -29,8 +29,9 @@ export class FlightItemControlComponent {
     static buildItemwithValue(data:any) {
 
         return new FormGroup({
+            'id':new FormControl(data.id),
             'flightName': new FormControl(data.flightName, [Validators.required]),
-            'flightItemID': new FormControl(data.flightItemID, Validators.required),
+            'flightItemId': new FormControl(data.flightItemId, Validators.required),
             'flightFrom': new FormControl(data.flightFrom, Validators.required),
             'flightTo': new FormControl(data.flightTo, Validators.required)
 
@@ -39,8 +40,9 @@ export class FlightItemControlComponent {
 
     static buildItem() {
         return new FormGroup({
+            'id': new FormControl(),
             'flightName': new FormControl('', [Validators.required]),
-            'flightItemID': new FormControl('', Validators.required),
+            'flightItemId': new FormControl('', Validators.required),
             'flightFrom': new FormControl('', Validators.required),
             'flightTo': new FormControl('', Validators.required)
 

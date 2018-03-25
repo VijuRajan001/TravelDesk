@@ -33,6 +33,8 @@ namespace TravelDesk.Mappings
             CreateMap<FlightInfo, FlightItem>()
                 .ForMember(dest => dest.Id,
                             opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.FlightItemId,
+                            opt => opt.MapFrom(src => src.FlightItemId))
                 .ForMember(dest => dest.FlightFrom,
                             opt => opt.MapFrom(src => src.FlightFrom))
                 .ForMember(dest => dest.FlightName,

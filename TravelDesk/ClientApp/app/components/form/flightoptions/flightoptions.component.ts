@@ -16,8 +16,14 @@ export class FlightItemsArrayComponent {
 
     @Input()
     public itemsFormArray: FormArray;
-    
 
+    @Output()
+    public removedId: any[] = [];
+    
+    removeItem(index: number) {
+
+        this.itemsFormArray.removeAt(index);
+    }
     addItem(index: number) {
         if (index === this.itemsFormArray.length - 1) {
             this.itemsFormArray.push(FlightItemControlComponent.buildItem());

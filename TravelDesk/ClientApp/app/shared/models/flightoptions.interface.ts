@@ -4,13 +4,13 @@ export class FlightOptions {
 
     constructor(flightOPtions: IFlightOptions = {
 
-        OnwardFlightItems: new Array<FlightItem>(),
-        ReturnFlightItems: new Array<FlightItem>()
+        onwardFlightItems: new Array<FlightItem>(),
+        returnFlightItems: new Array<FlightItem>()
 
     }) {
 
-        this.OnwardFlightItems = flightOPtions.OnwardFlightItems;
-        this.ReturnFlightItems = flightOPtions.ReturnFlightItems;
+        this.OnwardFlightItems = flightOPtions.onwardFlightItems;
+        this.ReturnFlightItems = flightOPtions.returnFlightItems;
 
     }
     public OnwardFlightItems: FlightItem[];
@@ -19,6 +19,6 @@ export class FlightOptions {
 
 
 export interface IFlightOptions {
-    OnwardFlightItems: FlightItem[], 
-    ReturnFlightItems: FlightItem[]
+    onwardFlightItems: FlightItem[], 
+    returnFlightItems: FlightItem[]
 }

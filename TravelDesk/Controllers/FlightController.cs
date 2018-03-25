@@ -50,20 +50,42 @@ namespace TravelDesk.Controllers
 
         }
 
+        [HttpPost("DeleteFlights")]
+        public void DeleteFlights([FromBody]List<int> deletedIDs)
+        {
+           foreach(var id in deletedIDs)
+            {
+                _unitofWork.FlightRepository.Remove(_unitofWork.FlightRepository.Get(id));
+                _unitofWork.Complete();
 
-        //[HttpPost("UpdateFlights")]
-        //public void UpdateFlights([FromBody]TravelDataViewModel travelData)
-        //{
-        //    RequestInfo newRequest = _unitofWork.RequestRepository.Get(travelData.RequestId);
-        //    newRequest.ProjectId = travelData.Project_Code;
-        //    newRequest.TravelCountry = travelData.Country;
-        //    newRequest.TravelStart = travelData.TravelDate;
-        //    newRequest.TravelReturn = travelData.ReturnDate;
+            }
+        }
 
-        //    int i = _unitofWork.Complete();
+        [HttpPost("UpdateFlights")]
+        public void UpdateFlights([FromBody]FlightOptionsViewModel flightData)
+        {
+            List<FlightItem> flightItems = new List<FlightItem>();
+            flightItems.AddRange(flightData.OnwardFlightItems);
+            flightItems.AddRange(flightData.ReturnFlightItems);
+            
+            List<FlightInfo> flightDataList = (_unitofWork.FlightRepository.GetFlightsForRequest(flightItems.First().RequestInfoId));
+            
+            foreach(var item in flightItems)
+            {
+                var refItem = flightDataList.FirstOrDefault(i => i.Id == item.Id);
+                if(refItem!=null)
+                {
+                    refItem.FlightFrom = item.FlightFrom;
+                    refItem.FlightTo = item.FlightTo;
+                    refItem.FlightName = item.FlightName;
+                    refItem.FlightItemId = item.FlightItemId;
+    
+                }
+            }
 
+            _unitofWork.Complete();
 
-        //}
+        }
 
     }
 }
