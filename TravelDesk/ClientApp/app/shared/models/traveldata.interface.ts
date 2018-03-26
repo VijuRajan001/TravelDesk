@@ -2,6 +2,7 @@ import { RequestData } from './requestdata.interface';
 import { FlightOptions} from './flightoptions.interface';
 import { HotelOptions } from './hoteloptions.interface';
 import { Passport } from './passport.interface';
+import { ForexCard } from './forex.interface';
 
 export class TravelData {
 
@@ -10,19 +11,22 @@ export class TravelData {
         requestData: new RequestData(),
         flightData: new FlightOptions(),
         hotelData: new HotelOptions(),
-        passportData:new Passport(),
+        passportData: new Passport(),
+        forexCardData: new ForexCard(),
     }) {
 
         this.requestData = travelData.requestData;
         this.flightData = travelData.flightData;
         this.hotelData = travelData.hotelData;
         this.passportData = travelData.passportData;
+        this.forexCardData = travelData.forexCardData
 
     }
     public requestData: RequestData;
     public flightData: FlightOptions;
     public hotelData: HotelOptions;
     public passportData: Passport;
+    public forexCardData: ForexCard
 }
 
 export interface ITravelData {
@@ -30,5 +34,6 @@ export interface ITravelData {
     flightData: FlightOptions;
     hotelData: HotelOptions;
     passportData: Passport;
+    forexCardData:ForexCard
 
 }

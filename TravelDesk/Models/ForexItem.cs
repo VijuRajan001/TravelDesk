@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace DataAccessRepository.Entities
+namespace TravelDesk.Models
 {
-    public class ForexInfo
+    public class ForexItem
     {
         public int Id { get; set; }
         public string CardNumber { get; set; }
         public string CardType { get; set; }
         public DateTime? CardExpiryDate { get; set; }
         public int RequestInfoId { get; set; }
-        public RequestInfo RequestInfo { get; set; }
     }
 }

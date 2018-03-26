@@ -7,10 +7,10 @@ using System.Linq;
 
 namespace DataAccessRepository.Implementation
 {
-    public class PassportRepository : Repository<PassportInfo>, IPassportRepository
+    public class ForexRepository : Repository<ForexInfo>, IForexRepository
     {
         
-        public PassportRepository(TravDeskDbcontext context) : base(context)
+        public ForexRepository(TravDeskDbcontext context) : base(context)
         {
             
 
@@ -22,15 +22,15 @@ namespace DataAccessRepository.Implementation
             get { return Context as TravDeskDbcontext; }
         }
 
-       
+    
 
-        public PassportInfo GetPassportDetails(int requestId)
+        public ForexInfo GetForexDetails(int requestId)
         {
              
              
-            return TravDeskDbcontext.PassportInfo
+            return TravDeskDbcontext.ForexInfo
                 .Where(f => f.RequestInfoId == requestId)
-                .DefaultIfEmpty(new PassportInfo())
+                .DefaultIfEmpty(new ForexInfo())
                 .Single(); 
         }
     }

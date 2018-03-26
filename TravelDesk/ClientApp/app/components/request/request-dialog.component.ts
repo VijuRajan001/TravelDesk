@@ -19,7 +19,7 @@ import { HotelOptions, IHotelOptions } from '../../shared/models/hoteloptions.in
 import { HotelService } from '../../shared/services/hotel.service';
 import { Passport, IPassport } from '../../shared/models/passport.interface';
 import { PassportService } from '../../shared/services/passport.service';
-import { Forex } from '../../shared/models/forex.interface';
+import { ForexCard, IForexCard } from '../../shared/models/forex.interface';
 import { ForexService } from '../../shared/services/forex.service';
 
 import { HotelItemsArrayComponent } from '../form/hotelOptions/hoteloptions.component';
@@ -42,9 +42,7 @@ import { IHotelItem, HotelItem } from '../../shared/models/hotelitem.interface';
 export class RequestDialog implements OnInit{
     
     traveldata: TravelData=new TravelData();    
-    hoteldata: HotelOptions = new HotelOptions();
-    passportdata: Passport = new Passport();
-    forexdata: Forex = new Forex();
+    
 
     submitActions: number;
     action: typeof SubmitActions = SubmitActions;
@@ -77,6 +75,8 @@ export class RequestDialog implements OnInit{
         this.prevStep();
         
     }
+
+
     getHotelFormArray() {
         return (this.HotelOptionsForm.get('hotelItems') as FormArray);
     }
@@ -126,21 +126,27 @@ export class RequestDialog implements OnInit{
         });
 
         this.ForexForm = new FormGroup({
-            'cardNum': new FormControl(null),
+            'cardNumber': new FormControl(null),
             'cardType': new FormControl(null),
-            'cardExpiry': new FormControl(null)
+            'cardExpiryDate': new FormControl(null)
         });
+
+
 
 
         if (this.data > 0) {
             let requestData = this.requestService.getRequestById(this.data);
             let flightData = this.flightService.getFlightsForRequest(this.data);
             let hotelData = this.hotelService.getHotelsForRequest(this.data);
-            let passportData = this.passportService.getPassportDetails(this.data)
-            forkJoin([requestData, flightData, hotelData, passportData]).subscribe(results => {
+            let passportData = this.passportService.getPassportDetails(this.data);
+            let forexData = this.forexService.getForexDetails(this.data);
+
+
+            forkJoin([requestData, flightData, hotelData, passportData, forexData], ).subscribe(results => {
                 
                 this.TravelDataForm.patchValue(new RequestData(<IRequestData>results[0]));
                 this.PassportForm.patchValue(new Passport(<IPassport>results[3]));
+                this.ForexForm.patchValue(new ForexCard(<IForexCard>results[4]))
                 let flightOptions = new FlightOptions(<IFlightOptions>results[1]);
                 let hotelOptions = new HotelOptions(<IHotelOptions>results[2]);
 
@@ -180,6 +186,7 @@ export class RequestDialog implements OnInit{
                 this.traveldata.flightData = new FlightOptions(<IFlightOptions>this.FlightOptionsForm.value);
                 this.traveldata.hotelData = new HotelOptions(<IHotelOptions>this.HotelOptionsForm.value);
                 this.traveldata.passportData = new Passport(<IPassport>this.PassportForm.value);
+                this.traveldata.forexCardData = new ForexCard(<IForexCard>this.ForexForm.value);
             });
 
             
@@ -215,8 +222,8 @@ export class RequestDialog implements OnInit{
             case SubmitActions.createHotelOptions: this.createHotelOptions(); break;
             case SubmitActions.updateHotelOptions: this.updateHotelOptions(); break;
             case SubmitActions.createPassport: this.createPassport(); break;
-            case SubmitActions.createForex: this.createForexOptions(); break;
-            case SubmitActions.updateForex: this.updateForexOptions(); break;
+            case SubmitActions.createForex: this.createForex(); break;
+            
            
         }
         
@@ -418,8 +425,9 @@ export class RequestDialog implements OnInit{
         if (this.PassportForm.valid) {
             let passportdata:Passport = new Passport(<IPassport>this.PassportForm.value);
 
-            if (passportdata.id == 0) {
+            if (passportdata.id == 0 || passportdata.id==null) {
 
+                passportdata.requestInfoId = this.data;
                 this.passportService.addPassportInfo(passportdata).subscribe(
                     (val) => {
                         console.log("POST call success");
@@ -452,29 +460,44 @@ export class RequestDialog implements OnInit{
     }
     
 
-    createForexOptions() {
+    createForex() {
         if (this.ForexForm.valid) {
-            this.forexdata = <Forex>this.ForexForm.value;
-            this.forexService.addForexInfo(this.forexdata).subscribe(
-                (val) => {
-                    console.log("POST call success");
-                },
-                response => {
-                    console.log("POST call in error", response);
-                },
-                () => {
-                    console.log("The POST observable is now completed.");
-                });
+            let forexdata = new ForexCard(<IForexCard>this.ForexForm.value);
+           
+            if (forexdata.id == 0 || forexdata.id == null) {
+
+                forexdata.requestInfoId = this.data;
+                this.forexService.addForexInfo(forexdata).subscribe(
+                    (val) => {
+                        console.log("POST call success");
+                    },
+                    response => {
+                        console.log("POST call in error", response);
+                    },
+                    () => {
+                        console.log("The POST observable is now completed.");
+                    });
+
+            }
+            else {
+                this.forexService.updateForexInfo(forexdata).subscribe(
+                    (val) => {
+                        console.log("POST call success");
+                    },
+                    response => {
+                        console.log("POST call in error", response);
+                    },
+                    () => {
+                        console.log("The POST observable is now completed.");
+                    });
+
+            }
         }
 
 
     }
 
-    updateForexOptions() {
-        console.log('inside Update Forex');
-
-    }
-
+   
     updateRequest() {
         let requestdata: RequestData;
         if (this.TravelDataForm.valid) {

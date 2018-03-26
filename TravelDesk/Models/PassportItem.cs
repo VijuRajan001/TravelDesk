@@ -9,9 +9,9 @@ namespace TravelDesk.Models
     {
         public int Id { get; set; }
         public string PassportNum { get; set; }
-        public DateTime PassportExpiryDate { get; set; }
+        public DateTime? PassportExpiryDate { get; set; }
         public string VisaNum { get; set; }
-        public DateTime VisaExpiryDate { get; set; }
+        public DateTime? VisaExpiryDate { get; set; }
         public int RequestInfoId { get; set; }
 
     }

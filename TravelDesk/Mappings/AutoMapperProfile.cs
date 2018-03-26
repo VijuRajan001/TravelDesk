@@ -82,6 +82,19 @@ namespace TravelDesk.Mappings
                 .ForMember(dest => dest.RequestInfoId,
                             opt => opt.MapFrom(src => src.RequestInfoId))
                 .ReverseMap();
+
+            CreateMap<ForexInfo, ForexItem>()
+                .ForMember(dest => dest.Id,
+                            opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.CardNumber,
+                            opt => opt.MapFrom(src => src.CardNumber))
+                .ForMember(dest => dest.CardType,
+                            opt => opt.MapFrom(src => src.CardType))
+                .ForMember(dest => dest.CardExpiryDate,
+                            opt => opt.MapFrom(src => src.CardExpiryDate))
+                .ForMember(dest => dest.RequestInfoId,
+                            opt => opt.MapFrom(src => src.RequestInfoId))
+                .ReverseMap();
         }
     }
 }

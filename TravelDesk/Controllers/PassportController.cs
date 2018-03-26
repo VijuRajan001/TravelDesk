@@ -37,22 +37,13 @@ namespace TravelDesk.Controllers
 
         }
 
-        [HttpGet("GetRequestList")]
-        public List<RequestItem> GetRequestList()
-        {
-
-            List<RequestItem> requestDataList = _mapper.Map<List<RequestInfo>, List<RequestItem>>(_unitofWork.RequestRepository.GetAll().ToList());
-            return requestDataList;
-
-
-
-        }
+       
         
         [HttpGet("GetPassportDetails")]
-        public PassportItem getPassportDetails(int requestId)
+        public PassportItem getPassportDetails(int id)
         {
             PassportItem passportData = new PassportItem();
-            passportData = _mapper.Map<PassportInfo, PassportItem>(_unitofWork.PassportRepository.GetPassportDetails(requestId));
+            passportData = _mapper.Map<PassportInfo, PassportItem>(_unitofWork.PassportRepository.GetPassportDetails(id));
             return passportData;
         }
 
