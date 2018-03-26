@@ -41,7 +41,7 @@ import { ViewChild } from '@angular/core/src/metadata/di';
 export class RequestDialog implements OnInit{
     
     traveldata: TravelData=new TravelData();    
-    hoteldata: HotelOptions;
+    hoteldata: HotelOptions = new HotelOptions();
     passportdata: Passport;
     forexdata: Forex;
 
