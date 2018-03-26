@@ -27,7 +27,7 @@ namespace DataAccessRepository.Implementation
         public PassportInfo GetPassportDetails(int requestId)
         {
             PassportInfo info = new PassportInfo();
-            info= TravDeskDbcontext.PassportInfo.Include(f => f.RequestInfoId == requestId).FirstOrDefault();
+            info= TravDeskDbcontext.PassportInfo.SingleOrDefault(f => f.RequestInfoId == requestId);
             return info;
         }
     }
