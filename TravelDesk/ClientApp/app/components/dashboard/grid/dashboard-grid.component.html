@@ -25,28 +25,47 @@
         <!-- Name Column -->
         <ng-container matColumnDef="country">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Country </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.country}} 
-               
-            
-            </mat-cell>
+            <mat-cell *matCellDef="let row">{{row.country}} </mat-cell>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>  </mat-header-cell>
+            <mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">
+                <button mat-icon-button (click)="openDialog(row.requestId)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+
+            </mat-cell>
+
+        </ng-container>
+
+        <ng-container matColumnDef="approve">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
             <mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">
                 <button mat-icon-button (click)="openDialog(row.requestId)">
                     <mat-icon>edit</mat-icon>
                 </button>
-                
+
             </mat-cell>
+
         </ng-container>
 
+        <ng-container matColumnDef="disapprove">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>  </mat-header-cell>
+            <mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">
+                <button mat-icon-button (click)="openDialog(row.requestId)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+
+            </mat-cell>
+
+        </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;">
-        </mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>  
     </mat-table>
-
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>
