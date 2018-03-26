@@ -9,6 +9,7 @@ using AutoMapper;
 using DataAccessRepository.Core;
 using DataAccessRepository.Entities;
 using Microsoft.AspNetCore.Mvc;
+using TravelDesk.Models;
 using TravelDesk.ViewModels;
 
 namespace TravelDesk.Controllers
@@ -25,11 +26,11 @@ namespace TravelDesk.Controllers
         }
 
         [HttpPost("AddRequest")]
-        public void AddRequest([FromBody]TravelDataViewModel travelData)
+        public void AddRequest([FromBody]RequestItem requestData)
         {
 
             RequestInfo newRequest = new RequestInfo();
-            newRequest=_mapper.Map<TravelDataViewModel, RequestInfo>(travelData);
+            newRequest=_mapper.Map<RequestItem, RequestInfo>(requestData);
             
             _unitofWork.RequestRepository.Add(newRequest);
             int i = _unitofWork.Complete();
@@ -37,31 +38,31 @@ namespace TravelDesk.Controllers
         }
 
         [HttpGet("GetRequestList")]
-        public List<TravelDataViewModel> GetRequestList()
+        public List<RequestItem> GetRequestList()
         {
 
-            List<TravelDataViewModel> travelDataList = _mapper.Map<List<RequestInfo>, List<TravelDataViewModel>>(_unitofWork.RequestRepository.GetAll().ToList());
-            return travelDataList;
+            List<RequestItem> requestDataList = _mapper.Map<List<RequestInfo>, List<RequestItem>>(_unitofWork.RequestRepository.GetAll().ToList());
+            return requestDataList;
 
 
 
         }
 
         [HttpGet("GetRequestById")]
-        public TravelDataViewModel GetRequestById(int Id)
+        public RequestItem GetRequestById(int Id)
         {
-            TravelDataViewModel travelData = _mapper.Map<RequestInfo, TravelDataViewModel>(_unitofWork.RequestRepository.Get(Id));
-            return travelData;
+            RequestItem requestData = _mapper.Map<RequestInfo, RequestItem>(_unitofWork.RequestRepository.Get(Id));
+            return requestData;
         }
 
         [HttpPost("UpdateRequest")]
-        public void UpdateRequest([FromBody]TravelDataViewModel travelData)
+        public void UpdateRequest([FromBody]RequestItem requestData)
         {
-            RequestInfo newRequest = _unitofWork.RequestRepository.Get(travelData.RequestId);
-            newRequest.ProjectId = travelData.Project_Code;
-            newRequest.TravelCountry = travelData.Country;
-            newRequest.TravelStart = travelData.TravelDate;
-            newRequest.TravelReturn = travelData.ReturnDate;
+            RequestInfo newRequest = _unitofWork.RequestRepository.Get(requestData.RequestId);
+            newRequest.ProjectId = requestData.Project_Code;
+            newRequest.TravelCountry = requestData.Country;
+            newRequest.TravelStart = requestData.TravelDate;
+            newRequest.TravelReturn = requestData.ReturnDate;
             
             int i = _unitofWork.Complete();
             

@@ -9,6 +9,7 @@ using AutoMapper;
 using DataAccessRepository.Core;
 using DataAccessRepository.Entities;
 using Microsoft.AspNetCore.Mvc;
+using TravelDesk.Models;
 using TravelDesk.ViewModels;
 
 namespace TravelDesk.Controllers
@@ -25,37 +26,65 @@ namespace TravelDesk.Controllers
         }
 
         [HttpPost("AddFlights")]
-        public void AddFlights([FromBody]FlightOptionsViewModel travelData)
+        public void AddFlights([FromBody]FlightOptionsViewModel flightData)
         {
+            List<FlightInfo> _onwardflightItems = _mapper.Map<List<FlightItem>, List<FlightInfo>>(flightData.OnwardFlightItems);
+            List<FlightInfo> _returnflightItems = _mapper.Map<List<FlightItem>, List<FlightInfo>>(flightData.ReturnFlightItems);
+            _unitofWork.FlightRepository.AddOnwardFlightOptions(_onwardflightItems);
+            _unitofWork.FlightRepository.AddReturnFlightOptions(_returnflightItems);
 
-            
+            _unitofWork.Complete();
 
         }
 
-        //[HttpGet("GetFlights")]
-        //public List<TravelDataViewModel> GetRequestList()
-        //{
+        [HttpGet("GetFlightsForRequest")]
+        public FlightOptionsViewModel GetFlightsForRequest(int id)
+        {
+            FlightOptionsViewModel vm = new FlightOptionsViewModel();
+            List<FlightItem> flightDataList = _mapper.Map<List<FlightInfo>, List<FlightItem>>(_unitofWork.FlightRepository.GetFlightsForRequest(id));
+            vm.OnwardFlightItems=flightDataList.FindAll(item => item.FlightDirection == "Onward");
+            vm.ReturnFlightItems = flightDataList.FindAll(item => item.FlightDirection == "Return");
+            return vm;
 
-        //    List<TravelDataViewModel> travelDataList = _mapper.Map<List<RequestInfo>, List<TravelDataViewModel>>(_unitofWork.RequestRepository.GetAll().ToList());
-        //    return travelDataList;
 
 
+        }
 
-        //}
-         
+        [HttpPost("DeleteFlights")]
+        public void DeleteFlights([FromBody]List<int> deletedIDs)
+        {
+           foreach(var id in deletedIDs)
+            {
+                _unitofWork.FlightRepository.Remove(_unitofWork.FlightRepository.Get(id));
+                _unitofWork.Complete();
+
+            }
+        }
 
         [HttpPost("UpdateFlights")]
-        public void UpdateFlights([FromBody]TravelDataViewModel travelData)
+        public void UpdateFlights([FromBody]FlightOptionsViewModel flightData)
         {
-            RequestInfo newRequest = _unitofWork.RequestRepository.Get(travelData.RequestId);
-            newRequest.ProjectId = travelData.Project_Code;
-            newRequest.TravelCountry = travelData.Country;
-            newRequest.TravelStart = travelData.TravelDate;
-            newRequest.TravelReturn = travelData.ReturnDate;
+            List<FlightItem> flightItems = new List<FlightItem>();
+            flightItems.AddRange(flightData.OnwardFlightItems);
+            flightItems.AddRange(flightData.ReturnFlightItems);
             
-            int i = _unitofWork.Complete();
+            List<FlightInfo> flightDataList = (_unitofWork.FlightRepository.GetFlightsForRequest(flightItems.First().RequestInfoId));
             
-            
+            foreach(var item in flightItems)
+            {
+                var refItem = flightDataList.FirstOrDefault(i => i.Id == item.Id);
+                if(refItem!=null)
+                {
+                    refItem.FlightFrom = item.FlightFrom;
+                    refItem.FlightTo = item.FlightTo;
+                    refItem.FlightName = item.FlightName;
+                    refItem.FlightItemId = item.FlightItemId;
+    
+                }
+            }
+
+            _unitofWork.Complete();
+
         }
 
     }

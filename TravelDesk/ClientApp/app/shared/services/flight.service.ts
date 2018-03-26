@@ -30,11 +30,24 @@ export class FlightService extends BaseService {
           JSON.stringify(flightdata));
   }
 
+  getFlightsForRequest(requestId: number): Observable<any> {
+      return this.http.get(this.baseUrl + 'api/Flight/GetFlightsForRequest',
+          {
+              params: new HttpParams().set('id', requestId.toString())
+          });
+  }
+
 
 
   updateFlightInfo(flightdata: FlightOptions): Observable<any> {
-
+      console.log(flightdata);
       return this.http.post(this.baseUrl + 'api/Flight/UpdateFlights', 
           JSON.stringify(flightdata));
+    }
+
+    deleteflights(deletedFlights: number[]):Observable<any> {
+        return this.http.post(this.baseUrl + 'api/Flight/DeleteFlights',
+            JSON.stringify(deletedFlights));
+        
     }
 }

@@ -1,178 +1,184 @@
-<h4  class="request-title">New Request</h4>
+
 <div mat-dialog-content>
-    <mat-accordion class="example-headers-align">
-        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Travel data
-                </mat-panel-title>
-                <mat-panel-description>
-                    <span class="flex-expand"></span>
-                    <mat-icon>assignment</mat-icon>
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-            <form [formGroup]="TravelDataForm" (ngSubmit)="onSubmit()">
-                <mat-form-field>
-                    <input matInput placeholder="Project Code" formControlName="project_Code" [errorStateMatcher]="matcher" [(ngModel)]="data.project_Code" required>
-                    <mat-error *ngIf="TravelDataForm.get('project_Code').hasError('required')">
-                        Project Code is <strong>required</strong>
-                    </mat-error>
-                </mat-form-field>
+    <mat-tab-group #tabGroup (selectedTabChange)="resetExpansionPanel($event)">
+        <mat-tab label="Add Request" class="flex-expand">
+            <form [formGroup]="TravelDataForm" (ngSubmit)="onSubmit()" class="tab-form">
+                <div class="form-content">
+                    <mat-form-field>
+                        <input matInput placeholder="Project Code" formControlName="project_code" [errorStateMatcher]="matcher">
+                        <mat-error *ngIf="TravelDataForm.get('project_code').hasError('required')">
+                            Project Code is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Employee Id" formControlName="employeeId">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Employee Name" formControlName="employeeName">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Date of Birth" class="datecontrol" [matDatepicker]="travel_dob" (focus)="travel_dob.open()" readonly formControlName="travelDob">
+                        <mat-icon class="small">date_range</mat-icon>
+                    </mat-form-field>
+                    <mat-datepicker #travel_dob></mat-datepicker>
+                    <mat-form-field>
+                        <input matInput placeholder="Country" formControlName="country">
+                    </mat-form-field>
 
-                <mat-form-field>
-                    <input matInput placeholder="Country" formControlName="country" [(ngModel)]="data.country">
-                </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Travel Date" class="datecontrol" [matDatepicker]="travel_date" (focus)="travel_date.open()" readonly formControlName="travelDate">
+                        <mat-icon class="small">date_range</mat-icon>
+                    </mat-form-field>
+                    <mat-datepicker #travel_date></mat-datepicker>
 
-                <mat-form-field>
-                    <input matInput placeholder="Travel Date" class="datecontrol" [matDatepicker]="travel_date" (focus)="travel_date.open()" readonly formControlName="travelDate" [(ngModel)]="data.travelDate">
-                    <mat-icon class="small">date_range</mat-icon>
-                </mat-form-field>
-                <mat-datepicker #travel_date></mat-datepicker>
+                    <mat-form-field>
+                        <input matInput placeholder="Return Date" [matDatepicker]="return_date" (focus)="return_date.open()" readonly formControlName="returnDate">
+                        <mat-icon class="small">date_range</mat-icon>
+                    </mat-form-field>
+                    <mat-datepicker #return_date></mat-datepicker>
+                    
+                </div>
+                <div class="spacer">
+                    <mat-divider></mat-divider>
+                    <mat-action-row>
+                        <button mat-button color="primary" type="submit" (click)="submitActions=action.createRequest">Create Request</button>
+                        <button mat-button color="primary" type="submit" (click)="submitActions=action.updateRequest">Save</button>
+                        <button mat-button color="primary" (click)="nextStep()">Next</button>
 
-                <mat-form-field>
-                    <input matInput placeholder="Return Date" [matDatepicker]="return_date" (focus)="return_date.open()" readonly formControlName="returnDate" [(ngModel)]="data.returnDate">
-                    <mat-icon class="small">date_range</mat-icon>
-                </mat-form-field>
-                <mat-datepicker #return_date></mat-datepicker>
-                <mat-form-field>
-                    <input matInput placeholder="Employee Id" formControlName="employeeId" [(ngModel)]="data.employeeId">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Employee Name" formControlName="employeeName" [(ngModel)]="data.employeeName">
-                </mat-form-field>
+                    </mat-action-row>
+                </div>
 
-                <mat-action-row>
-                    <button mat-button color="primary" type="submit" (click)="submitActions=action.createRequest">Create Request</button>
-                    <button mat-button color="primary" type="submit" (click)="submitActions=action.updateRequest">Save</button>
-                    <button mat-button color="primary" (click)="nextStep()">Next</button>
-
-                </mat-action-row>
             </form>
-        </mat-expansion-panel>
 
-        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Flight options
-                </mat-panel-title>
-                <mat-panel-description>
-                    <span class="flex-expand"></span>
-                    <mat-icon>flight_takeoff</mat-icon>
-                </mat-panel-description>
-            </mat-expansion-panel-header>
+        </mat-tab>
+        
+        <mat-tab label="Flight Options" (click)="resetExpansionPanel()">
+            <form [formGroup]="FlightOptionsForm" (ngSubmit)="onSubmit()" class="tab-form">
+                <div class="form-content">
+                    <mat-accordion >
+                        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Onward Journey
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                    
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <flight-items-array formArrayName="onwardFlightItems"
+                                                [itemsFormArray]="FlightOptionsForm.get('onwardFlightItems')">
+                            </flight-items-array>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel  [expanded]="step === 1" (opened)="setStep(1)">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Return Journey
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                    
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <flight-items-array formArrayName="returnFlightItems"
+                                                [itemsFormArray]="FlightOptionsForm.get('returnFlightItems')">
+                            </flight-items-array>
 
-            <form [formGroup]="FlightOptionsForm" (ngSubmit)="onSubmit()">
-                <mat-tab-group>
-                    <mat-tab label="Onward Journey">
-                        <flight-items-array formArrayName="OnwardFlightItems"
-                                            [itemsFormArray]="FlightOptionsForm.get('OnwardFlightItems')">
-                        </flight-items-array>
-
-                    </mat-tab>
-                    <mat-tab label="Return Journey">
-                        <flight-items-array formArrayName="ReturnFlightItems"
-                                            [itemsFormArray]="FlightOptionsForm.get('ReturnFlightItems')">
-                        </flight-items-array>
-                    </mat-tab>
-                </mat-tab-group>
-
-                <mat-action-row>
-                    <button mat-button color="primary" type="submit" (click)="submitActions=action.createFlightOptions">Add FlightOPtions</button>
-                    <button mat-button color="primary" type="submit" (click)="submitActions=action.updateFlightOptions">Save</button>
-
-                    <button mat-button color="primary" (click)="nextStep()">Next</button>
-                </mat-action-row>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                    </div>
+                    <div class="spacer">
+                        <mat-divider></mat-divider>
+                        <mat-action-row>
+                            <button mat-button color="primary" type="submit" (click)="submitActions=action.createFlightOptions">Save</button>
+                            <button mat-button color="primary" (click)="nextStep()">Next</button>
+                        </mat-action-row>
+                    </div>
             </form>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle="true">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Hotel option
-                </mat-panel-title>
-                <mat-panel-description>
-                    <span class="flex-expand"></span>
-                    <mat-icon>account_circle</mat-icon>
-                </mat-panel-description>
-            </mat-expansion-panel-header>
+        </mat-tab>
+        <mat-tab label="Hotel Options">
             <form [formGroup]="HotelOptionsForm" (ngSubmit)="onSubmit()">
+                <div class="form-content">
+                    <hotel-items-array formArrayName="hotelItems"
+                                       [hotelItemsFormArray]="HotelOptionsForm.get('hotelItems')">
+                    </hotel-items-array>
+                </div>
 
-                <hotel-items-array formArrayName="HotelItems"
-                                   [hotelItemsFormArray]="HotelOptionsForm.get('HotelItems')">
-                </hotel-items-array>
-
-                <mat-action-row>
-                    <button mat-button color="warn" (click)="prevStep()">Previous</button>
-                    <button mat-button color="primary" (click)="nextStep()">End</button>
-                </mat-action-row>
+                <div class="spacer">
+                    <mat-action-row>
+                        <button mat-button color="primary" type="submit" (click)="submitActions=action.createHotelOptions">Save</button>
+                        <button mat-button color="primary" (click)="nextStep()">Next</button>
+                    </mat-action-row>
+                </div>
             </form>
-        </mat-expansion-panel>
+        </mat-tab>
+        <mat-tab label="Passport Info">
+            <form [formGroup]="PassportForm" (ngSubmit)="onSubmit()" class="tab-form">
+                <div class="form-content">
+                    <mat-form-field>
+                        <input matInput placeholder="Passport Number" formControlName="passportNum" [errorStateMatcher]="matcher">
+                        <mat-error *ngIf="PassportForm.get('passportNum').hasError('required')">
+                            Passport Number <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <input matInput placeholder="Passport Expiry Date" class="datecontrol" [matDatepicker]="passport_Expiry_Date" (focus)="passport_Expiry_Date.open()" readonly formControlName="passportExpiryDate">
+                        <mat-icon class="small">date_range</mat-icon>
+                    </mat-form-field>
+                    <mat-datepicker #passport_Expiry_Date></mat-datepicker>
+
+                    <mat-form-field>
+                        <input matInput placeholder="Visa Num" formControlName="visaNum">
+                    </mat-form-field>
+
+
+                    <mat-form-field>
+                        <input matInput placeholder="Visa Expiry Date" class="datecontrol" [matDatepicker]="visa_expiry_date" (focus)="visa_expiry_date.open()" readonly formControlName="visaExpiryDate">
+                        <mat-icon class="small">date_range</mat-icon>
+                    </mat-form-field>
+                    <mat-datepicker #visa_expiry_date></mat-datepicker>
+
+
+                </div>
+                <div class="spacer">
+                    <mat-divider></mat-divider>
+                    <mat-action-row>
+                        <button mat-button color="primary" type="submit" (click)="submitActions=action.createPassport">Create Request</button>
+                        <button mat-button color="primary" (click)="nextStep()">Next</button>
+
+                    </mat-action-row>
+                </div>
+
+            </form>
+        </mat-tab>
+        <mat-tab label="Forex Info">
+
+            <form [formGroup]="ForexForm" (ngSubmit)="onSubmit()" class="tab-form">
+                <div class="form-content">
+                    <mat-form-field>
+                        <input matInput placeholder="Card Number" formControlName="cardNum">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Card Type" formControlName="cardType">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Card Expiry Date" class="datecontrol" [matDatepicker]="card_expiry_date" (focus)="card_expiry_date.open()" readonly formControlName="cardExpiryDate">
+                        <mat-icon class="small">date_range</mat-icon>
+                    </mat-form-field>
+                    <mat-datepicker #card_expiry_date></mat-datepicker>
+
+                </div>
+                <div class="spacer">
+                    <mat-divider></mat-divider>
+                    <mat-action-row>
+                        <button mat-button color="primary" type="submit" (click)="submitActions=action.createPassport">Create Request</button>
+                    </mat-action-row>
+                </div>
+            </form>
+        </mat-tab>
+
+    </mat-tab-group>
 
 
 
-        <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle="true">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Passport/Visa
-                </mat-panel-title>
-                <mat-panel-description>
-                    <span class="flex-expand"></span>
-                    <mat-icon>account_circle</mat-icon>
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-
-            <mat-form-field>
-                <input matInput placeholder="Passport Number" formControlName="passportNum" [(ngModel)]="data.passportNum">
-            </mat-form-field>
-
-            <mat-form-field>
-                <input matInput placeholder="Visa Number" formControlName="visaNum" [(ngModel)]="data.visaNum">
-            </mat-form-field>
-
-            <mat-form-field>
-                <input matInput placeholder="Date" [matDatepicker]="picker" (focus)="picker.open()" readonly>
-                <mat-icon class="small">date_range</mat-icon>
-            </mat-form-field>
-            <mat-datepicker #picker></mat-datepicker>
-
-            <mat-action-row>
-                <button mat-button color="warn" (click)="prevStep()">Previous</button>
-                <button mat-button color="primary" (click)="nextStep()">End</button>
-            </mat-action-row>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle="true">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Forex Details
-                </mat-panel-title>
-                <mat-panel-description>
-                    <span class="flex-expand"></span>
-                    <mat-icon>account_circle</mat-icon>
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-
-            <mat-form-field>
-                <input matInput placeholder="Card Number" formControlName="cardNum" [(ngModel)]="data.cardNum">
-            </mat-form-field>
-
-            <mat-form-field>
-                <input matInput placeholder="Country Code" formControlName="countryCode" [(ngModel)]="data.countryCode">
-            </mat-form-field>
-
-            <mat-form-field>
-                <input matInput placeholder="Mobile Number" formControlName="mobileNum" [(ngModel)]="data.mobileNum">
-            </mat-form-field>
-
-            <mat-action-row>
-                <button mat-button color="primary" (click)="nextStep()">End</button>
-            </mat-action-row>
-        </mat-expansion-panel>
-
-    </mat-accordion>
-    
 </div>
-<div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">No Thanks</button>
-    <button mat-button [mat-dialog-close]="" cdkFocusInitial>Ok</button>
-</div>
+

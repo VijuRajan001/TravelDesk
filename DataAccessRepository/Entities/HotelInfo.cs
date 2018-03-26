@@ -16,7 +16,7 @@ namespace DataAccessRepository.Entities
         public DateTime CheckoutTime { get; set; }
         public double Price { get; set; }
 
-        public long RequestInfoId { get; set; }
+        public int RequestInfoId { get; set; }
         public RequestInfo RequestInfo { get; set; }
     }
 }

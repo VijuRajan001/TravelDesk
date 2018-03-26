@@ -6,9 +6,13 @@ namespace DataAccessRepository.Entities
 {
     public class PassportInfo
     {
-        public long PassportNumber { get; set; }
-        public long VisaNumber { get; set; }
+        public int Id { get; set; }
+        public string PassportNumber { get; set; }
+        public string VisaNumber { get; set; }
         public DateTime VisaExpiryDate { get; set; }
         public DateTime PassportExpiryDate { get; set; }
+
+        public int RequestInfoId { get; set; }
+        public virtual RequestInfo RequestInfo { get; set; }
     }
 }

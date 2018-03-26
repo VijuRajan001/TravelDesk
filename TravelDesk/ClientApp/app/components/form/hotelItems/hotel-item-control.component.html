@@ -3,21 +3,21 @@
 
 
     <mat-form-field>
-        <input matInput placeholder="Hotel Name" formControlName="hotelName" [attr.id]="'hotelName'+hotelIndex">
+        <input matInput placeholder="Hotel Name" formControlName="hotelName" [attr.id]="'hotelName'+index" required>
     </mat-form-field>
     <mat-form-field>
-        <input matInput placeholder="Location" formControlName="location" [attr.id]="'location'+hotelIndex">
+        <input matInput placeholder="Location" formControlName="location" [attr.id]="'location'+index" required>
     </mat-form-field>
     <mat-form-field>
-        <input matInput placeholder="Website" formControlName="website" [attr.id]="'website'+hotelIndex">
+        <input matInput placeholder="Website" formControlName="website" [attr.id]="'website'+index">
     </mat-form-field>
     <mat-form-field>
-        <input matInput placeholder="MobileNo" formControlName="mobileno" [attr.id]="'mobileno'+hotelIndex">
+        <input matInput placeholder="MobileNo" formControlName="mobileno" [attr.id]="'mobileno'+index" required>
     </mat-form-field>
-    <button mat-icon-button type="button" color="primary" (click)="removed.emit(hotelIndex)">
+    <button mat-icon-button type="button" color="primary" (click)="removed.emit(index)">
         <mat-icon>remove_circle</mat-icon>
     </button>
-    <button mat-icon-button type="button" color="primary" (click)="add.emit(hotelIndex)">
+    <button mat-icon-button type="button" color="primary" (click)="add.emit(index)">
         <mat-icon>add_circle</mat-icon>
     </button>
 
