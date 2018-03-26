@@ -152,6 +152,28 @@
         </mat-tab>
         <mat-tab label="Forex Info">
 
+            <form [formGroup]="ForexForm" (ngSubmit)="onSubmit()" class="tab-form">
+                <div class="form-content">
+                    <mat-form-field>
+                        <input matInput placeholder="Card Number" formControlName="cardNum">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Card Type" formControlName="cardType">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Card Expiry Date" class="datecontrol" [matDatepicker]="card_expiry_date" (focus)="card_expiry_date.open()" readonly formControlName="cardExpiryDate">
+                        <mat-icon class="small">date_range</mat-icon>
+                    </mat-form-field>
+                    <mat-datepicker #card_expiry_date></mat-datepicker>
+
+                </div>
+                <div class="spacer">
+                    <mat-divider></mat-divider>
+                    <mat-action-row>
+                        <button mat-button color="primary" type="submit" (click)="submitActions=action.createPassport">Create Request</button>
+                    </mat-action-row>
+                </div>
+            </form>
         </mat-tab>
 
     </mat-tab-group>
