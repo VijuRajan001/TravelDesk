@@ -30,7 +30,11 @@ export class PassportService extends BaseService {
           JSON.stringify(passportdata));
   }
 
-
+    getPassportDetails(id:number): Observable<any> {
+        return this.http.get(this.baseUrl + 'api/Passport/GetPassportDetails', {
+            params: new HttpParams().set('id', id.toString())
+        });
+    }
 
     updatePassportInfo(passportdata: Passport): Observable<any> {
 

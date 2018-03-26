@@ -52,7 +52,7 @@
 
         </mat-tab>
         
-        <mat-tab label="Flight OPtions" (click)="resetExpansionPanel()">
+        <mat-tab label="Flight Options" (click)="resetExpansionPanel()">
             <form [formGroup]="FlightOptionsForm" (ngSubmit)="onSubmit()" class="tab-form">
                 <div class="form-content">
                     <mat-accordion >
@@ -94,21 +94,61 @@
                     </div>
             </form>
         </mat-tab>
-        <mat-tab label="Hotel OPtions">
+        <mat-tab label="Hotel Options">
             <form [formGroup]="HotelOptionsForm" (ngSubmit)="onSubmit()">
+                <div class="form-content">
+                    <hotel-items-array formArrayName="hotelItems"
+                                       [hotelItemsFormArray]="HotelOptionsForm.get('hotelItems')">
+                    </hotel-items-array>
+                </div>
 
-                <hotel-items-array formArrayName="HotelItems"
-                                   [hotelItemsFormArray]="HotelOptionsForm.get('HotelItems')">
-                </hotel-items-array>
-
-                <mat-action-row>
-                    <button mat-button color="warn" (click)="prevStep()">Previous</button>
-                    <button mat-button color="primary" (click)="nextStep()">End</button>
-                </mat-action-row>
+                <div class="spacer">
+                    <mat-action-row>
+                        <button mat-button color="primary" type="submit" (click)="submitActions=action.createHotelOptions">Save</button>
+                        <button mat-button color="primary" (click)="nextStep()">Next</button>
+                    </mat-action-row>
+                </div>
             </form>
         </mat-tab>
         <mat-tab label="Passport Info">
+            <form [formGroup]="PassportForm" (ngSubmit)="onSubmit()" class="tab-form">
+                <div class="form-content">
+                    <mat-form-field>
+                        <input matInput placeholder="Passport Number" formControlName="passportNum" [errorStateMatcher]="matcher">
+                        <mat-error *ngIf="PassportForm.get('passportNum').hasError('required')">
+                            Passport Number <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
 
+                    <mat-form-field>
+                        <input matInput placeholder="Passport Expiry Date" class="datecontrol" [matDatepicker]="passport_Expiry_Date" (focus)="passport_Expiry_Date.open()" readonly formControlName="passportExpiryDate">
+                        <mat-icon class="small">date_range</mat-icon>
+                    </mat-form-field>
+                    <mat-datepicker #passport_Expiry_Date></mat-datepicker>
+
+                    <mat-form-field>
+                        <input matInput placeholder="Visa Num" formControlName="visaNum">
+                    </mat-form-field>
+
+
+                    <mat-form-field>
+                        <input matInput placeholder="Visa Expiry Date" class="datecontrol" [matDatepicker]="visa_expiry_date" (focus)="visa_expiry_date.open()" readonly formControlName="visaExpiryDate">
+                        <mat-icon class="small">date_range</mat-icon>
+                    </mat-form-field>
+                    <mat-datepicker #visa_expiry_date></mat-datepicker>
+
+
+                </div>
+                <div class="spacer">
+                    <mat-divider></mat-divider>
+                    <mat-action-row>
+                        <button mat-button color="primary" type="submit" (click)="submitActions=action.createPassport">Create Request</button>
+                        <button mat-button color="primary" (click)="nextStep()">Next</button>
+
+                    </mat-action-row>
+                </div>
+
+            </form>
         </mat-tab>
         <mat-tab label="Forex Info">
 

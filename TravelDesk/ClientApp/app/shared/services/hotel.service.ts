@@ -26,15 +26,28 @@ export class HotelService extends BaseService {
   }
 
   addHotelInfo(hoteldata: HotelOptions): Observable<any> {
-      return this.http.post(this.baseUrl + 'api/Hotel/AddHotel',
+      return this.http.post(this.baseUrl + 'api/Hotel/AddHotels',
           JSON.stringify(hoteldata));
   }
 
+  getHotelsForRequest(requestId: number): Observable<any> {
+        return this.http.get(this.baseUrl + 'api/Hotel/GetHotelsForRequest',
+            {
+                params: new HttpParams().set('id', requestId.toString())
+            });
+    }
 
 
   updateHotelInfo(hoteldata: HotelOptions): Observable<any> {
 
       return this.http.post(this.baseUrl + 'api/Hotel/UpdateHotel', 
           JSON.stringify(hoteldata));
+    }
+
+
+    deleteHotels(deletedFlights: number[]): Observable<any> {
+        return this.http.post(this.baseUrl + 'api/Hotel/DeleteHotels',
+            JSON.stringify(deletedFlights));
+
     }
 }

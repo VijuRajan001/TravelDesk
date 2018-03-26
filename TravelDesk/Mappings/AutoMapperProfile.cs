@@ -49,6 +49,39 @@ namespace TravelDesk.Mappings
                             opt => opt.MapFrom(src => src.FlightDirection))
 
                 .ReverseMap();
+
+
+            CreateMap<HotelInfo, HotelItem>()
+                .ForMember(dest => dest.Id,
+                            opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.HotelName,
+                            opt => opt.MapFrom(src => src.HotelName))
+                .ForMember(dest => dest.Location,
+                            opt => opt.MapFrom(src => src.Location))
+                .ForMember(dest => dest.Website,
+                            opt => opt.MapFrom(src => src.Website))
+                .ForMember(dest => dest.Mobileno,
+                            opt => opt.MapFrom(src => src.MobileNo))
+                .ForMember(dest => dest.HotelCost,
+                            opt => opt.MapFrom(src => src.Price))
+                .ForMember(dest => dest.RequestInfoId,
+                            opt => opt.MapFrom(src => src.RequestInfoId))
+                .ReverseMap();
+
+            CreateMap<PassportInfo, PassportItem>()
+                .ForMember(dest => dest.Id,
+                            opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.PassportNum,
+                            opt => opt.MapFrom(src => src.PassportNumber))
+                .ForMember(dest => dest.PassportExpiryDate,
+                            opt => opt.MapFrom(src => src.PassportExpiryDate))
+                .ForMember(dest => dest.VisaNum,
+                            opt => opt.MapFrom(src => src.VisaNumber))
+                .ForMember(dest => dest.PassportExpiryDate,
+                            opt => opt.MapFrom(src => src.VisaExpiryDate))
+                .ForMember(dest => dest.RequestInfoId,
+                            opt => opt.MapFrom(src => src.RequestInfoId))
+                .ReverseMap();
         }
     }
 }

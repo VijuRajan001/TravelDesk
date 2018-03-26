@@ -14,7 +14,7 @@ import { MatInputModule,MatFormFieldModule,MatButtonModule} from '@angular/mater
 export class HotelItemControlComponent {
 
     @Input()
-    public hotelIndex: number;
+    public index: number;
 
     @Input()
     public hotelItem: FormGroup;
@@ -25,13 +25,26 @@ export class HotelItemControlComponent {
     @Output()
     public add :EventEmitter<number> = new EventEmitter<number>();;
 
+    static buildItemwithValue(data: any) {
+
+        return new FormGroup({
+            'id': new FormControl(data.id),
+            'hotelName': new FormControl(data.hotelName, [Validators.required]),
+            'location': new FormControl(data.location, Validators.required),
+            'website': new FormControl(data.website, Validators.required),
+            'mobileno': new FormControl(data.mobileno, Validators.required)
+
+        });
+    }
+
 
     static buildItem(val: string) {
         return new FormGroup({
-            hotelName: new FormControl(val, Validators.required),
-            location: new FormControl(val, Validators.required),
-            website: new FormControl(val, Validators.required),
-            mobileno: new FormControl(val, Validators.required)
+            'id': new FormControl(),
+            'hotelName': new FormControl(val, Validators.required),
+            'location': new FormControl(val, Validators.required),
+            'website': new FormControl(val, Validators.required),
+            'mobileno': new FormControl(val, Validators.required)
         })
     }
 }

@@ -15,21 +15,23 @@ export class HotelItemsArrayComponent {
     @Input()
     public hotelItemsFormArray: FormArray;
 
-    addItem(index: number) {
-        if (index === this.hotelItemsFormArray.length - 1) {
+    addItem(hotelIndex: number) {
+        if (hotelIndex === this.hotelItemsFormArray.length - 1) {
             this.hotelItemsFormArray.push(HotelItemControlComponent.buildItem(''));
         }
         else {
-            this.hotelItemsFormArray.insert(index + 1, HotelItemControlComponent.buildItem(''));
+            this.hotelItemsFormArray.insert(hotelIndex + 1, HotelItemControlComponent.buildItem(''));
         }
     }
+    static buildItemsWithValue(data: any) {
 
+        return HotelItemControlComponent.buildItemwithValue(data);
+    }
     static buildItems() {
-        console.log("here");
+        
         return new FormArray([
-            HotelItemControlComponent.buildItem('aaa'),
             HotelItemControlComponent.buildItem('')],
-            )
+        );
     }
 }
 

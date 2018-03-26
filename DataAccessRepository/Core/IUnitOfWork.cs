@@ -9,6 +9,8 @@ namespace DataAccessRepository.Core
     {
         IRequestRepository RequestRepository { get; }
         IFlightRepository FlightRepository { get; }
+        IHotelRepository HotelRepository { get; }
+        IPassportRepository PassportRepository { get; }
         int Complete();
     }
 }

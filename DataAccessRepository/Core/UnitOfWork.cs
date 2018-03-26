@@ -12,6 +12,8 @@ namespace DataAccessRepository.Core
         private readonly TravDeskDbcontext _context;
         private IRequestRepository _requestRepository;
         private IFlightRepository _flightRepository;
+        private IHotelRepository _hotelRepository;
+        private IPassportRepository _passportRepository;
         public UnitOfWork(TravDeskDbcontext context)
         {
             _context = context;
@@ -34,6 +36,26 @@ namespace DataAccessRepository.Core
             }
 
         }
+
+
+        public IHotelRepository HotelRepository
+        {
+            get
+            {
+                return _hotelRepository = _hotelRepository ?? new HotelRepository(_context);
+            }
+
+        }
+
+        public IPassportRepository PassportRepository
+        {
+            get
+            {
+                return _passportRepository = _passportRepository ?? new PassportRepository(_context);
+            }
+
+        }
+
         public int Complete()
         {
             return _context.SaveChanges();
