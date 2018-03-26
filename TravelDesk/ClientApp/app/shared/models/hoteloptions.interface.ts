@@ -1,5 +1,24 @@
 import { HotelItem} from './hotelitem.interface';
 
-export interface HotelOptions {
-    HotelItems: HotelItem[]
+
+export class HotelOptions {
+
+    constructor(hotelOptions: IHotelOptions = {
+
+        hotelItems: new Array<HotelItem>(),
+        
+
+    }) {
+
+        this.HotelItems = hotelOptions.hotelItems;
+       
+
+    }
+    public HotelItems: HotelItem[];
+   
+}
+
+
+export interface IHotelOptions {
+    hotelItems: HotelItem[]
 }
