@@ -43,8 +43,8 @@ export class RequestDialog implements OnInit{
     
     traveldata: TravelData=new TravelData();    
     hoteldata: HotelOptions = new HotelOptions();
-    passportdata: Passport;
-    forexdata: Forex;
+    passportdata: Passport = new Passport();
+    forexdata: Forex = new Forex();
 
     submitActions: number;
     action: typeof SubmitActions = SubmitActions;
