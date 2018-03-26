@@ -11,6 +11,7 @@ namespace DataAccessRepository.Core
         IFlightRepository FlightRepository { get; }
         IHotelRepository HotelRepository { get; }
         IPassportRepository PassportRepository { get; }
+        IForexRepository ForexRepository { get; }
         int Complete();
     }
 }

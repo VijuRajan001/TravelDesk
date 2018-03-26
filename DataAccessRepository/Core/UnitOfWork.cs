@@ -14,6 +14,7 @@ namespace DataAccessRepository.Core
         private IFlightRepository _flightRepository;
         private IHotelRepository _hotelRepository;
         private IPassportRepository _passportRepository;
+        private IForexRepository _forexRepository;
         public UnitOfWork(TravDeskDbcontext context)
         {
             _context = context;
@@ -52,6 +53,15 @@ namespace DataAccessRepository.Core
             get
             {
                 return _passportRepository = _passportRepository ?? new PassportRepository(_context);
+            }
+
+        }
+
+        public IForexRepository ForexRepository
+        {
+            get
+            {
+                return _forexRepository = _forexRepository ?? new ForexRepository(_context);
             }
 
         }
