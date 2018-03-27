@@ -491,7 +491,10 @@ export class RequestDialog implements OnInit {
 
     }
 
+    updateForexOptions() {
+        console.log('inside Update Forex');
 
+    }
 
 
 updateRequest() {
