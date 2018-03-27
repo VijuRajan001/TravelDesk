@@ -36,7 +36,7 @@
                         <mat-icon class="small">date_range</mat-icon>
                     </mat-form-field>
                     <mat-datepicker #return_date></mat-datepicker>
-                    
+
                 </div>
                 <div class="spacer">
                     <mat-divider></mat-divider>
@@ -51,31 +51,31 @@
             </form>
 
         </mat-tab>
-        
+
         <mat-tab label="Flight Options" (click)="resetExpansionPanel()">
             <form [formGroup]="FlightOptionsForm" (ngSubmit)="onSubmit()" class="tab-form">
                 <div class="form-content">
-                    <mat-accordion >
+                    <mat-accordion>
                         <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     Onward Journey
                                 </mat-panel-title>
                                 <mat-panel-description>
-                                    
+
                                 </mat-panel-description>
                             </mat-expansion-panel-header>
                             <flight-items-array formArrayName="onwardFlightItems"
                                                 [itemsFormArray]="FlightOptionsForm.get('onwardFlightItems')">
                             </flight-items-array>
                         </mat-expansion-panel>
-                        <mat-expansion-panel  [expanded]="step === 1" (opened)="setStep(1)">
+                        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     Return Journey
                                 </mat-panel-title>
                                 <mat-panel-description>
-                                    
+
                                 </mat-panel-description>
                             </mat-expansion-panel-header>
                             <flight-items-array formArrayName="returnFlightItems"
@@ -84,14 +84,14 @@
 
                         </mat-expansion-panel>
                     </mat-accordion>
-                    </div>
-                    <div class="spacer">
-                        <mat-divider></mat-divider>
-                        <mat-action-row>
-                            <button mat-button color="primary" type="submit" (click)="submitActions=action.createFlightOptions">Save</button>
-                            <button mat-button color="primary" (click)="nextStep()">Next</button>
-                        </mat-action-row>
-                    </div>
+                </div>
+                <div class="spacer">
+                    <mat-divider></mat-divider>
+                    <mat-action-row>
+                        <button mat-button color="primary" type="submit" (click)="submitActions=action.createFlightOptions">Save</button>
+                        <button mat-button color="primary" (click)="nextStep()">Next</button>
+                    </mat-action-row>
+                </div>
             </form>
         </mat-tab>
         <mat-tab label="Hotel Options">
@@ -166,43 +166,16 @@
                     <mat-datepicker #card_expiry_date></mat-datepicker>
 
                 </div>
-                    <div class="spacer">
-                        <mat-divider></mat-divider>
-                        <mat-action-row>
-                            <button mat-button color="primary" type="submit" (click)="submitActions=action.createForex">Save</button>
-                            <button mat-button color="primary" (click)="nextStep()">Next</button>
-
-                        </mat-action-row>
-                    </div>
-                </form>
-        </mat-tab>add-migation seventh
-
-<<<<<<< HEAD
-=======
-            <form [formGroup]="ForexForm" (ngSubmit)="onSubmit()" class="tab-form">
-                <div class="form-content">
-                    <mat-form-field>
-                        <input matInput placeholder="Card Number" formControlName="cardNum">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <input matInput placeholder="Card Type" formControlName="cardType">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <input matInput placeholder="Card Expiry Date" class="datecontrol" [matDatepicker]="card_expiry_date" (focus)="card_expiry_date.open()" readonly formControlName="cardExpiryDate">
-                        <mat-icon class="small">date_range</mat-icon>
-                    </mat-form-field>
-                    <mat-datepicker #card_expiry_date></mat-datepicker>
-
-                </div>
                 <div class="spacer">
                     <mat-divider></mat-divider>
                     <mat-action-row>
-                        <button mat-button color="primary" type="submit" (click)="submitActions=action.createPassport">Create Request</button>
+                        <button mat-button color="primary" type="submit" (click)="submitActions=action.createForex">Save</button>
+                        <button mat-button color="primary" (click)="nextStep()">Next</button>
+
                     </mat-action-row>
                 </div>
             </form>
         </mat-tab>
->>>>>>> 5a3cace786ff111e45fee3ab0ba00b39a2304180
 
     </mat-tab-group>
 
