@@ -19,7 +19,7 @@ import { GridService } from '../../../shared/services/grid.service';
 })
 export class TableOverviewExample implements OnInit {
 
-    displayedColumns = ['requestId', 'project_Code', 'country', 'actions'];
+    displayedColumns = ['requestId', 'project_Code', 'country', 'actions', 'approve', 'disapprove'];
     dataSource: RequestDataSource;
     request: RequestData;
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -54,31 +54,20 @@ export class TableOverviewExample implements OnInit {
 
     openDialog(id:number): void {
 
-        this.requestService.getRequestById(id).subscribe(
-            (val) => {
-                
-                this.request = val;
-                console.log(this.request);
-                let dialogRef = this.dialog.open(RequestDialog, {
-                    width: '80vw',
-                    height: '70vh',
-                    data: this.request
-                });
 
-                dialogRef.afterClosed().subscribe(result => {
+        let dialogRef = this.dialog.open(RequestDialog, {
+            width: '80vw',
+            height: '70vh',
+            data: id
+        });
 
-                    this.dataSource.loadRequests();
+        dialogRef.afterClosed().subscribe(result => {
 
-                });
-                
-            },
-            response => {
-                console.log("POST call in error", response);
-            },
-            () => {
-                console.log("The POST observable is now completed.");
-            });
-            
+            this.dataSource.loadRequests();
+
+        });
+
+                  
         
     }
 }

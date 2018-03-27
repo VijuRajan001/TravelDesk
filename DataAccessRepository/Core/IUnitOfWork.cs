@@ -8,6 +8,10 @@ namespace DataAccessRepository.Core
     public interface IUnitOfWork : IDisposable
     {
         IRequestRepository RequestRepository { get; }
+        IFlightRepository FlightRepository { get; }
+        IHotelRepository HotelRepository { get; }
+        IPassportRepository PassportRepository { get; }
+        IForexRepository ForexRepository { get; }
         int Complete();
     }
 }

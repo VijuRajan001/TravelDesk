@@ -25,9 +25,9 @@ export class RequestService extends BaseService {
     this.baseUrl = configService.getApiURI();
   }
 
-  addRequest(traveldata: TravelData): Observable<any> {
+  addRequest(requestData: RequestData): Observable<any> {
       return this.http.post(this.baseUrl + 'api/Request/AddRequest',
-          JSON.stringify(traveldata));
+          JSON.stringify(requestData));
   }
 
   getRequestList(): Observable<RequestData[]> {
@@ -43,9 +43,10 @@ export class RequestService extends BaseService {
     );
   }
 
-  updateRequest(traveldata: TravelData): Observable<any> {
-
+  updateRequest(requestData: RequestData): Observable<any> {
+      let travelData: TravelData = new TravelData();
+      travelData.requestData = requestData;
       return this.http.post(this.baseUrl + 'api/Request/UpdateRequest', 
-            JSON.stringify(traveldata));
+          JSON.stringify(travelData));
     }
 }

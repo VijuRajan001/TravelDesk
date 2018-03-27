@@ -61,7 +61,12 @@ import {
 import { ErrorStateMatcher,ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
 import { FlightItemsArrayComponent } from './components/form/flightoptions/flightoptions.component';
 import { FlightItemControlComponent } from './components/form/flightItems/flight-item-control.component';
-
+import { HotelItemsArrayComponent } from './components/form/hotelOptions/hoteloptions.component';
+import { HotelItemControlComponent } from './components/form/hotelItems/hotel-item-control.component';
+import { FlightService } from './shared/services/flight.service';
+import { HotelService } from './shared/services/hotel.service';
+import { PassportService } from './shared/services/passport.service';
+import { ForexService } from './shared/services/forex.service';
 
 @NgModule({
     declarations: [
@@ -75,7 +80,9 @@ import { FlightItemControlComponent } from './components/form/flightItems/flight
         RequestDialog,
         TableOverviewExample,
         FlightItemsArrayComponent,
-        FlightItemControlComponent
+        FlightItemControlComponent,
+        HotelItemsArrayComponent,
+        HotelItemControlComponent
     ],
     imports: [
         CommonModule,
@@ -143,7 +150,7 @@ import { FlightItemControlComponent } from './components/form/flightItems/flight
         ])
     ],
     entryComponents: [RequestDialog],
-    providers: [MediaMatcher, ConfigService, RequestService, UserService, GridService, AuthService, AuthGuard,httpInterceptorProviders,
+    providers: [MediaMatcher, ConfigService, RequestService, UserService, GridService, FlightService, HotelService, PassportService, ForexService, AuthService, AuthGuard, httpInterceptorProviders,
         { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher } ]
     
     

@@ -46,21 +46,45 @@ namespace TravelDesk.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<double>("FlightCost");
+
+                    b.Property<string>("FlightDirection");
+
+                    b.Property<string>("FlightFrom");
+
+                    b.Property<string>("FlightItemId");
+
                     b.Property<string>("FlightName");
 
-                    b.Property<string>("From");
-
-                    b.Property<double>("Price");
+                    b.Property<string>("FlightTo");
 
                     b.Property<int>("RequestInfoId");
-
-                    b.Property<string>("To");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RequestInfoId");
 
                     b.ToTable("FlightInfo");
+                });
+
+            modelBuilder.Entity("DataAccessRepository.Entities.ForexInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<long>("CardNumber");
+
+                    b.Property<string>("CountryCode");
+
+                    b.Property<long>("MobileNo");
+
+                    b.Property<int>("RequestInfoId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestInfoId");
+
+                    b.ToTable("ForexInfo");
                 });
 
             modelBuilder.Entity("DataAccessRepository.Entities.HotelInfo", b =>
@@ -82,17 +106,38 @@ namespace TravelDesk.Migrations
 
                     b.Property<double>("Price");
 
-                    b.Property<long>("RequestInfoId");
-
-                    b.Property<int?>("RequestInfoId1");
+                    b.Property<int>("RequestInfoId");
 
                     b.Property<string>("Website");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RequestInfoId1");
+                    b.HasIndex("RequestInfoId");
 
                     b.ToTable("HotelInfo");
+                });
+
+            modelBuilder.Entity("DataAccessRepository.Entities.PassportInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("PassportExpiryDate");
+
+                    b.Property<string>("PassportNumber");
+
+                    b.Property<int>("RequestInfoId");
+
+                    b.Property<DateTime>("VisaExpiryDate");
+
+                    b.Property<string>("VisaNumber");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestInfoId")
+                        .IsUnique();
+
+                    b.ToTable("PassportInfo");
                 });
 
             modelBuilder.Entity("DataAccessRepository.Entities.RequestInfo", b =>
@@ -321,11 +366,28 @@ namespace TravelDesk.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("DataAccessRepository.Entities.ForexInfo", b =>
+                {
+                    b.HasOne("DataAccessRepository.Entities.RequestInfo", "RequestInfo")
+                        .WithMany("ForexInfo")
+                        .HasForeignKey("RequestInfoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("DataAccessRepository.Entities.HotelInfo", b =>
                 {
                     b.HasOne("DataAccessRepository.Entities.RequestInfo", "RequestInfo")
                         .WithMany("HotelInfo")
-                        .HasForeignKey("RequestInfoId1");
+                        .HasForeignKey("RequestInfoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DataAccessRepository.Entities.PassportInfo", b =>
+                {
+                    b.HasOne("DataAccessRepository.Entities.RequestInfo", "RequestInfo")
+                        .WithOne("PassportInfo")
+                        .HasForeignKey("DataAccessRepository.Entities.PassportInfo", "RequestInfoId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
