@@ -2,7 +2,9 @@ import { RequestData } from './requestdata.interface';
 import { FlightOptions} from './flightoptions.interface';
 import { HotelOptions } from './hoteloptions.interface';
 import { Passport } from './passport.interface';
+
 import { ForexCard } from './forex.interface';
+
 
 export class TravelData {
 
@@ -27,6 +29,7 @@ export class TravelData {
     public hotelData: HotelOptions;
     public passportData: Passport;
     public forexCardData: ForexCard
+
 }
 
 export interface ITravelData {
@@ -34,6 +37,10 @@ export interface ITravelData {
     flightData: FlightOptions;
     hotelData: HotelOptions;
     passportData: Passport;
+<<<<<<< HEAD
     forexCardData:ForexCard
+=======
+    forexData: Forex;
+>>>>>>> 5a3cace786ff111e45fee3ab0ba00b39a2304180
 
 }
