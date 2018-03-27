@@ -1,4 +1,5 @@
 
+
 export class ForexCard {
 
     constructor(fxCard: IForexCard = {
@@ -24,6 +25,7 @@ export class ForexCard {
     public cardExpiryDate: string;
     public requestInfoId: number;
 }
+
 
 
 export class IForexCard {
