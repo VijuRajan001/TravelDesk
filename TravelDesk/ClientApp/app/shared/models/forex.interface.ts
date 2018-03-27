@@ -1,33 +1,38 @@
 
-export class Forex {
-    constructor(forex: IForex = {
-        cardNum:0,
-        cardType:'',
-        cardExpiry:'',
+
+export class ForexCard {
+
+    constructor(fxCard: IForexCard = {
+        id: 0,
+        cardNumber:'' ,
+        cardType: '',
+        cardExpiryDate: '',        
         requestInfoId: 0,
     }) {
 
-        this.cardNum = forex.cardNum;
-        this.cardType = forex.cardType;
-        this.cardExpiry = forex.cardExpiry;
-        this.requestInfoId = forex.requestInfoId;
+        this.id = fxCard.id;
+        this.cardNumber = fxCard.cardNumber;
+        this.cardType = fxCard.cardType;
+        this.cardExpiryDate = fxCard.cardExpiryDate;
+        this.requestInfoId = fxCard.requestInfoId;
+        
 
 
     }
-    public cardNum: number
+    public id: number
+    public cardNumber: string;
     public cardType: string;
-    public cardExpiry: string;
+    public cardExpiryDate: string;
     public requestInfoId: number;
 }
 
 
 
-
-export interface IForex {
-    cardNum: number
+export class IForexCard {
+    id: number
+    cardNumber: string;
     cardType: string;
-    cardExpiry: string;
+    cardExpiryDate: string;
     requestInfoId: number;
+
 }
-    
-    

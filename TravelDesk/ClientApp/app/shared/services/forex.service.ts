@@ -7,7 +7,7 @@ import {HttpClient,HttpParams} from '@angular/common/http';
 import {BaseService} from "./base.service";
 import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/Rx';
-import { Forex} from '../models/forex.interface';
+import { ForexCard} from '../models/forex.interface';
 
 //import * as _ from 'lodash';
 // Add the RxJS Observable operators we need in this app.
@@ -25,14 +25,19 @@ export class ForexService extends BaseService {
     this.baseUrl = configService.getApiURI();
   }
 
-    addForexInfo(forexdata: Forex): Observable<any> {
+  addForexInfo(forexdata: ForexCard): Observable<any> {
       return this.http.post(this.baseUrl + 'api/Forex/AddForex',
           JSON.stringify(forexdata));
   }
 
+  getForexDetails(id: number): Observable<any> {
 
+      return this.http.get(this.baseUrl + 'api/Forex/GetForexDetails', {
+          params: new HttpParams().set('id', id.toString())
+      });
+  }
 
-    updateForexInfo(forexdata: Forex): Observable<any> {
+    updateForexInfo(forexdata: ForexCard): Observable<any> {
 
       return this.http.post(this.baseUrl + 'api/Forex/UpdateForex', 
           JSON.stringify(forexdata));
