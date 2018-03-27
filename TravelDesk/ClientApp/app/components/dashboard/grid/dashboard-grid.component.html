@@ -35,18 +35,11 @@
                 <button mat-icon-button (click)="openDialog(row.requestId)">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button (click)="openDialog(row.requestId)">
-                    <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-icon-button (click)="openDialog(row.requestId)">
-                    <mat-icon>edit</mat-icon>
-                </button>
-
             </mat-cell>
 
         </ng-container>
 
-        <!--<ng-container matColumnDef="approve">
+        <ng-container matColumnDef="approve">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
             <mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">
                 <button mat-icon-button (click)="openDialog(row.requestId)">
@@ -67,7 +60,7 @@
             </mat-cell>
 
         </ng-container>
-            -->
+            
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;">
     </mat-row>  
