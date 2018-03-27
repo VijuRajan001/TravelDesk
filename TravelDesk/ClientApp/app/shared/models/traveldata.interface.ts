@@ -12,7 +12,7 @@ export class TravelData {
         flightData: new FlightOptions(),
         hotelData: new HotelOptions(),
         passportData: new Passport(),
-        forexData: new Forex();
+        forexData: new Forex(),
     }) {
 
         this.requestData = travelData.requestData;

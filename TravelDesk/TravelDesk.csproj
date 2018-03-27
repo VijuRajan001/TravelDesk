@@ -35,11 +35,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="ClientApp\appsettings.Development.json" />
-    <Content Include="ClientApp\appsettings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DataAccessRepository\DataAccessRepository.csproj" />
   </ItemGroup>
 
