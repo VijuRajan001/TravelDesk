@@ -19,7 +19,7 @@ import { GridService } from '../../../shared/services/grid.service';
 })
 export class TableOverviewExample implements OnInit {
 
-    displayedColumns = ['requestId', 'project_Code', 'country', 'actions'];
+    displayedColumns = ['requestId', 'project_Code', 'country', 'actions', 'approve', 'disapprove'];
     dataSource: RequestDataSource;
     request: RequestData;
     @ViewChild(MatPaginator) paginator: MatPaginator;
