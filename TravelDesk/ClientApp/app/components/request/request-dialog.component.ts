@@ -218,7 +218,6 @@ export class RequestDialog implements OnInit {
             case SubmitActions.updateHotelOptions: this.updateHotelOptions(); break;
             case SubmitActions.createPassport: this.createPassport(); break;
             case SubmitActions.createForex: this.createForexOptions(); break;
-            case SubmitActions.updateForex: this.updateForexOptions(); break;
 
         }
 
