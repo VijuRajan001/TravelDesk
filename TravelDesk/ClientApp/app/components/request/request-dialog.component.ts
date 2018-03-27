@@ -222,8 +222,10 @@ export class RequestDialog implements OnInit{
             case SubmitActions.createForex: this.createForex(); break;
          }
 
-
     }
+
+
+    
 
     createFlightOptions() {
         let saveFlightdata: FlightOptions;
@@ -487,7 +489,10 @@ export class RequestDialog implements OnInit{
         }
     }
 
+    updateForexOptions() {
+        console.log('inside Update Forex');
 
+    }
 
     updateRequest() {
 

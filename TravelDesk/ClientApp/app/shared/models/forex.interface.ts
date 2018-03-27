@@ -29,10 +29,10 @@ export class ForexCard {
 
 
 export class IForexCard {
-    id:number
+    id: number
     cardNumber: string;
     cardType: string;
     cardExpiryDate: string;
     requestInfoId: number;
-    
+
 }

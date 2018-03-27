@@ -15,6 +15,7 @@ export class TravelData {
         hotelData: new HotelOptions(),
         passportData: new Passport(),
         forexCardData: new ForexCard(),
+
     }) {
 
         this.requestData = travelData.requestData;
@@ -37,10 +38,6 @@ export interface ITravelData {
     flightData: FlightOptions;
     hotelData: HotelOptions;
     passportData: Passport;
-<<<<<<< HEAD
     forexCardData:ForexCard
-=======
-    forexData: Forex;
->>>>>>> 5a3cace786ff111e45fee3ab0ba00b39a2304180
 
 }
