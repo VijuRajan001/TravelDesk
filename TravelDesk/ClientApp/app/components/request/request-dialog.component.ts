@@ -1,6 +1,6 @@
-import { ActivatedRoute, Params } from '@angular/router';
+﻿import { ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatAccordion, MatDialogRef, MAT_DIALOG_DATA, MatExpansionModule, MatTableModule, MatDividerModule } from '@angular/material';
+import { MatDialog,MatAccordion ,MatDialogRef, MAT_DIALOG_DATA,MatExpansionModule,MatTableModule,MatDividerModule } from '@angular/material';
 import { Inject } from '@angular/core';
 import { TravelData, ITravelData } from '../../shared/models/traveldata.interface';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormArray, FormBuilder, } from '@angular/forms';
@@ -14,14 +14,12 @@ import { FlightOptions, IFlightOptions } from '../../shared/models/flightoptions
 import { FlightService } from '../../shared/services/flight.service';
 import { MatTabChangeEvent } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
-
 import { HotelOptions, IHotelOptions } from '../../shared/models/hoteloptions.interface';
 import { HotelService } from '../../shared/services/hotel.service';
 import { Passport, IPassport } from '../../shared/models/passport.interface';
 import { PassportService } from '../../shared/services/passport.service';
-import { Forex, IForex } from '../../shared/models/forex.interface';
+import { ForexCard, IForexCard } from '../../shared/models/forex.interface';
 import { ForexService } from '../../shared/services/forex.service';
-
 import { HotelItemsArrayComponent } from '../form/hotelOptions/hoteloptions.component';
 import { HotelItemControlComponent } from '../form/hotelItems/hotel-item-control.component';
 import { RequestData, IRequestData } from '../../shared/models/requestdata.interface';
@@ -39,17 +37,12 @@ import { IHotelItem, HotelItem } from '../../shared/models/hotelitem.interface';
 })
 
 
-export class RequestDialog implements OnInit {
 
-    traveldata: TravelData = new TravelData();
-    hoteldata: HotelOptions = new HotelOptions();
-    passportdata: Passport = new Passport();
-    forexdata: Forex = new Forex();
-
+export class RequestDialog implements OnInit{
+    
+    traveldata: TravelData=new TravelData();    
     submitActions: number;
-    action: typeof SubmitActions = SubmitActions;
-
-
+    action: typeof SubmitActions = SubmitActions;    
     matcher = new MyErrorStateMatcher();
     TravelDataForm: FormGroup;
     FlightOptionsForm: FormGroup;
@@ -58,7 +51,7 @@ export class RequestDialog implements OnInit {
     ForexForm: FormGroup;
 
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+    constructor( @Inject(MAT_DIALOG_DATA) public data: any,
         public dialogRef: MatDialogRef<RequestDialog>, private requestService: RequestService,
         private flightService: FlightService,
         private hotelService: HotelService,
@@ -77,6 +70,8 @@ export class RequestDialog implements OnInit {
         this.prevStep();
 
     }
+
+
     getHotelFormArray() {
         return (this.HotelOptionsForm.get('hotelItems') as FormArray);
     }
@@ -126,67 +121,75 @@ export class RequestDialog implements OnInit {
         });
 
         this.ForexForm = new FormGroup({
-            'cardNum': new FormControl(null),
+            'cardNumber': new FormControl(null),
             'cardType': new FormControl(null),
-            'cardExpiry': new FormControl(null)
+            'cardExpiryDate': new FormControl(null)
         });
+
+
 
 
         if (this.data > 0) {
             let requestData = this.requestService.getRequestById(this.data);
             let flightData = this.flightService.getFlightsForRequest(this.data);
             let hotelData = this.hotelService.getHotelsForRequest(this.data);
-            let passportData = this.passportService.getPassportDetails(this.data)
-            forkJoin([requestData, flightData, hotelData, passportData]).subscribe(results => {
+
+            let passportData = this.passportService.getPassportDetails(this.data);
+            let forexData = this.forexService.getForexDetails(this.data);
+
+
+            forkJoin([requestData, flightData, hotelData, passportData, forexData], ).subscribe(results => {
 
                 this.TravelDataForm.patchValue(new RequestData(<IRequestData>results[0]));
                 this.PassportForm.patchValue(new Passport(<IPassport>results[3]));
-                this.ForexForm.patchValue(new Forex(<IForex>results[3]));
+                this.ForexForm.patchValue(new ForexCard(<IForexCard>results[4]))
                 let flightOptions = new FlightOptions(<IFlightOptions>results[1]);
                 let hotelOptions = new HotelOptions(<IHotelOptions>results[2]);
 
 
-                let i = 0;
-                flightOptions.OnwardFlightItems.forEach(item => {
-                    if (i == 0) {
-                        this.getOnwardFormArray().setControl(i, FlightItemsArrayComponent.buildItemsWithValue(item));
-                    } else {
-                        this.getOnwardFormArray().insert(i, FlightItemsArrayComponent.buildItemsWithValue(item));
-                    }
-                    i = i + 1;
-                });
-                i = 0;
-                flightOptions.ReturnFlightItems.forEach(item => {
-                    if (i == 0) {
-                        this.getReturnFormArray().setControl(i, FlightItemsArrayComponent.buildItemsWithValue(item));
-                    } else {
-                        this.getReturnFormArray().insert(i, FlightItemsArrayComponent.buildItemsWithValue(item));
-                    }
-                    i = i + 1;
-                });
-                i = 0;
-                hotelOptions.HotelItems.forEach(item => {
-                    if (i == 0) {
-                        this.getHotelFormArray().setControl(i, HotelItemsArrayComponent.buildItemsWithValue(item));
-                    } else {
-                        this.getHotelFormArray().insert(i, HotelItemsArrayComponent.buildItemsWithValue(item));
-                    }
-                    i = i + 1;
+                    let i = 0;
+                    flightOptions.OnwardFlightItems.forEach(item => {
+                        if (i == 0) {
+                            this.getOnwardFormArray().setControl(i, FlightItemsArrayComponent.buildItemsWithValue(item));
+                        } else {
+                            this.getOnwardFormArray().insert(i, FlightItemsArrayComponent.buildItemsWithValue(item));
+                        }
+                        i = i + 1;
+                    });
+                    i = 0;
+                    flightOptions.ReturnFlightItems.forEach(item => {
+                        if (i == 0) {
+                            this.getReturnFormArray().setControl(i, FlightItemsArrayComponent.buildItemsWithValue(item));
+                        } else {
+                            this.getReturnFormArray().insert(i, FlightItemsArrayComponent.buildItemsWithValue(item));
+                        }
+                        i = i + 1;
+                    });
+                    i = 0;
+                    hotelOptions.HotelItems.forEach(item => {
+                        if (i == 0) {
+                            this.getHotelFormArray().setControl(i, HotelItemsArrayComponent.buildItemsWithValue(item));
+                        } else {
+                            this.getHotelFormArray().insert(i, HotelItemsArrayComponent.buildItemsWithValue(item));
+                        }
+                        i = i + 1;
 
 
-                });
+                    });
 
 
-                this.traveldata.requestData = new RequestData(<IRequestData>this.TravelDataForm.value);
-                this.traveldata.flightData = new FlightOptions(<IFlightOptions>this.FlightOptionsForm.value);
-                this.traveldata.hotelData = new HotelOptions(<IHotelOptions>this.HotelOptionsForm.value);
-                this.traveldata.passportData = new Passport(<IPassport>this.PassportForm.value);
-                this.traveldata.forexData = new Forex(<IForex>this.ForexForm.value);
+                    this.traveldata.requestData = new RequestData(<IRequestData>this.TravelDataForm.value);
+                    this.traveldata.flightData = new FlightOptions(<IFlightOptions>this.FlightOptionsForm.value);
+                    this.traveldata.hotelData = new HotelOptions(<IHotelOptions>this.HotelOptionsForm.value);
+                    this.traveldata.passportData = new Passport(<IPassport>this.PassportForm.value);
+                    this.traveldata.forexCardData = new ForexCard(<IForexCard>this.ForexForm.value);
+
+               
+
+
             });
 
-
-        }
-
+     }
     }
 
 
@@ -214,15 +217,15 @@ export class RequestDialog implements OnInit {
             case SubmitActions.createRequest: this.createNewRequest(); break;
             case SubmitActions.updateRequest: this.updateRequest(); break;
             case SubmitActions.createFlightOptions: this.createFlightOptions(); break;
-            case SubmitActions.createHotelOptions: this.createHotelOptions(); break;
-            case SubmitActions.updateHotelOptions: this.updateHotelOptions(); break;
+            case SubmitActions.createHotelOptions: this.createHotelOptions(); break;         
             case SubmitActions.createPassport: this.createPassport(); break;
-            case SubmitActions.createForex: this.createForexOptions(); break;
-
-        }
-
+            case SubmitActions.createForex: this.createForex(); break;
+         }
 
     }
+
+
+    
 
     createFlightOptions() {
         let saveFlightdata: FlightOptions;
@@ -410,17 +413,15 @@ export class RequestDialog implements OnInit {
 
 
     }
-    updateHotelOptions() {
-        console.log('inside Update Hotel');
-
-    }
+   
 
     createPassport() {
         if (this.PassportForm.valid) {
             let passportdata: Passport = new Passport(<IPassport>this.PassportForm.value);
 
-            if (passportdata.id == 0) {
+            if (passportdata.id == 0 || passportdata.id==null) {
 
+                passportdata.requestInfoId = this.data;
                 this.passportService.addPassportInfo(passportdata).subscribe(
                     (val) => {
                         console.log("POST call success");
@@ -453,12 +454,13 @@ export class RequestDialog implements OnInit {
     }
 
 
-    createForexOptions() {
+    createForex() {
         if (this.ForexForm.valid) {
-            let forexdata: Forex = new Forex(<IForex>this.ForexForm.value);
 
-            if (forexdata.cardNum == 0) {
+            let forexdata = new ForexCard(<IForexCard>this.ForexForm.value);
 
+            if (forexdata.id == 0 || forexdata.id == null) {
+                forexdata.requestInfoId = this.data;
                 this.forexService.addForexInfo(forexdata).subscribe(
                     (val) => {
                         console.log("POST call success");
@@ -484,10 +486,7 @@ export class RequestDialog implements OnInit {
                     });
 
             }
-
         }
-
-
     }
 
     updateForexOptions() {
@@ -495,8 +494,8 @@ export class RequestDialog implements OnInit {
 
     }
 
-
     updateRequest() {
+
         let requestdata: RequestData;
         if (this.TravelDataForm.valid) {
 
@@ -521,8 +520,9 @@ export class RequestDialog implements OnInit {
 
 
         }
-
+        
     }
+
     createNewRequest() {
         let requestdata: RequestData;
         if (this.TravelDataForm.valid) {
@@ -533,7 +533,7 @@ export class RequestDialog implements OnInit {
             requestdata.returnDate = this.TravelDataForm.controls['returnDate'].value;
             requestdata.employeeId = this.TravelDataForm.controls['employeeId'].value;
             requestdata.employeeName = this.TravelDataForm.controls['employeeName'].value;
-
+            
             this.requestService.addRequest(requestdata).subscribe(
                 (val) => {
                     console.log("POST call success");
@@ -552,7 +552,7 @@ export class RequestDialog implements OnInit {
 
         var today = new Date();
         if (c.value < today.getTime().toString())
-            return { isOnward: { valid: false } };
+            return {isOnward: { valid: false }     };
         return null;
     }
 

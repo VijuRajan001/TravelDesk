@@ -22,13 +22,18 @@ namespace DataAccessRepository.Implementation
             get { return Context as TravDeskDbcontext; }
         }
 
-       
 
-        public ForexInfo GetPassportDetails(int requestId)
+
+
+        public ForexInfo GetForexDetails(int requestId)
         {
-            ForexInfo info = new ForexInfo();
-            info= TravDeskDbcontext.ForexInfo.SingleOrDefault(f => f.RequestInfoId == requestId);
-            return info;
+
+
+            return TravDeskDbcontext.ForexInfo
+                .Where(f => f.RequestInfoId == requestId)
+                .DefaultIfEmpty(new ForexInfo())
+                .Single();
         }
+
     }
 }

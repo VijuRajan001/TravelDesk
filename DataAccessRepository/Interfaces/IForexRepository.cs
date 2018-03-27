@@ -8,7 +8,7 @@ namespace DataAccessRepository.Interfaces
 {
     public interface IForexRepository : IRepository<ForexInfo>
     {
-        ForexInfo GetPassportDetails(int requestId);
+        ForexInfo GetForexDetails(int requestId);
 
     }
 }
