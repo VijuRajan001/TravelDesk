@@ -42,7 +42,7 @@
         <ng-container matColumnDef="approve">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
             <mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">
-                <button mat-icon-button (click)="openDialog(row.requestId)">
+                <button mat-icon-button (click)="requestId.status=true">
                     <mat-icon>check</mat-icon>
                 </button>
 
@@ -53,7 +53,7 @@
         <ng-container matColumnDef="disapprove">
             <mat-header-cell *matHeaderCellDef mat-sort-header>  </mat-header-cell>
             <mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">
-                <button mat-icon-button (click)="openDialog(row.requestId)">
+                <button mat-icon-button (click)="requestId.status=false">
                     <mat-icon>close</mat-icon>
                 </button>
 
