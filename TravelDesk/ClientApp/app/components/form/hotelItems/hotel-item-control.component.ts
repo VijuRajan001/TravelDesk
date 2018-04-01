@@ -23,13 +23,14 @@ export class HotelItemControlComponent {
     public removed: EventEmitter<number> = new EventEmitter<number>();
 
     @Output()
-    public add :EventEmitter<number> = new EventEmitter<number>();;
+    public add: EventEmitter<number> = new EventEmitter<number>();;
+ 
 
     static buildItemwithValue(data: any) {
 
         return new FormGroup({
             'id': new FormControl(data.id),
-            'hotelName': new FormControl(data.hotelName, [Validators.required]),
+            'hotelName': new FormControl(data.hotelName, Validators.required),
             'location': new FormControl(data.location, Validators.required),
             'website': new FormControl(data.website, Validators.required),
             'mobileno': new FormControl(data.mobileno, Validators.required)
