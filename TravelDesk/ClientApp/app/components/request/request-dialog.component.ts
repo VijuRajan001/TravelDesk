@@ -110,8 +110,8 @@ export class RequestDialog implements OnInit, Validators {
             'project_code': new FormControl(null, [Validators.required, Validators.maxLength(50)]),
             'country': new FormControl(null, [Validators.required]),
             'travelDob': new FormControl(null, [Validators.required]),
-            'travelDate': new FormControl(this.today, [Validators.required]),
-            'returnDate': new FormControl(this.today, [Validators.required]),
+            'travelDate': new FormControl(null, [Validators.required]),
+            'returnDate': new FormControl(null, [Validators.required]),
             'employeeId': new FormControl(null, [Validators.required, Validators.maxLength(50)]),
             'employeeName': new FormControl(null, [Validators.required]),
 
@@ -135,8 +135,8 @@ export class RequestDialog implements OnInit, Validators {
         this.PassportForm = this.fb.group({
             'passportNum': new FormControl(null, [Validators.required]),
             'visaNum': new FormControl(null, [Validators.required]),
-            'passportExpiryDate': new FormControl(this.today, [Validators.required]),
-            'visaExpiryDate': new FormControl(this.today, [Validators.required])
+            'passportExpiryDate': new FormControl(null, [Validators.required]),
+            'visaExpiryDate': new FormControl(null, [Validators.required])
         });
 
         this.ForexForm = this.fb.group({

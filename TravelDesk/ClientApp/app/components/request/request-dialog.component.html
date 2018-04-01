@@ -53,7 +53,7 @@
                     </mat-form-field>
                     <mat-datepicker #return_date></mat-datepicker>
                 </div>
-                <div class="alert alert-danger" *ngIf="TravelDataForm.controls['travelDate'].value > TravelDataForm.controls['returnDate'].value">
+                <div class="alert alert-danger" *ngIf="TravelDataForm.controls['travelDate'].value > TravelDataForm.controls['returnDate'].value &&TravelDataForm.controls['returnDate'].value!=null && TravelDataForm.controls['travelDate'].value!=null">
                    Return date should be greater than or equal to Travel date
                 </div>
 
@@ -168,10 +168,10 @@
 
 
                 </div>
-                <div class="alert alert-danger" *ngIf="TravelDataForm.controls['travelDate'].value > PassportForm.controls['passportExpiryDate'].value">
+                <div class="alert alert-danger" *ngIf="TravelDataForm.controls['travelDate'].value > PassportForm.controls['passportExpiryDate'].value && PassportForm.controls['passportExpiryDate'].value!=null ">
                     Passport expiry date should be greater than Travel date
                 </div>
-                <div class="alert alert-danger" *ngIf="TravelDataForm.controls['travelDate'].value > PassportForm.controls['visaExpiryDate'].value">
+                <div class="alert alert-danger" *ngIf="TravelDataForm.controls['travelDate'].value > PassportForm.controls['visaExpiryDate'].value && PassportForm.controls['visaExpiryDate'].value!=null">
                     Visa expiry date should be greater than Travel date
                 </div>
                 <div class="spacer">
