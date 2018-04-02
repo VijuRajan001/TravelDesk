@@ -108,7 +108,9 @@
                     <mat-divider></mat-divider>
                     <mat-action-row>
                         <button mat-button color="primary" type="submit" (click)="submitActions=action.createFlightOptions">Save</button>
+                        <button mat-button color="primary" (click)="prevStep()">Previous</button>
                         <button mat-button color="primary" (click)="nextStep()">Next</button>
+
                     </mat-action-row>
                 </div>
             </form>
@@ -124,7 +126,9 @@
                 <div class="spacer">
                     <mat-action-row>
                         <button mat-button color="primary" type="submit" (click)="submitActions=action.createHotelOptions">Save</button>
+                        <button mat-button color="primary" (click)="prevStep()">Previous</button>
                         <button mat-button color="primary" (click)="nextStep()">Next</button>
+
                     </mat-action-row>
                 </div>
             </form>
@@ -178,7 +182,9 @@
                     <mat-divider></mat-divider>
                     <mat-action-row>
                         <button mat-button color="primary" type="submit" (click)="submitActions=action.createPassport">Save</button>
+                        <button mat-button color="primary" (click)="prevStep()">Previous</button>
                         <button mat-button color="primary" (click)="nextStep()">Next</button>
+
 
                     </mat-action-row>
                 </div>
@@ -214,7 +220,7 @@
                     <mat-divider></mat-divider>
                     <mat-action-row>
                         <button mat-button color="primary" type="submit" (click)="submitActions=action.createForex">Save</button>
-                        <button mat-button color="primary" (click)="nextStep()">Next</button>
+                        <button mat-button color="primary" (click)="prevStep()">Previous</button>
 
                     </mat-action-row>
                 </div>
