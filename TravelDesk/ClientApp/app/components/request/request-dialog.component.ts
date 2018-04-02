@@ -49,7 +49,7 @@ export class RequestDialog implements OnInit, Validators {
     mindate = new Date(this.today);
     minDate1 = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate());
     
-
+    step = 0;
 
 
     traveldata: TravelData = new TravelData();
@@ -79,9 +79,9 @@ export class RequestDialog implements OnInit, Validators {
 
     }
 
-    resetExpansionPanel(event: MatTabChangeEvent) {
+    resetExpansionPanel(val:number) {
 
-        this.prevStep();
+        this.step = val;
 
     }
 
@@ -214,7 +214,7 @@ export class RequestDialog implements OnInit, Validators {
 
 
 
-    step = 1;
+   
 
     setStep(index: number) {
         this.step = index;
@@ -222,11 +222,15 @@ export class RequestDialog implements OnInit, Validators {
     }
 
     nextStep() {
+    
         this.step++;
+  
     }
 
     prevStep() {
+       
         this.step--;
+        
     }
 
     onSubmit() {

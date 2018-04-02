@@ -1,5 +1,5 @@
 <div mat-dialog-content>
-    <mat-tab-group #tabGroup (selectedTabChange)="resetExpansionPanel($event)">
+    <mat-tab-group #tabGroup (selectedIndexChange)="resetExpansionPanel($event)" [selectedIndex]="step">
         <mat-tab label="Add Request" class="flex-expand">
             <form [formGroup]="TravelDataForm" (ngSubmit)="onSubmit()" class="tab-form">
                 <div class="form-content">
@@ -71,7 +71,7 @@
 
         </mat-tab>
 
-        <mat-tab label="Flight Options" (click)="resetExpansionPanel()">
+        <mat-tab label="Flight Options">
             <form [formGroup]="FlightOptionsForm" (ngSubmit)="onSubmit()" class="tab-form">
                 <div class="form-content">
                     <mat-accordion>
