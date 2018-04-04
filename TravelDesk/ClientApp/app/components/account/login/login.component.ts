@@ -86,5 +86,14 @@ export class LoginComponent implements OnInit, OnDestroy {
         return this.email.hasError('required') ? 'You must enter a value' :
             this.email.hasError('email') ? 'Not a valid email' :
                 '';
+  }
+
+    hide = 1;
+
+    hidePassword() {
+        if (this.hide == 1)
+            return true;
+        else return false;
+
     }
 }

@@ -1,9 +1,14 @@
 ﻿import { ActivatedRoute, Params } from '@angular/router';
+import { ValidationManager } from "ng2-validation-manager";
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { Directive, Attribute } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog,MatAccordion ,MatDialogRef, MAT_DIALOG_DATA,MatExpansionModule,MatTableModule,MatDividerModule } from '@angular/material';
 import { Inject } from '@angular/core';
 import { TravelData, ITravelData } from '../../shared/models/traveldata.interface';
-import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormArray, FormBuilder, } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormArray, FormBuilder, NG_VALIDATORS, } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { RequestService } from '../../shared/services/request.service'
 import { AuthService } from '../../shared/services/auth.service';
@@ -28,6 +33,7 @@ import { AbstractControl } from '@angular/forms/src/model';
 import { Request } from '@angular/http/src/static_request';
 import { ViewChild } from '@angular/core/src/metadata/di';
 import { IHotelItem, HotelItem } from '../../shared/models/hotelitem.interface';
+import { AppComponent } from '../app/app.component';
 
 @Component({
     selector: 'request-dialog',
@@ -36,13 +42,19 @@ import { IHotelItem, HotelItem } from '../../shared/models/hotelitem.interface';
 
 })
 
+export class RequestDialog implements OnInit, Validators {
 
-
-export class RequestDialog implements OnInit{
+    today = new Date();
+    maxDate = new Date(this.today.getFullYear() - 18, this.today.getMonth(), this.today.getDate());
+    mindate = new Date(this.today);
+    minDate1 = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate());
     
-    traveldata: TravelData=new TravelData();    
+    step = 0;
+
+
+    traveldata: TravelData = new TravelData();
     submitActions: number;
-    action: typeof SubmitActions = SubmitActions;    
+    action: typeof SubmitActions = SubmitActions;
     matcher = new MyErrorStateMatcher();
     TravelDataForm: FormGroup;
     FlightOptionsForm: FormGroup;
@@ -51,13 +63,15 @@ export class RequestDialog implements OnInit{
     ForexForm: FormGroup;
 
 
-    constructor( @Inject(MAT_DIALOG_DATA) public data: any,
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any,
         public dialogRef: MatDialogRef<RequestDialog>, private requestService: RequestService,
         private flightService: FlightService,
         private hotelService: HotelService,
         private passportService: PassportService,
         private forexService: ForexService,
-        private authservice: AuthService, private fb: FormBuilder) {
+        private authservice: AuthService,
+        private fb: FormBuilder,
+        private formBuilder: FormBuilder) {
 
         //data = 0 means new request
         console.log(data);
@@ -65,9 +79,9 @@ export class RequestDialog implements OnInit{
 
     }
 
-    resetExpansionPanel(event: MatTabChangeEvent) {
+    resetExpansionPanel(val:number) {
 
-        this.prevStep();
+        this.step = val;
 
     }
 
@@ -87,20 +101,25 @@ export class RequestDialog implements OnInit{
         this.dialogRef.close();
     }
 
+
+
     ngOnInit(): void {
 
-        this.TravelDataForm = new FormGroup({
+        this.TravelDataForm = this.fb.group({
 
             'project_code': new FormControl(null, [Validators.required, Validators.maxLength(50)]),
             'country': new FormControl(null, [Validators.required]),
             'travelDob': new FormControl(null, [Validators.required]),
-            'travelDate': new FormControl(null, [Validators.required, this.isOnward]),
+            'travelDate': new FormControl(null, [Validators.required]),
             'returnDate': new FormControl(null, [Validators.required]),
             'employeeId': new FormControl(null, [Validators.required, Validators.maxLength(50)]),
             'employeeName': new FormControl(null, [Validators.required]),
 
+        
 
-        });
+            });
+
+
 
         this.FlightOptionsForm = this.fb.group({
 
@@ -113,17 +132,17 @@ export class RequestDialog implements OnInit{
             'hotelItems': HotelItemsArrayComponent.buildItems()
         });
 
-        this.PassportForm = new FormGroup({
-            'passportNum': new FormControl(null),
-            'visaNum': new FormControl(null),
-            'passportExpiryDate': new FormControl(null),
-            'visaExpiryDate': new FormControl(null)
+        this.PassportForm = this.fb.group({
+            'passportNum': new FormControl(null, [Validators.required]),
+            'visaNum': new FormControl(null, [Validators.required]),
+            'passportExpiryDate': new FormControl(null, [Validators.required]),
+            'visaExpiryDate': new FormControl(null, [Validators.required])
         });
 
-        this.ForexForm = new FormGroup({
-            'cardNumber': new FormControl(null),
-            'cardType': new FormControl(null),
-            'cardExpiryDate': new FormControl(null)
+        this.ForexForm = this.fb.group({
+            'cardNumber': new FormControl(null, [Validators.required]),
+            'cardType': new FormControl(null, [Validators.required]),
+            'cardExpiryDate': new FormControl(this.today, [Validators.required])
         });
 
 
@@ -147,55 +166,55 @@ export class RequestDialog implements OnInit{
                 let hotelOptions = new HotelOptions(<IHotelOptions>results[2]);
 
 
-                    let i = 0;
-                    flightOptions.OnwardFlightItems.forEach(item => {
-                        if (i == 0) {
-                            this.getOnwardFormArray().setControl(i, FlightItemsArrayComponent.buildItemsWithValue(item));
-                        } else {
-                            this.getOnwardFormArray().insert(i, FlightItemsArrayComponent.buildItemsWithValue(item));
-                        }
-                        i = i + 1;
-                    });
-                    i = 0;
-                    flightOptions.ReturnFlightItems.forEach(item => {
-                        if (i == 0) {
-                            this.getReturnFormArray().setControl(i, FlightItemsArrayComponent.buildItemsWithValue(item));
-                        } else {
-                            this.getReturnFormArray().insert(i, FlightItemsArrayComponent.buildItemsWithValue(item));
-                        }
-                        i = i + 1;
-                    });
-                    i = 0;
-                    hotelOptions.HotelItems.forEach(item => {
-                        if (i == 0) {
-                            this.getHotelFormArray().setControl(i, HotelItemsArrayComponent.buildItemsWithValue(item));
-                        } else {
-                            this.getHotelFormArray().insert(i, HotelItemsArrayComponent.buildItemsWithValue(item));
-                        }
-                        i = i + 1;
+                let i = 0;
+                flightOptions.OnwardFlightItems.forEach(item => {
+                    if (i == 0) {
+                        this.getOnwardFormArray().setControl(i, FlightItemsArrayComponent.buildItemsWithValue(item));
+                    } else {
+                        this.getOnwardFormArray().insert(i, FlightItemsArrayComponent.buildItemsWithValue(item));
+                    }
+                    i = i + 1;
+                });
+                i = 0;
+                flightOptions.ReturnFlightItems.forEach(item => {
+                    if (i == 0) {
+                        this.getReturnFormArray().setControl(i, FlightItemsArrayComponent.buildItemsWithValue(item));
+                    } else {
+                        this.getReturnFormArray().insert(i, FlightItemsArrayComponent.buildItemsWithValue(item));
+                    }
+                    i = i + 1;
+                });
+                i = 0;
+                hotelOptions.HotelItems.forEach(item => {
+                    if (i == 0) {
+                        this.getHotelFormArray().setControl(i, HotelItemsArrayComponent.buildItemsWithValue(item));
+                    } else {
+                        this.getHotelFormArray().insert(i, HotelItemsArrayComponent.buildItemsWithValue(item));
+                    }
+                    i = i + 1;
 
 
-                    });
+                });
 
 
-                    this.traveldata.requestData = new RequestData(<IRequestData>this.TravelDataForm.value);
-                    this.traveldata.flightData = new FlightOptions(<IFlightOptions>this.FlightOptionsForm.value);
-                    this.traveldata.hotelData = new HotelOptions(<IHotelOptions>this.HotelOptionsForm.value);
-                    this.traveldata.passportData = new Passport(<IPassport>this.PassportForm.value);
-                    this.traveldata.forexCardData = new ForexCard(<IForexCard>this.ForexForm.value);
+                this.traveldata.requestData = new RequestData(<IRequestData>this.TravelDataForm.value);
+                this.traveldata.flightData = new FlightOptions(<IFlightOptions>this.FlightOptionsForm.value);
+                this.traveldata.hotelData = new HotelOptions(<IHotelOptions>this.HotelOptionsForm.value);
+                this.traveldata.passportData = new Passport(<IPassport>this.PassportForm.value);
+                this.traveldata.forexCardData = new ForexCard(<IForexCard>this.ForexForm.value);
 
-               
+
 
 
             });
 
-     }
+        }
     }
 
 
 
 
-    step = 1;
+   
 
     setStep(index: number) {
         this.step = index;
@@ -203,29 +222,34 @@ export class RequestDialog implements OnInit{
     }
 
     nextStep() {
+    
         this.step++;
+  
     }
 
     prevStep() {
+       
         this.step--;
+        
     }
 
     onSubmit() {
+
         console.log(this.submitActions);
         switch (this.submitActions) {
 
             case SubmitActions.createRequest: this.createNewRequest(); break;
             case SubmitActions.updateRequest: this.updateRequest(); break;
             case SubmitActions.createFlightOptions: this.createFlightOptions(); break;
-            case SubmitActions.createHotelOptions: this.createHotelOptions(); break;         
+            case SubmitActions.createHotelOptions: this.createHotelOptions(); break;
             case SubmitActions.createPassport: this.createPassport(); break;
             case SubmitActions.createForex: this.createForex(); break;
-         }
+        }
 
     }
 
 
-    
+
 
     createFlightOptions() {
         let saveFlightdata: FlightOptions;
@@ -413,13 +437,13 @@ export class RequestDialog implements OnInit{
 
 
     }
-   
+
 
     createPassport() {
         if (this.PassportForm.valid) {
             let passportdata: Passport = new Passport(<IPassport>this.PassportForm.value);
 
-            if (passportdata.id == 0 || passportdata.id==null) {
+            if (passportdata.id == 0 || passportdata.id == null) {
 
                 passportdata.requestInfoId = this.data;
                 this.passportService.addPassportInfo(passportdata).subscribe(
@@ -520,7 +544,7 @@ export class RequestDialog implements OnInit{
 
 
         }
-        
+
     }
 
     createNewRequest() {
@@ -533,7 +557,7 @@ export class RequestDialog implements OnInit{
             requestdata.returnDate = this.TravelDataForm.controls['returnDate'].value;
             requestdata.employeeId = this.TravelDataForm.controls['employeeId'].value;
             requestdata.employeeName = this.TravelDataForm.controls['employeeName'].value;
-            
+
             this.requestService.addRequest(requestdata).subscribe(
                 (val) => {
                     console.log("POST call success");
@@ -549,15 +573,12 @@ export class RequestDialog implements OnInit{
     }
 
     isOnward(c: FormControl) {
-
-        var today = new Date();
-        if (c.value < today.getTime().toString())
-            return {isOnward: { valid: false }     };
+        
+           
         return null;
+     
     }
-
-}
-
+}  
 enum SubmitActions {
     createRequest,
     updateRequest,

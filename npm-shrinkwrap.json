@@ -168,6 +168,15 @@
       "integrity": "sha1-GdOGodntxufByF04iu28xW0zYC0=",
       "dev": true
     },
+    "babel-runtime": {
+      "version": "6.26.0",
+      "resolved": "https://registry.npmjs.org/babel-runtime/-/babel-runtime-6.26.0.tgz",
+      "integrity": "sha1-llxwWGaOgrVde/4E/yM3vItWR/4=",
+      "requires": {
+        "core-js": "2.5.4",
+        "regenerator-runtime": "0.11.1"
+      }
+    },
     "balanced-match": {
       "version": "1.0.0",
       "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.0.tgz",
@@ -191,6 +200,11 @@
       "resolved": "https://registry.npmjs.org/binary-extensions/-/binary-extensions-1.11.0.tgz",
       "integrity": "sha1-RqoXUftqL5PuXmibsQh9SxTGwgU=",
       "dev": true
+    },
+    "bluebird": {
+      "version": "3.5.1",
+      "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.1.tgz",
+      "integrity": "sha512-MKiLiV+I1AA596t9w1sQJ8jkiSr5+ZKi0WKrYGUn6d1Fx+Ij4tIj+m2WMQSGczs5jZVxV339chE8iwk6F64wjA=="
     },
     "bn.js": {
       "version": "4.11.8",
@@ -404,6 +418,11 @@
       "resolved": "https://registry.npmjs.org/constants-browserify/-/constants-browserify-1.0.0.tgz",
       "integrity": "sha1-wguW2MYXdIqvHBYCF2DNJ/y4y3U=",
       "dev": true
+    },
+    "core-js": {
+      "version": "2.5.4",
+      "resolved": "https://registry.npmjs.org/core-js/-/core-js-2.5.4.tgz",
+      "integrity": "sha1-8si/GB8qgLkvNgEhQpzmOi8K6uA="
     },
     "core-util-is": {
       "version": "1.0.2",
@@ -1981,6 +2000,24 @@
         "invert-kv": "1.0.0"
       }
     },
+    "libphonenumber-js": {
+      "version": "0.4.52",
+      "resolved": "https://registry.npmjs.org/libphonenumber-js/-/libphonenumber-js-0.4.52.tgz",
+      "integrity": "sha512-Ns5FcEp8W/lZd+lKu7OB46RYBKcncN/S3C51OFh7qXbu6kOFAd75A4M0jtasK3MUWMxKsKXII4WL+GbqaLa2DQ==",
+      "requires": {
+        "babel-runtime": "6.26.0",
+        "bluebird": "3.5.1",
+        "minimist": "1.2.0",
+        "xml2js": "0.4.19"
+      },
+      "dependencies": {
+        "minimist": {
+          "version": "1.2.0",
+          "resolved": "https://registry.npmjs.org/minimist/-/minimist-1.2.0.tgz",
+          "integrity": "sha1-o1AIsg9BOD7sH7kU9M1d95omQoQ="
+        }
+      }
+    },
     "load-json-file": {
       "version": "2.0.0",
       "resolved": "https://registry.npmjs.org/load-json-file/-/load-json-file-2.0.0.tgz",
@@ -2167,6 +2204,19 @@
       "integrity": "sha1-7XFfP+neArV6XmJS2QqWZ14fCFo=",
       "dev": true,
       "optional": true
+    },
+    "ng2-validation": {
+      "version": "4.2.0",
+      "resolved": "https://registry.npmjs.org/ng2-validation/-/ng2-validation-4.2.0.tgz",
+      "integrity": "sha1-841EHT+36GIVUWZIAEWq/5rRHbs=",
+      "requires": {
+        "libphonenumber-js": "0.4.52"
+      }
+    },
+    "ng2-validation-manager": {
+      "version": "0.5.3",
+      "resolved": "https://registry.npmjs.org/ng2-validation-manager/-/ng2-validation-manager-0.5.3.tgz",
+      "integrity": "sha1-zJJ7GR2Yb+D7atKVeQdQxV3L6FE="
     },
     "node-libs-browser": {
       "version": "2.1.0",
@@ -2559,6 +2609,11 @@
         "set-immediate-shim": "1.0.1"
       }
     },
+    "regenerator-runtime": {
+      "version": "0.11.1",
+      "resolved": "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz",
+      "integrity": "sha512-MguG95oij0fC3QV3URf4V2SDYGJhJnJGqvIIgdECeODCT98wSWDAJ94SSuVpYQUoTcGUIL6L4yNB7j1DFFHSBg=="
+    },
     "regex-cache": {
       "version": "0.4.4",
       "resolved": "https://registry.npmjs.org/regex-cache/-/regex-cache-0.4.4.tgz",
@@ -2622,6 +2677,11 @@
       "resolved": "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.1.1.tgz",
       "integrity": "sha512-kKvNJn6Mm93gAczWVJg7wH+wGYWNrDHdWvpUmHyEsgCtIwwo3bqPtV4tR5tuPaUhTOo/kvhVwd8XwwOllGYkbg==",
       "dev": true
+    },
+    "sax": {
+      "version": "1.2.4",
+      "resolved": "https://registry.npmjs.org/sax/-/sax-1.2.4.tgz",
+      "integrity": "sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw=="
     },
     "semver": {
       "version": "5.5.0",
@@ -2710,6 +2770,32 @@
       "resolved": "https://registry.npmjs.org/spdx-license-ids/-/spdx-license-ids-1.2.2.tgz",
       "integrity": "sha1-yd96NCRZSt5r0RkA1ZZpbcBrrFc=",
       "dev": true
+    },
+    "sq-ng2-validation": {
+      "version": "4.2.0",
+      "resolved": "https://registry.npmjs.org/sq-ng2-validation/-/sq-ng2-validation-4.2.0.tgz",
+      "integrity": "sha1-rjaYVg6kVnN1TDYYcFw4W5Z9p0Q=",
+      "requires": {
+        "libphonenumber-js": "0.4.5"
+      },
+      "dependencies": {
+        "libphonenumber-js": {
+          "version": "0.4.5",
+          "resolved": "https://registry.npmjs.org/libphonenumber-js/-/libphonenumber-js-0.4.5.tgz",
+          "integrity": "sha1-lWV/wd92qOo5D2Uppb4gEmguhLQ=",
+          "requires": {
+            "babel-runtime": "6.26.0",
+            "bluebird": "3.5.1",
+            "minimist": "1.2.0",
+            "xml2js": "0.4.19"
+          }
+        },
+        "minimist": {
+          "version": "1.2.0",
+          "resolved": "https://registry.npmjs.org/minimist/-/minimist-1.2.0.tgz",
+          "integrity": "sha1-o1AIsg9BOD7sH7kU9M1d95omQoQ="
+        }
+      }
     },
     "stream-browserify": {
       "version": "2.0.1",
@@ -3054,6 +3140,20 @@
           }
         }
       }
+    },
+    "xml2js": {
+      "version": "0.4.19",
+      "resolved": "https://registry.npmjs.org/xml2js/-/xml2js-0.4.19.tgz",
+      "integrity": "sha512-esZnJZJOiJR9wWKMyuvSE1y6Dq5LCuJanqhxslH2bxM6duahNZ+HMpCLhBQGZkbX6xRf8x1Y2eJlgt2q3qo49Q==",
+      "requires": {
+        "sax": "1.2.4",
+        "xmlbuilder": "9.0.7"
+      }
+    },
+    "xmlbuilder": {
+      "version": "9.0.7",
+      "resolved": "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-9.0.7.tgz",
+      "integrity": "sha1-Ey7mPS7FVlxVfiD0wi35rKaGsQ0="
     },
     "xtend": {
       "version": "4.0.1",

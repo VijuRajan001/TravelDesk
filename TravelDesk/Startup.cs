@@ -43,7 +43,7 @@ namespace TravelDesk
                                   options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                                    b => b.MigrationsAssembly("TravelDesk")));
             services.AddSingleton<IJwtFactory, JwtFactory>();
-            services.AddTransient<IUnitOfWork,UnitOfWork>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
 
@@ -90,8 +90,8 @@ namespace TravelDesk
             services.AddIdentity<AppUser, IdentityRole>
                (o =>
                {
-                    // configure identity options
-                    o.Password.RequireDigit = false;
+                   // configure identity options
+                   o.Password.RequireDigit = false;
                    o.Password.RequireLowercase = false;
                    o.Password.RequireUppercase = false;
                    o.Password.RequireNonAlphanumeric = false;

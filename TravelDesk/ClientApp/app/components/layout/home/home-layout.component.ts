@@ -18,7 +18,8 @@ export class HomeLayoutComponent implements AfterViewInit {
     
     @ViewChildren(TableOverviewExample) DashBoardGrid: QueryList<TableOverviewExample>
 
-
+    
+   
     mobileQuery: MediaQueryList;
     fillerNav = Array(50).fill(0).map((_, i) => `Nav Item ${i + 1}`);
 
@@ -27,12 +28,12 @@ export class HomeLayoutComponent implements AfterViewInit {
 
     constructor(public dialog: MatDialog, changeDetectorRef: ChangeDetectorRef,
         media: MediaMatcher, private renderer: Renderer2, private router: Router,
-        private gridService : GridService,
+        private gridService: GridService,
         private userService: UserService) {
         this.mobileQuery = media.matchMedia('(max-width: 600px)');
         this._mobileQueryListener = () => changeDetectorRef.detectChanges();
         this.mobileQuery.addListener(this._mobileQueryListener);
-
+        
     }
     
     openDialog(): void {
