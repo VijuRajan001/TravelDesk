@@ -21,6 +21,18 @@ h1.example-app-name {
     margin-left: 8px;
 }
 
+.example-logo-container {
+    display: flex;
+    align-self: flex-start;
+    height: 100%;
+    width: 20%;
+    object-fit: contain;
+    padding-top: 0pt;
+    padding-bottom: 0pt;
+    padding-left: 20pt;
+    padding-right: 20pt;
+}
+
 .example-sidenav-container {
     /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
      causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
@@ -43,6 +55,8 @@ h1.example-app-name {
 .example-toolbar {
     height: 50px;
     padding: 0 0px;
+    background-color: white;
+    color: navy;
 }
 .example-buttons-icon{
     height:50px;
