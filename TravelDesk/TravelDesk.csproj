@@ -52,6 +52,8 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\app\components\layout\login\" />
+    <Folder Include="ClientApp\app\NewFolder1\" />
+    <Folder Include="ClientApp\app\NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>
