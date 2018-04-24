@@ -4,15 +4,15 @@ using System.Text;
 
 namespace DataAccessRepository.Entities
 {
-    public class PerdiemInfo
+    public class PerDiemInfo
     {
-        public DateTime DateofArrival { get; set;}
-        public DateTime DateofDeparture { get; set; }
-        public double Currency { get; set; }
-        public string PerdiemEligibility { get; set; }
-        public int NoOfDays { get; set; }
-        public double TotalAmount { get; set; }
-        public string Remarks { get; set; }
+        public DateTime arrivalDate { get; set;}
+        public DateTime departureDate { get; set; }
+        public string currency { get; set; }
+        public int eligibility { get; set; }
+        public int totalDays { get; set; }
+        public double totalAmount { get; set; }
+        public string remarks { get; set; }
         public double Total { get; set; }
         public int ReimbursementInfoId { get; set; }
         public ReimbursementInfo ReimbursementInfo { get; set; }

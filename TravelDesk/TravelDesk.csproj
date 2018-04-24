@@ -31,7 +31,13 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="ClientApp\app\NewFolder1\**" />
+    <Compile Remove="ClientApp\app\NewFolder\**" />
     <Content Remove="ClientApp\**" />
+    <EmbeddedResource Remove="ClientApp\app\NewFolder1\**" />
+    <EmbeddedResource Remove="ClientApp\app\NewFolder\**" />
+    <None Remove="ClientApp\app\NewFolder1\**" />
+    <None Remove="ClientApp\app\NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,8 +58,6 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\app\components\layout\login\" />
-    <Folder Include="ClientApp\app\NewFolder1\" />
-    <Folder Include="ClientApp\app\NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -15,6 +15,12 @@ namespace DataAccessRepository.Core
         private IHotelRepository _hotelRepository;
         private IPassportRepository _passportRepository;
         private IForexRepository _forexRepository;
+        private IFareRepository _fareRepository;
+        private IPerDiemRepository _perDiemRepository;
+        private IBoardingLodgingRepository _boardingLodgingRepository;
+        private ITravelExpensesWithVoucherRepository _travelExpensesWithVoucherRepository;
+        private ITravelExpensesWithoutVoucherRepository _travelExpensesWithoutVoucherRepository;
+        private IOtherExpensesRepository _otherExpensesRepository;
         public UnitOfWork(TravDeskDbcontext context)
         {
             _context = context;
@@ -62,6 +68,60 @@ namespace DataAccessRepository.Core
             get
             {
                 return _forexRepository = _forexRepository ?? new ForexRepository(_context);
+            }
+
+        }
+
+        public IFareRepository FareRepository
+        {
+            get
+            {
+                return _fareRepository = _fareRepository ?? new FareRepository(_context);
+            }
+
+        }
+
+        public IPerDiemRepository PerDiemRepository
+        {
+            get
+            {
+                return _perDiemRepository = _perDiemRepository ?? new PerDiemRepository(_context);
+            }
+
+        }
+
+        public IBoardingLodgingRepository BordingLodgingRepository
+        {
+            get
+            {
+                return _boardingLodgingRepository = _boardingLodgingRepository ?? new BoardingLodgingRepository(_context);
+            }
+
+        }
+
+        public ITravelExpensesWithVoucherRepository TravelExpensesWithVoucherRepository
+        {
+            get
+            {
+                return _travelExpensesWithVoucherRepository = _travelExpensesWithVoucherRepository ?? new TravelExpensesWithVoucherRepository(_context);
+            }
+
+        }
+
+        public ITravelExpensesWithoutVoucherRepository TravelExpensesWithoutVoucherRepository
+        {
+            get
+            {
+                return _travelExpensesWithoutVoucherRepository = _travelExpensesWithoutVoucherRepository ?? new TravelExpensesWithoutVoucherRepository(_context);
+            }
+
+        }
+
+        public IOtherExpensesRepository OtherExpensesRepository
+        {
+            get
+            {
+                return _otherExpensesRepository = _otherExpensesRepository ?? new OtherExpensesRepository(_context);
             }
 
         }

@@ -4,15 +4,15 @@ using System.Text;
 
 namespace DataAccessRepository.Entities
 {
-    public class TravelExpenseUnsupportedbyVoucherInfo
+    public class BoardingLodgingInfo
     {
-        public DateTime Date { get; set; }
-        public string From { get; set; }
-        public string To { get; set; }
-        public string ModeofConveyance { get; set; }
+        public string PlaceofStay { get; set; }
+        public DateTime FromDate { get; set;}
+        public DateTime ToDate { get; set; }
         public string Currency { get; set; }
         public double AmountSpent { get; set; }
-        public string Remark { get; set; }
+        public int Eligibility { get; set; }
+        public string Remarks { get; set; }
         public double Total { get; set; }
         public int ReimbursementInfoId { get; set; }
         public ReimbursementInfo ReimbursementInfo { get; set; }

@@ -63,6 +63,18 @@ import { FlightItemsArrayComponent } from './components/form/flightoptions/fligh
 import { FlightItemControlComponent } from './components/form/flightItems/flight-item-control.component';
 import { HotelItemsArrayComponent } from './components/form/hotelOptions/hoteloptions.component';
 import { HotelItemControlComponent } from './components/form/hotelItems/hotel-item-control.component';
+import { FareItemsArrayComponent } from './components/form/fareOptions/fareoptions.component';
+import { FareItemControlComponent } from './components/form/fareItems/fare-item-control.component';
+import { BoardingLodgingItemsArrayComponent } from './components/form/boardingLodgingOptions/boardingLodgingoptions.component';
+import { BoardingLodgingItemControlComponent } from './components/form/boardingLodgingItems/boardingLodging-item-control.component';
+import { PerDiemItemsArrayComponent } from './components/form/perDiemOptions/perDiemoptions.component';
+import { PerDiemItemControlComponent } from './components/form/perDiemItems/perDiem-item-control.component';
+import { TravelExpensesWithoutVoucherItemsArrayComponent } from './components/form/travelExpensesWithoutVoucherOptions/travelExpensesWithoutVoucheroptions.component';
+import { TravelExpensesWithoutVoucherItemControlComponent } from './components/form/travelExpensesWithoutVoucherItems/travelExpensesWithoutVoucher-item-control.component';
+import { TravelExpensesWithVoucherItemsArrayComponent } from './components/form/TravelExpensesWithVoucherOptions/travelExpensesWithVoucheroptions.component';
+import { TravelExpensesWithVoucherItemControlComponent } from './components/form/TravelExpensesWithVoucherItems/travelExpensesWithVoucher-item-control.component';
+import { OtherExpensesItemsArrayComponent} from './components/form/otherExpensesOptions/otherExpensesoptions.component';
+import { OtherExpensesItemControlComponent } from './components/form/otherExpensesItems/otherExpenses-item-control.component';
 import { FlightService } from './shared/services/flight.service';
 import { HotelService } from './shared/services/hotel.service';
 import { PassportService } from './shared/services/passport.service';
@@ -82,7 +94,19 @@ import { ForexService } from './shared/services/forex.service';
         FlightItemsArrayComponent,
         FlightItemControlComponent,
         HotelItemsArrayComponent,
-        HotelItemControlComponent
+        HotelItemControlComponent,
+        FareItemsArrayComponent,
+        FareItemControlComponent,
+        BoardingLodgingItemsArrayComponent,
+        BoardingLodgingItemControlComponent,
+        PerDiemItemsArrayComponent,
+        PerDiemItemControlComponent,
+        TravelExpensesWithoutVoucherItemsArrayComponent,
+        TravelExpensesWithoutVoucherItemControlComponent,
+        TravelExpensesWithVoucherItemsArrayComponent,
+        TravelExpensesWithVoucherItemControlComponent,
+        OtherExpensesItemsArrayComponent,
+        OtherExpensesItemControlComponent
     ],
     imports: [
         CommonModule,

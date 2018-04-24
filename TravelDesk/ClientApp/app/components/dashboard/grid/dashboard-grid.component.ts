@@ -52,7 +52,7 @@ export class TableOverviewExample implements OnInit {
         //this.dataSource.filter = filterValue;
     }
 
-    openDialog(id:number): void {
+    openRequestDialog(id:number): void {
 
 
         let dialogRef = this.dialog.open(RequestDialog, {

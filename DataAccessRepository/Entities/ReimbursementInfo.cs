@@ -11,12 +11,12 @@ namespace DataAccessRepository.Entities
         {
 
             FareInfo = new List<FareInfo>();
-            PerdiemInfo = new List<PerdiemInfo>();
-            BoardingLodgingExpenseInfo = new List<BoardingLodgingExpenseInfo>();
+            PerdiemInfo = new List<PerDiemInfo>();
+            BoardingLodgingExpenseInfo = new List<BoardingLodgingInfo>();
             LocalTravelExpenseInfo = new List<LocalTravelExpenseInfo>();
-            OtherExpenseInfo = new List<OtherExpenseInfo>();
-            TravelExpenseUnsupportedbyVoucherInfo = new List<TravelExpenseUnsupportedbyVoucherInfo>();
-            TravelExpensebyVoucherInfo = new List<TravelExpensebyVoucherInfo>();
+            OtherExpenseInfo = new List<OtherExpensesInfo>();
+            TravelExpenseUnsupportedbyVoucherInfo = new List<TravelExpensesWithoutVoucherInfo>();
+            TravelExpensebyVoucherInfo = new List<TravelExpensesWithVoucherInfo>();
         }
         public string EmployeeName { get; set; }
         public string EmployeeId { get; set; }
@@ -35,11 +35,11 @@ namespace DataAccessRepository.Entities
         public Boolean AnyOtherExpenseReimbursed { get; set; }
 
         public ICollection<FareInfo> FareInfo { get; set; }
-        public ICollection<PerdiemInfo> PerdiemInfo { get; set; }
-        public ICollection<BoardingLodgingExpenseInfo> BoardingLodgingExpenseInfo{ get; set; }
+        public ICollection<PerDiemInfo> PerdiemInfo { get; set; }
+        public ICollection<BoardingLodgingInfo> BoardingLodgingExpenseInfo{ get; set; }
         public ICollection<LocalTravelExpenseInfo> LocalTravelExpenseInfo { get; set; }
-        public ICollection<OtherExpenseInfo> OtherExpenseInfo { get; set; }
-        public ICollection<TravelExpenseUnsupportedbyVoucherInfo> TravelExpenseUnsupportedbyVoucherInfo { get; set; }
-        public ICollection<TravelExpensebyVoucherInfo> TravelExpensebyVoucherInfo { get; set; }
+        public ICollection<OtherExpensesInfo> OtherExpenseInfo { get; set; }
+        public ICollection<TravelExpensesWithoutVoucherInfo> TravelExpenseUnsupportedbyVoucherInfo { get; set; }
+        public ICollection<TravelExpensesWithVoucherInfo> TravelExpensebyVoucherInfo { get; set; }
     }
 }

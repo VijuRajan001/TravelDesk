@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace DataAccessRepository.Entities
+namespace TravelDesk.Models
 {
-    public class OtherExpenseInfo
+    public class OtherExpensesItem
     {
-        public DateTime Date { get; set;}
+        public DateTime Date { get; set; }
         public string NatureofExpense { get; set; }
         public double Currency { get; set; }
         public double AmountSpent { get; set; }
         public string Eligibility { get; set; }
-        public Boolean  SupportbyVoucher{ get; set; }
+        public Boolean SupportbyVoucher { get; set; }
         public int ReimbursementInfoId { get; set; }
-        public ReimbursementInfo ReimbursementInfo { get; set; }
+
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataAccessRepository.Entities
 {
-    public class TravelExpensebyVoucherInfo
+    public class TravelExpensesWithVoucherInfo
     {
         public DateTime Date { get; set;}
         public string From { get; set; }
