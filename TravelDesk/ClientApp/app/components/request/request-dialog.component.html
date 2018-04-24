@@ -75,7 +75,7 @@
             <form [formGroup]="FlightOptionsForm" (ngSubmit)="onSubmit()" class="tab-form">
                 <div class="form-content">
                     <mat-accordion>
-                        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                        <mat-expansion-panel [expanded]="step === 0">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     Onward Journey
@@ -88,7 +88,7 @@
                                                 [itemsFormArray]="FlightOptionsForm.get('onwardFlightItems')">
                             </flight-items-array>
                         </mat-expansion-panel>
-                        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
+                        <mat-expansion-panel [expanded]="step === 1">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     Return Journey

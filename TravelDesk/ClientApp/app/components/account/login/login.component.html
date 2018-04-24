@@ -20,7 +20,7 @@
                     
                         <mat-card-content>
 
-                            
+
                             <div class="login-container">
                                 <mat-form-field>
                                     <input matInput placeholder="Enter your email" name="email" autocomplete="off" [ngModel]="credentials.email" #email="ngModel" validateEmail tmFocus>
@@ -29,26 +29,33 @@
                                 </mat-form-field>
                                 <mat-form-field>
 
-                                 <input matInput placeholder="Enter your password" name="password" autocomplete="off" [type]="hidePassword() ? 'password' : 'text'"  ngModel>
-                                   <mat-icon matSuffix (click)="hide = !hide">{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    <input matInput placeholder="Enter your password" name="password" autocomplete="off" [type]="hidePassword() ? 'password' : 'text'" ngModel>
+                                    <mat-icon matSuffix (click)="hide = !hide">{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
                                 </mat-form-field>
 
                             </div>
 
                             <div *ngIf="errors" class="alert alert-danger" role="alert">
-                                    <strong>Oops!</strong> {{errors}}
-                            </div>  
+                                <strong>Oops!</strong> {{errors}}
+                            </div>
+                            
+                                
 
 
-
-                        </mat-card-content>
+</mat-card-content>
                     
                         <mat-card-actions>
                             <div class="login-action-container">
                                 <button mat-raised-button color="primary">LogIn</button>
+                               
                             </div>
+                            <div>
+                                <a mat-raised-button (click)="openDialog()">Forget Password</a>
+                                
+                            </div>
+                          
                         </mat-card-actions>
-                    
+                        
                 </mat-card>
             </form>
         </div>

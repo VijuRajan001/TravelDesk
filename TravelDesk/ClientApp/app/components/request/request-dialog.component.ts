@@ -110,7 +110,7 @@ export class RequestDialog implements OnInit, Validators {
             'project_code': new FormControl(null, [Validators.required, Validators.maxLength(50)]),
             'country': new FormControl(null, [Validators.required]),
             'travelDob': new FormControl(null, [Validators.required]),
-            'travelDate': new FormControl(null, [Validators.required]),
+            'travelDate': new FormControl(null, [Validators.required, this.isOnward]),
             'returnDate': new FormControl(null, [Validators.required]),
             'employeeId': new FormControl(null, [Validators.required, Validators.maxLength(50)]),
             'employeeName': new FormControl(null, [Validators.required]),
@@ -574,7 +574,6 @@ export class RequestDialog implements OnInit, Validators {
 
     isOnward(c: FormControl) {
         
-           
         return null;
      
     }

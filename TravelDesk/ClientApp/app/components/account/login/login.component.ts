@@ -1,4 +1,6 @@
 import { Subscription } from 'rxjs/Rx';
+import { Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Component, OnInit,OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Credentials } from '../../../shared/models/credentials.interface';
@@ -37,11 +39,18 @@ export class LoginComponent implements OnInit, OnDestroy {
   
    
   constructor(private userService: UserService, private router: Router,
-      private activatedRoute: ActivatedRoute, private zone: NgZone, private authService: AuthService) {
+      private activatedRoute: ActivatedRoute, private zone: NgZone, private authService: AuthService, public dialog: MatDialog) {
 
       this.loggedIn = !!this.authService.getAuthorizationToken();
   
-  }
+    }
+    openDialog(): void {
+
+
+        alert("hello");
+        
+    }
+
 
     ngOnInit() {
 
@@ -79,7 +88,11 @@ export class LoginComponent implements OnInit, OnDestroy {
             });
         
     }
-  }    
+    }    
+    forgot() {
+       
+        this.router.navigate(['login']); 
+    }    
 
 
     getErrorMessage() {

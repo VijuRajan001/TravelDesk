@@ -11,6 +11,7 @@
     "angular-material": "^1.1.7",
     "angular-messages": "^1.6.9",
     "mdi": "^2.1.19",
+    "ng2-opd-popup": "^1.1.21",
     "ng2-validation": "^4.2.0",
     "ng2-validation-manager": "^0.5.3",
     "sq-ng2-validation": "^4.2.0",
