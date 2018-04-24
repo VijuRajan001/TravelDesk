@@ -44,12 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.loggedIn = !!this.authService.getAuthorizationToken();
   
     }
-    openDialog(): void {
-
-
-        alert("hello");
-        
-    }
+    
 
 
     ngOnInit() {
