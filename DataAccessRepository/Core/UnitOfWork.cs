@@ -15,6 +15,7 @@ namespace DataAccessRepository.Core
         private IHotelRepository _hotelRepository;
         private IPassportRepository _passportRepository;
         private IForexRepository _forexRepository;
+        private IReimbursementRepository _reimbursementRepository;
         private IFareRepository _fareRepository;
         private IPerDiemRepository _perDiemRepository;
         private IBoardingLodgingRepository _boardingLodgingRepository;
@@ -72,6 +73,15 @@ namespace DataAccessRepository.Core
 
         }
 
+        public IReimbursementRepository ReimbursementRepository
+        {
+            get
+            {
+                return _reimbursementRepository = _reimbursementRepository ?? new ReimbursementRepository(_context);
+            }
+        }
+
+
         public IFareRepository FareRepository
         {
             get
@@ -90,15 +100,7 @@ namespace DataAccessRepository.Core
 
         }
 
-        public IBoardingLodgingRepository BordingLodgingRepository
-        {
-            get
-            {
-                return _boardingLodgingRepository = _boardingLodgingRepository ?? new BoardingLodgingRepository(_context);
-            }
-
-        }
-
+       
         public ITravelExpensesWithVoucherRepository TravelExpensesWithVoucherRepository
         {
             get
@@ -126,6 +128,12 @@ namespace DataAccessRepository.Core
 
         }
 
+        public IBoardingLodgingRepository BoardingLodgingRepository {
+            get
+            {
+                return _boardingLodgingRepository = _boardingLodgingRepository ?? new BoardingLodgingRepository(_context);
+            }
+        }
 
         public int Complete()
         {

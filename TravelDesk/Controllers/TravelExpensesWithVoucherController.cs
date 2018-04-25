@@ -28,7 +28,7 @@ namespace TravelDesk.Controllers
         [HttpPost("AddTravelExpensesWithVoucher")]
         public void AddTravelExpensesWithVoucher([FromBody] TravelExpensesWithVoucherViewModel travelExpensesWithVoucherViewModel)
         {
-            List<TravelExpensesWithVoucherInfo> _travelExpensesWithVoucherItems = _mapper.Map<List<TravelExpensesWithVoucherItem>, List<TravelExpensesWithVoucherInfo>>(TravelExpensesWithVoucherViewModel.travelExpensesWithVoucherItems);
+            List<TravelExpensesWithVoucherInfo> _travelExpensesWithVoucherItems = _mapper.Map<List<TravelExpensesWithVoucherItem>, List<TravelExpensesWithVoucherInfo>>(travelExpensesWithVoucherViewModel.travelExpensesWithVoucherItems);
             _unitofWork.TravelExpensesWithVoucherRepository.AddTravelExpensesWithVoucherOptions(_travelExpensesWithVoucherItems);
             _unitofWork.Complete();
 

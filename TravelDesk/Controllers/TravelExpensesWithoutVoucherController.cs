@@ -28,7 +28,7 @@ namespace TravelDesk.Controllers
         [HttpPost("AddTravelExpensesWithoutVoucher")]
         public void AddTravelExpensesWithoutVoucher([FromBody] TravelExpensesWithoutVoucherViewModel travelExpensesWithoutVoucherViewModel)
         {
-            List<TravelExpensesWithoutVoucherInfo> _travelExpensesWithoutVoucherItems = _mapper.Map<List<TravelExpensesWithoutVoucherItem>, List<TravelExpensesWithoutVoucherInfo>>(TravelExpensesWithoutVoucherViewModel.travelExpensesWithoutVoucherItems);
+            List<TravelExpensesWithoutVoucherInfo> _travelExpensesWithoutVoucherItems = _mapper.Map<List<TravelExpensesWithoutVoucherItem>, List<TravelExpensesWithoutVoucherInfo>>(travelExpensesWithoutVoucherViewModel.travelExpensesWithoutVoucherItems);
             _unitofWork.TravelExpensesWithoutVoucherRepository.AddTravelExpensesWithoutVoucherOptions(_travelExpensesWithoutVoucherItems);
             _unitofWork.Complete();
 
@@ -38,7 +38,7 @@ namespace TravelDesk.Controllers
         public TravelExpensesWithoutVoucherViewModel GetTravelExpensesWithoutVoucherForRequest(int id)
         {
             TravelExpensesWithoutVoucherViewModel travelExpensesWithoutVoucherOptions = new TravelExpensesWithoutVoucherViewModel();
-            travelExpensesWithoutVoucherOptions.travelExpensesWithVoucherItems = _mapper.Map<List<TravelExpensesWithoutVoucherInfo>, List<TravelExpensesWithoutVoucherItem>>(_unitofWork.TravelExpensesWithoutVoucherRepository.GetTravelExpensesWithoutVoucherForRequest(id));
+            travelExpensesWithoutVoucherOptions.travelExpensesWithoutVoucherItems = _mapper.Map<List<TravelExpensesWithoutVoucherInfo>, List<TravelExpensesWithoutVoucherItem>>(_unitofWork.TravelExpensesWithoutVoucherRepository.GetTravelExpensesWithoutVoucherForRequest(id));
 
             return travelExpensesWithoutVoucherOptions;
 

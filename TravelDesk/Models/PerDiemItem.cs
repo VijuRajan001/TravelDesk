@@ -7,13 +7,14 @@ namespace TravelDesk.Models
 {
     public class PerDiemItem
     {
-        public DateTime arrivalDate { get; set; }
-        public DateTime departureDate { get; set; }
-        public string currency { get; set; }
-        public int eligibility { get; set; }
-        public int totalDays { get; set; }
-        public double totalAmount { get; set; }
-        public string remarks { get; set; }
+        public DateTime ArrivalDate { get; set; }
+        public DateTime DepartureDate { get; set; }
+        public string Currency { get; set; }
+        public int Eligibility { get; set; }
+        public int TotalDays { get; set; }
+        public double TotalAmount { get; set; }
+        public string Remarks { get; set; }
+        public double Total { get; set; }
         public int ReimbursementInfoId { get; set; }
         
     }

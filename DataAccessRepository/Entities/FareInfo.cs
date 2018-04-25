@@ -6,8 +6,8 @@ namespace DataAccessRepository.Entities
 {
     public class FareInfo
     {
-        public string TravelMode { get; set;}
-        public DateTime Date { get; set;}
+        public string TravelMode { get; set; }
+        public DateTime Date { get; set; }
         public string From { get; set; }
         public string To { get; set; }
         public string Currency { get; set; }
@@ -18,3 +18,4 @@ namespace DataAccessRepository.Entities
         public int ReimbursementInfoId { get; set; }
         public ReimbursementInfo ReimbursementInfo { get; set; }
     }
+}

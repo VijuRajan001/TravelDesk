@@ -25,10 +25,10 @@ namespace DataAccessRepository.Implementation
             TravDeskDbcontext.FareInfo.AddRange(fareItems);
         }
 
-        List<HotelInfo> IFareRepository.GetFareForRequest(int id)
+        public List<FareInfo> GetFareForRequest(int id)
         {
             List<FareInfo> FareInfo = new List<FareInfo>();
-            FareInfo = TravDeskDbcontext.FareInfo.Where(f => f.RequestInfoId == id).ToList();
+            FareInfo = TravDeskDbcontext.FareInfo.Where(f => f.ReimbursementInfoId == id).ToList();
 
             return FareInfo;
         }

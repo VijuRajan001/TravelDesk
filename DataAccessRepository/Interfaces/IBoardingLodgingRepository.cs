@@ -8,7 +8,7 @@ namespace DataAccessRepository.Interfaces
 {
     public interface IBoardingLodgingRepository : IRepository<BoardingLodgingInfo>
     {
-        void AddBoardingLodgingOptions(List<BoardingLodgingInfo> boardingLodgingItems);
+        void AddBoardingLodging(List<BoardingLodgingInfo> boardingLodgingItems);
         List<BoardingLodgingInfo> GetBoardingLodgingForRequest(int id);
     }
 }

@@ -12,6 +12,7 @@ namespace DataAccessRepository.Core
         IHotelRepository HotelRepository { get; }
         IPassportRepository PassportRepository { get; }
         IForexRepository ForexRepository { get; }
+        IReimbursementRepository ReimbursementRepository { get; }
         IFareRepository FareRepository { get; }
         IPerDiemRepository PerDiemRepository { get; }
         IBoardingLodgingRepository BoardingLodgingRepository { get; }

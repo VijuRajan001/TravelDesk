@@ -18,6 +18,7 @@ namespace DataAccessRepository.Entities
             TravelExpenseUnsupportedbyVoucherInfo = new List<TravelExpensesWithoutVoucherInfo>();
             TravelExpensebyVoucherInfo = new List<TravelExpensesWithVoucherInfo>();
         }
+        public int ReimbursementInfoId { get; set; }
         public string EmployeeName { get; set; }
         public string EmployeeId { get; set; }
         public string Designation { get; set; }
@@ -27,6 +28,7 @@ namespace DataAccessRepository.Entities
         public string CostCenter { get; set; }
         public string PurposeofTravel { get; set; }
         public string LocationofTravel { get; set; }
+        public string ReimbursementStatus { get; set; }
         public DateTime DateofArrival { get; set; }
         public DateTime DateofDeparture { get; set; }
         public Boolean TravelBillabletoCustomer { get; set; }

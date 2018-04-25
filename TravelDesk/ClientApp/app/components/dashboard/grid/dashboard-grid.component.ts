@@ -3,7 +3,9 @@ import { MatPaginatorModule,MatFormFieldModule, MatButtonModule, MatSortModule, 
 import { MatPaginator, MatSort,MatDialog } from '@angular/material';
 import { RequestService } from '../../../shared/services/request.service'
 import { RequestData } from '../../../shared/models/requestdata.interface';
+import { ReimbursementData } from '../../../shared/models/reimbursementdata.interface';
 import { RequestDialog } from '../../request/request-dialog.component';
+import { ReimbursementDialog } from '../../reimbursement/reimbursement-dialog.component';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -70,6 +72,28 @@ export class TableOverviewExample implements OnInit {
                   
         
     }
+
+
+    openReimbursementDialog(id: number): void {
+
+
+        let dialogRef = this.dialog.open(ReimbursementDialog, {
+            width: '80vw',
+            height: '70vh',
+            data: id
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+
+            this.dataSource.loadRequests();
+
+        });
+
+
+
+    }
+
+
 }
 
 /** Builds and returns a new User. */

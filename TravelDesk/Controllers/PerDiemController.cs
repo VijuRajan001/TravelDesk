@@ -29,7 +29,7 @@ namespace TravelDesk.Controllers
         public void AddPerDiem([FromBody] PerDiemViewModel perDiemViewModel)
         {
             List<PerDiemInfo> _perDiemItems = _mapper.Map<List<PerDiemItem>, List<PerDiemInfo>>(perDiemViewModel.perDiemItems);
-            _unitofWork.PerDiemRepository.AddPerDiem(_perDiemItems);
+            _unitofWork.PerDiemRepository.AddPerDiemOptions(_perDiemItems);
             _unitofWork.Complete();
 
         }
@@ -67,16 +67,16 @@ namespace TravelDesk.Controllers
             
             foreach(var item in perDiemItems)
             {
-                var refItem = perDiemDataList.FirstOrDefault(i => i.Id == item.Id);
+                var refItem = perDiemDataList.FirstOrDefault(i => i.ReimbursementInfoId == item.ReimbursementInfoId);
                 if(refItem!=null)
                 {
-                    refItem.arrivalDate = item.arrivalDate;
-                    refItem.departureDate = item.departureDate;
-                    refItem.currency = item.currency;
-                    refItem.eligibility = item.eligibility;
-                    refItem.totalDays = item.totalDays;
-                    refItem.totalAmount = item.totalAmount;
-                    refItem.remarks = item.remarks;
+                    refItem.ArrivalDate = item.ArrivalDate;
+                    refItem.DepartureDate = item.DepartureDate;
+                    refItem.Currency = item.Currency;
+                    refItem.Eligibility = item.Eligibility;
+                    refItem.TotalDays = item.TotalDays;
+                    refItem.TotalAmount = item.TotalAmount;
+                    refItem.Remarks = item.Remarks;
 
                 }
             }

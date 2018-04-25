@@ -14,6 +14,7 @@ namespace TravelDesk.Models
         public double AmountSpent { get; set; }
         public int Eligibility { get; set; }
         public string Remarks { get; set; }
+        public double Total { get; set; }
         public int ReimbursementInfoId { get; set; }
 
     }

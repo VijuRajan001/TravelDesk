@@ -14,6 +14,7 @@ namespace TravelDesk.Models
         public string Currency { get; set; }
         public double AmountSpent { get; set; }
         public string Remarks { get; set; }
+        public double Total { get; set; }
         public int ReimbursementInfoId { get; set; }
         
     }

@@ -12,6 +12,7 @@ namespace DataAccessRepository.Entities
         public double AmountSpent { get; set; }
         public int Eligibility { get; set; }
         public Boolean  SupportbyVoucher{ get; set; }
+        public double Total { get; set; }
         public int ReimbursementInfoId { get; set; }
         public ReimbursementInfo ReimbursementInfo { get; set; }
     }

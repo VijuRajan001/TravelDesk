@@ -28,7 +28,7 @@ namespace TravelDesk.Controllers
         [HttpPost("AddFare")]
         public void AddFare([FromBody] FareInfoViewModel fareInfoViewModel)
         {
-            List<FareInfo> _hotelItems = _mapper.Map<List<FareItem>, List<FareInfo>>(fareInfoViewModel.fareItems);
+            List<FareInfo> _fareItems = _mapper.Map<List<FareItem>, List<FareInfo>>(fareInfoViewModel.fareItems);
             _unitofWork.FareRepository.AddFare(_fareItems);
             _unitofWork.Complete();
 
@@ -38,7 +38,7 @@ namespace TravelDesk.Controllers
         public FareInfoViewModel GetFareForRequest(int id)
         {
             FareInfoViewModel fareOptions = new FareInfoViewModel();
-            fareOptions.fareItems = _mapper.Map<List<FareInfo>, List<FareItem>>(_unitofWork.HotelRepository.GetFareForRequest(id));
+            fareOptions.fareItems = _mapper.Map<List<FareInfo>, List<FareItem>>(_unitofWork.FareRepository.GetFareForRequest(id));
 
             return fareOptions;
 
@@ -67,7 +67,7 @@ namespace TravelDesk.Controllers
             
             foreach(var item in fareItems)
             {
-                var refItem = fareDataList.FirstOrDefault(i => i.Id == item.Id);
+                var refItem = fareDataList.FirstOrDefault(i => i.ReimbursementInfoId == item.ReimbursementInfoId);
                 if(refItem!=null)
                 {
                     refItem.TravelMode = item.TravelMode;
@@ -77,7 +77,7 @@ namespace TravelDesk.Controllers
                     refItem.Currency = item.Currency;
                     refItem.AmountSpent = item.AmountSpent;
                     refItem.Eligibility = item.Eligibility;
-                    refItem.Remarks = item.Remarks;
+                    refItem.Remark = item.Remarks;
 
                 }
             }

@@ -35,7 +35,7 @@ namespace TravelDesk.Controllers
         }
 
         [HttpGet("GetBoardingLodgingForRequest")]
-        public HotelOptionsViewModel GetHotelsForRequest(int id)
+        public BoardingLodgingViewModel GetHotelsForRequest(int id)
         {
             BoardingLodgingViewModel boardingLodgingOptions = new BoardingLodgingViewModel();
             boardingLodgingOptions.boardingLodgingItems = _mapper.Map<List<BoardingLodgingInfo>, List<BoardingLodgingItem>>(_unitofWork.BoardingLodgingRepository.GetBoardingLodgingForRequest(id));
@@ -67,7 +67,7 @@ namespace TravelDesk.Controllers
             
             foreach(var item in boardingLodgingItems)
             {
-                var refItem = boardingLodgingDataList.FirstOrDefault(i => i.Id == item.Id);
+                var refItem = boardingLodgingDataList.FirstOrDefault(i => i.ReimbursementInfoId == item.ReimbursementInfoId);
                 if(refItem!=null)
                 {
                     refItem.PlaceofStay = item.PlaceofStay;
