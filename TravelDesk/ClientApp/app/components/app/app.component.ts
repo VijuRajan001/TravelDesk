@@ -14,7 +14,7 @@ export class AppComponent {
         private domSanitizer: DomSanitizer,
         public matIconRegistry: MatIconRegistry) {
         //add custom material icons
-        matIconRegistry.addSvgIcon('logo', domSanitizer.bypassSecurityTrustResourceUrl('/dist/assets/images/Nous-logo.svg'));
+        matIconRegistry.addSvgIcon('logo', domSanitizer.bypassSecurityTrustResourceUrl('/dist/Nous-logo.svg'));
     }
 
 }

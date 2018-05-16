@@ -1,5 +1,4 @@
 ﻿import { ActivatedRoute, Params } from '@angular/router';
-import { ValidationManager } from "ng2-validation-manager";
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';

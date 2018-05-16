@@ -36,15 +36,29 @@ export class HomeLayoutComponent implements AfterViewInit {
         
     }
     
-    openDialog(): void {
+    openRequestDialog(): void {
         let dialogRef = this.dialog.open(RequestDialog, {
             width: '80vw',
             height: '80vh',
-             data: { project_Code: '', country: '', travelDate: '', returnDate: '' ,employeeId:'',employeeName:''}
+             data: 0,
         });
 
         dialogRef.afterClosed().subscribe(result => {
             
+            this.gridService.loadGridData();
+        });
+    }
+
+
+    openReimbursementDialog(): void {
+        let dialogRef = this.dialog.open(ReimbursementDialog, {
+            width: '80vw',
+            height: '80vh',
+            data: 0,
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+
             this.gridService.loadGridData();
         });
     }

@@ -95,6 +95,174 @@ namespace TravelDesk.Mappings
                 .ForMember(dest => dest.RequestInfoId,
                             opt => opt.MapFrom(src => src.RequestInfoId))
                 .ReverseMap();
+
+            CreateMap<ReimbursementInfo, ReimbursementItem>()
+                .ForMember(dest => dest.ReimbursementInfoId,
+                            opt => opt.MapFrom(src => src.ReimbursementInfoId))
+                .ForMember(dest => dest.EmployeeId,
+                            opt => opt.MapFrom(src => src.EmployeeId))
+                .ForMember(dest => dest.EmployeeName,
+                            opt => opt.MapFrom(src => src.EmployeeName))
+                .ForMember(dest => dest.Designation,
+                            opt => opt.MapFrom(src => src.Designation))
+                .ForMember(dest => dest.BandWorkLevel,
+                            opt => opt.MapFrom(src => src.BandWorkLevel))
+                .ForMember(dest => dest.ClientName,
+                            opt => opt.MapFrom(src => src.ClientName))
+                .ForMember(dest => dest.ProjectCode,
+                            opt => opt.MapFrom(src => src.ProjectCode))
+                .ForMember(dest => dest.CostCenter,
+                            opt => opt.MapFrom(src => src.CostCenter))
+                .ForMember(dest => dest.PurposeofTravel,
+                            opt => opt.MapFrom(src => src.PurposeofTravel))
+                .ForMember(dest => dest.LocationofTravel,
+                            opt => opt.MapFrom(src => src.LocationofTravel))
+                .ForMember(dest => dest.DateofArrival,
+                            opt => opt.MapFrom(src => src.DateofArrival))
+                .ForMember(dest => dest.DateofDeparture,
+                            opt => opt.MapFrom(src => src.DateofDeparture))
+                .ForMember(dest => dest.TravelBillabletoCustomer,
+                            opt => opt.MapFrom(src => src.TravelBillabletoCustomer))
+                .ForMember(dest => dest.FlightChargesReimbursed,
+                            opt => opt.MapFrom(src => src.FlightChargesReimbursed))
+                .ForMember(dest => dest.TravelExpenseReimbursed,
+                            opt => opt.MapFrom(src => src.TravelExpenseReimbursed))
+                .ForMember(dest => dest.AnyOtherExpenseReimbursed,
+                            opt => opt.MapFrom(src => src.AnyOtherExpenseReimbursed))
+                .ReverseMap();
+
+            CreateMap<FareInfo, FareItem>()
+                .ForMember(dest => dest.TravelMode,
+                            opt => opt.MapFrom(src => src.TravelMode))
+                .ForMember(dest => dest.Date,
+                            opt => opt.MapFrom(src => src.Date))
+                .ForMember(dest => dest.From,
+                            opt => opt.MapFrom(src => src.From))
+                .ForMember(dest => dest.To,
+                            opt => opt.MapFrom(src => src.To))
+                .ForMember(dest => dest.Currency,
+                            opt => opt.MapFrom(src => src.Currency))
+                .ForMember(dest => dest.AmountSpent,
+                            opt => opt.MapFrom(src => src.AmountSpent))
+                .ForMember(dest => dest.Eligibility,
+                            opt => opt.MapFrom(src => src.Eligibility))
+                .ForMember(dest => dest.Remarks,
+                            opt => opt.MapFrom(src => src.Remark))
+                .ForMember(dest => dest.Total,
+                            opt => opt.MapFrom(src => src.Total))
+                .ForMember(dest => dest.ReimbursementInfoId,
+                            opt => opt.MapFrom(src => src.ReimbursementInfoId))
+                .ReverseMap();
+
+
+            CreateMap<PerDiemInfo, PerDiemItem>()
+                .ForMember(dest => dest.ArrivalDate,
+                            opt => opt.MapFrom(src => src.ArrivalDate))
+                .ForMember(dest => dest.DepartureDate,
+                            opt => opt.MapFrom(src => src.DepartureDate))
+                .ForMember(dest => dest.Currency,
+                            opt => opt.MapFrom(src => src.Currency))
+                .ForMember(dest => dest.Eligibility,
+                            opt => opt.MapFrom(src => src.Eligibility))
+                .ForMember(dest => dest.TotalDays,
+                            opt => opt.MapFrom(src => src.TotalDays))
+                .ForMember(dest => dest.TotalAmount,
+                            opt => opt.MapFrom(src => src.TotalAmount))
+                .ForMember(dest => dest.Remarks,
+                            opt => opt.MapFrom(src => src.Remarks))
+                .ForMember(dest => dest.Total,
+                            opt => opt.MapFrom(src => src.Total))
+                .ForMember(dest => dest.ReimbursementInfoId,
+                            opt => opt.MapFrom(src => src.ReimbursementInfoId))
+                .ReverseMap();
+
+
+            CreateMap<BoardingLodgingInfo, BoardingLodgingItem>()
+                .ForMember(dest => dest.PlaceofStay,
+                            opt => opt.MapFrom(src => src.PlaceofStay))
+                .ForMember(dest => dest.FromDate,
+                            opt => opt.MapFrom(src => src.FromDate))
+                .ForMember(dest => dest.ToDate,
+                            opt => opt.MapFrom(src => src.ToDate))
+                .ForMember(dest => dest.Currency,
+                            opt => opt.MapFrom(src => src.Currency))
+                .ForMember(dest => dest.AmountSpent,
+                            opt => opt.MapFrom(src => src.AmountSpent))
+                .ForMember(dest => dest.Eligibility,
+                            opt => opt.MapFrom(src => src.Eligibility))
+                .ForMember(dest => dest.Remarks,
+                            opt => opt.MapFrom(src => src.Remarks))
+                .ForMember(dest => dest.Total,
+                            opt => opt.MapFrom(src => src.Total))
+                .ForMember(dest => dest.ReimbursementInfoId,
+                            opt => opt.MapFrom(src => src.ReimbursementInfoId))
+                .ReverseMap();
+
+
+            CreateMap<TravelExpensesWithoutVoucherInfo, TravelExpensesWithoutVoucherItem>()
+                .ForMember(dest => dest.Date,
+                            opt => opt.MapFrom(src => src.Date))
+                .ForMember(dest => dest.From,
+                            opt => opt.MapFrom(src => src.From))
+                .ForMember(dest => dest.To,
+                            opt => opt.MapFrom(src => src.To))
+                .ForMember(dest => dest.ModeofConveyance,
+                            opt => opt.MapFrom(src => src.ModeofConveyance))
+                .ForMember(dest => dest.Currency,
+                            opt => opt.MapFrom(src => src.Currency))
+                .ForMember(dest => dest.AmountSpent,
+                            opt => opt.MapFrom(src => src.AmountSpent))
+                .ForMember(dest => dest.Remarks,
+                            opt => opt.MapFrom(src => src.Remarks))
+                .ForMember(dest => dest.Total,
+                            opt => opt.MapFrom(src => src.Total))
+                .ForMember(dest => dest.ReimbursementInfoId,
+                            opt => opt.MapFrom(src => src.ReimbursementInfo))
+                .ReverseMap();
+
+
+            CreateMap<TravelExpensesWithVoucherInfo, TravelExpensesWithVoucherItem>()
+                .ForMember(dest => dest.Date,
+                            opt => opt.MapFrom(src => src.Date))
+                .ForMember(dest => dest.From,
+                            opt => opt.MapFrom(src => src.From))
+                .ForMember(dest => dest.To,
+                            opt => opt.MapFrom(src => src.To))
+                .ForMember(dest => dest.ModeofConveyance,
+                            opt => opt.MapFrom(src => src.ModeofConveyance))
+                .ForMember(dest => dest.Currency,
+                            opt => opt.MapFrom(src => src.Currency))
+                .ForMember(dest => dest.AmountSpent,
+                            opt => opt.MapFrom(src => src.AmountSpent))
+                .ForMember(dest => dest.Remarks,
+                            opt => opt.MapFrom(src => src.Remarks))
+                .ForMember(dest => dest.Total,
+                            opt => opt.MapFrom(src => src.Total))
+                .ForMember(dest => dest.ReimbursementInfoId,
+                            opt => opt.MapFrom(src => src.ReimbursementInfoId))
+                .ReverseMap();
+
+
+            CreateMap<OtherExpensesInfo, OtherExpensesItem>()
+                .ForMember(dest => dest.Date,
+                            opt => opt.MapFrom(src => src.Date))
+                .ForMember(dest => dest.NatureofExpense,
+                            opt => opt.MapFrom(src => src.NatureofExpense))
+                .ForMember(dest => dest.Currency,
+                            opt => opt.MapFrom(src => src.Currency))
+                .ForMember(dest => dest.AmountSpent,
+                            opt => opt.MapFrom(src => src.AmountSpent))
+                .ForMember(dest => dest.Eligibility,
+                            opt => opt.MapFrom(src => src.Eligibility))
+                .ForMember(dest => dest.SupportbyVoucher,
+                            opt => opt.MapFrom(src => src.SupportbyVoucher))
+                .ForMember(dest => dest.Total,
+                            opt => opt.MapFrom(src => src.Total))
+                .ForMember(dest => dest.ReimbursementInfoId,
+                            opt => opt.MapFrom(src => src.ReimbursementInfoId))
+                .ReverseMap();
+
+
         }
     }
 }
